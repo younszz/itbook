@@ -1,23 +1,43 @@
-const modalLogin = document.querySelector("#modalLogin");
-const modal = document.querySelector(".modal");
-const btnClose = document.querySelector(".btn-close");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
+const modalBtns = document.querySelectorAll(".modal-btn");
+const modals = document.querySelectorAll(".modal");
+const btnCloses = document.querySelectorAll(".btn-close");
+const inputs = document.querySelectorAll("input");
 
-function loginClick() {
-  const modalBg = document.createElement("div");
-  modalBg.className = "modal-bg";
-  modal.classList.add("show");
-  document.body.append(modalBg);
-  emailInput.addEventListener("focusin", inputFocusIn);
-  emailInput.addEventListener("focusout", inputFocusOut);
-  passwordInput.addEventListener("focusin", inputFocusIn);
-  passwordInput.addEventListener("focusout", inputFocusOut);
-}
+modalBtns.forEach((modalBtn) => {
+  modalBtn.addEventListener("click", (e) => {
+    let id = e.currentTarget.dataset.id;
+    let modal = document.getElementById(id);
+
+    // 모달창 보이기
+    modal.classList.add("show");
+
+    const modalBg = document.createElement("div");
+    modalBg.className = "modal-bg";
+    document.body.append(modalBg);
+
+    // 인풋창 포커스
+    inputs.forEach((input) => {
+      input.addEventListener("focusin", inputFocusIn);
+    });
+    inputs.forEach((input) => {
+      input.addEventListener("focusout", inputFocusOut);
+    });
+
+    // 모달창 닫기
+    btnCloses.forEach((btnClose) => {
+      btnClose.addEventListener("click", closeClick);
+    });
+    modalBg.addEventListener("click", closeClick);
+  });
+});
+
 function closeClick() {
-  modal.classList.remove("show");
+  modals.forEach((modal) => {
+    modal.classList.remove("show");
+  });
   document.querySelector(".modal-bg").remove();
 }
+
 function inputFocusIn(e) {
   e.target.parentNode.classList.add("focus");
 }
@@ -26,5 +46,3 @@ function inputFocusOut(e) {
     e.target.parentNode.classList.remove("focus");
   }
 }
-modalLogin.addEventListener("click", loginClick);
-btnClose.addEventListener("click", closeClick);

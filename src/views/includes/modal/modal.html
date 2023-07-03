@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="./modal.css" />
   </head>
   <body>
-    <button id="modalLogin">로그인</button>
-    <button id="modalJoin">회원가입</button>
+    <button class="modal-btn" data-id="modalLogin">로그인</button>
+    <button class="modal-btn" data-id="modalJoin">회원가입</button>
 
-    <div class="modal fade">
+    <div class="modal fade" id="modalLogin">
       <div class="modal-header">
         <h2 class="modal-title">로그인</h2>
         <button class="btn-close">X</button>
       </div>
-      <div class="modal-content">
-        <form class="modal-wrap">
+      <div class="modal-body">
+        <form class="login-form">
           <ul class="form-list">
             <li class="input-box">
               <label class="label" for="loginEmail">이메일</label>
@@ -33,6 +33,38 @@
         <button>로그인</button>
       </div>
     </div>
-    <script src="modal-login.js"></script>
+
+    <div class="modal fade" id="modalJoin">
+      <div class="modal-header">
+        <h2 class="modal-title">회원가입</h2>
+        <button class="btn-close">X</button>
+      </div>
+      <div class="modal-body">
+        <form class="join-form">
+          <ul class="form-list">
+            <li class="input-box">
+              <label class="label" for="joinUserName">이름</label>
+              <input type="text" name="joinUserName" id="joinUserName" />
+            </li>
+            <li class="input-box">
+              <label class="label" for="joinEmail">이메일</label>
+              <input type="email" name="joinEmail" id="joinEmail" />
+            </li>
+            <li class="input-box">
+              <label class="label" for="joinPassword">비밀번호</label>
+              <input type="password" name="joinPassword" id="joinPassword" />
+            </li>
+            <li class="input-box">
+              <label class="label" for="passwordCheck">비밀번호 확인</label>
+              <input type="password" name="passwordCheck" id="passwordCheck" />
+            </li>
+          </ul>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button>가입하기</button>
+      </div>
+    </div>
+    <script src="modal.js"></script>
   </body>
 </html>
