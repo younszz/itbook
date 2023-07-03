@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./modal.css" />
+  </head>
+  <body>
+    <button id="modalLogin">로그인</button>
+    <button id="modalJoin">회원가입</button>
+
+    <div class="modal fade">
+      <div class="modal-header">
+        <h2 class="modal-title">로그인</h2>
+        <button class="btn-close">X</button>
+      </div>
+      <div class="modal-content">
+        <form class="modal-wrap">
+          <ul class="form-list">
+            <li class="input-box">
+              <label class="label" for="loginEmail">이메일</label>
+              <input type="email" name="loginEmail" id="email" />
+            </li>
+            <li class="input-box">
+              <label class="label" for="password">비밀번호</label>
+              <input type="password" name="password" id="password" />
+            </li>
+          </ul>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button>로그인</button>
+      </div>
+    </div>
+    <script src="modal-login.js"></script>
+  </body>
+</html>
