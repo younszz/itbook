@@ -3,24 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>다독다독</title>
     <link rel="stylesheet" href="./modal.css" />
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <button class="modal-btn" data-id="modalLogin">로그인</button>
-    <button class="modal-btn" data-id="modalJoin">회원가입</button>
+    <button class="modal-btn modalLogin" data-id="modalLogin">로그인</button>
+    <button class="modal-btn modalJoin" data-id="modalJoin">회원가입</button>
 
     <div class="modal fade" id="modalLogin">
       <div class="modal-header">
         <h2 class="modal-title">로그인</h2>
-        <button class="btn-close">X</button>
+        <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <form class="login-form">
           <ul class="form-list">
             <li class="input-box">
               <label class="label" for="loginEmail">이메일</label>
-              <input type="email" name="loginEmail" id="email" />
+              <input
+                type="email"
+                name="loginEmail"
+                id="email"
+                autocomplete="off"
+              />
             </li>
             <li class="input-box">
               <label class="label" for="password">비밀번호</label>
@@ -30,14 +40,14 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button>로그인</button>
+        <button type="submit">로그인</button>
       </div>
     </div>
 
     <div class="modal fade" id="modalJoin">
       <div class="modal-header">
         <h2 class="modal-title">회원가입</h2>
-        <button class="btn-close">X</button>
+        <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <form class="join-form">
@@ -62,7 +72,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button>가입하기</button>
+        <button type="submit">가입하기</button>
       </div>
     </div>
     <script src="modal.js"></script>

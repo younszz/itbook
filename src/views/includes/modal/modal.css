@@ -27,6 +27,9 @@
   width: 32px;
   height: 32px;
 }
+.btn-close i {
+  font-size: 16px;
+}
 form {
   padding: 16px;
 }
