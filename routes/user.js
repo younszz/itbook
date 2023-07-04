@@ -29,7 +29,7 @@ passport.use(new JwtStrategy(options, async (payload, done) => {
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password, password_confirm } = req.body;
-
+    //status(400)은 필요정보 누락, 데이터 유효성 검사에 실패한 경우의 상태코드.
     if (password !== password_confirm) {
       return res.status(400).send("비밀번호가 일치하지 않습니다.");
     }
@@ -44,6 +44,7 @@ router.post("/signup", async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); // 환경 변수에서 JWT 시크릿키 액세스
     res.send({ token });
+    //status(500)은 서버가 요청을 처리하다가 예상치 못한 에러에 직면했을때 반환되는 상태. try-catch로 잡힌 오류는 500으로 처리했음.
   } catch (err) {
     res.status(500).send("회원가입 중 오류가 발생하였습니다.");
   }
@@ -67,9 +68,51 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// session을 쓰지않는 authenticate 를 활용한 프로텍티드 라우터 예시. 이걸로 admin 만들면될듯?
-router.get("/secret", passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.send("여기는 admin 페이지입니다. JWT가 유효해야만 접근할 수 있습니다.");
+
+// Product GET 사용자에게 상품목록을 보여주는 라우터.
+router.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.send(products);
+  } catch(err) {
+    res.status(500).send(err);
+  }
 });
+
+// Category GET 사용자에게 카테고리를 보여주는 라우터.
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = await Category.find({});
+    res.send(categories);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+});
+
+// Add to cart 로그인한 사용자가 장바구니에 상품을 추가하는 기능. 필요시 추후에 비로그인 사용자도 가능하도록 수정가능.
+router.post('/cart', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const user = await User.findById(req.user.id);
+    const product = await Product.findById(productId);
+    
+    if (!product) {
+      return res.status(404).send({ message: "상품을 찾을 수 없습니다." });
+    }
+
+    user.cart.push(product);
+    await user.save();
+    
+    res.send({ message: "상품이 장바구니에 추가되었습니다." });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+
+// session을 쓰지않는 authenticate 를 활용한 프로텍티드 라우터 예시. 이걸로 admin 만들면될듯?
+// router.get("/secret", passport.authenticate('jwt', { session: false }), (req, res) => {
+//   res.send("여기는 admin 페이지입니다. JWT가 유효해야만 접근할 수 있습니다.");
+// });
 
 module.exports = router;

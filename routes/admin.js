@@ -3,6 +3,27 @@ const router = express.Router();
 const Product = require('../models/Product'); 
 const Category = require('../models/Category');
 const passport = require('passport');
+const User = require('../models/User');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;//passport-jwt패키지의 일부. http요청 헤더로부터 JWT를 추출하는 메소드
+
+const options = {
+  //HTTP요청에서 JWT를 추출하는 방법을 정의. 
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+};
+
+//passport 모듈을 사용하여 JWT인증 전략 설정. 
+passport.use(new JwtStrategy(options, async (payload, done) => {
+  const user = await User.findById(payload.id);
+
+  //done(에러, 사용자객체)
+  if (user) {
+    return done(null, user);
+  }else {
+    return done(null, false);
+  }
+}));
 
 // 관리자 확인 미들웨어
 function isAdmin(req, res, next) {
@@ -12,8 +33,8 @@ function isAdmin(req, res, next) {
     res.status(403).send("Access Denied");
   }
 }
-// Product GET, POST
-router.get('/products', passport.authenticate('jwt', { session: false }), isAdmin, async (req, res) => {
+// Product GET, POST. GET은 JWT를 확인하지않고 누구나 가능하도록 수정.
+router.get('/products', async (req, res) => {
   try {
     const products = await Product.find({});
     res.send(products);
@@ -31,8 +52,8 @@ router.post('/product', passport.authenticate('jwt', { session: false }), isAdmi
     res.status(500).send(err);
   }
 });
-//Category GET, POST
-router.get('/categories', passport.authenticate('jwt', { session: false }), isAdmin, async (req, res) => {
+//Category GET, POST. 카테고리 GET도 누구나 가능하도록 수정.
+router.get('/categories', async (req, res) => {
   try {
     const categories = await Category.find({});
     res.send(categories);
