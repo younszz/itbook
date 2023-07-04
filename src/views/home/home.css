@@ -1,0 +1,471 @@
+ /**************** reset ******************/
+
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+/**************** common ******************/
+ /* body */
+body {
+  font-family: 'Pretendard';
+  font-size: 16px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.wrap{
+  position:relative;
+}
+
+/* header */
+header {
+  position: sticky;
+  width: auto;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 99;
+  background-color: #fff;
+  box-shadow: none;
+  transition: .2s;
+}
+header.fixed{
+     left: 0;
+     top: 0;
+     transition: .2s;
+     box-shadow: 0 5px 10px rgba(0,0,0,0.16);
+}
+
+header ul.header-menu {
+  position: absolute;
+  top: 0px;
+  left: 272px;
+  width: calc(100% - 622px);
+  z-index: 1;
+  height: 90px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+header ul.header-menu li {
+  white-space: nowrap;
+  font-size: 18px;
+  line-height: 22px;
+  margin-right: 40px;
+}
+
+header ul.header-menu li a:hover {
+  color: #2AC1BC;
+  transition: .2s;
+}
+
+header .header-btn {
+  margin-right: 40px;
+  margin-left: auto;
+}
+
+header .header-btn ul {
+  display: flex;
+}
+
+header .header-btn ul li {
+  margin-left: 20px;
+}
+
+header .header-btn ul li a {
+  cursor: pointer;
+}
+
+/* footer */
+footer{
+  width:100%;
+  height:300px;
+  background-color: #c9c9c9;
+}
+
+/* top-btn */
+.top-btn{
+  opacity: 0;
+  transition: .5s;
+}
+.top-btn.on{
+  opacity: 1;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+    appearance: none;
+    position: fixed;
+    right: 90px;
+    bottom: 60px;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPHJlY3QgeD0iMC41IiB5PSIwLjUiIHdpZHRoPSI0OSIgaGVpZ2h0PSI0OSIgcng9IjI0LjUiIGZpbGw9IndoaXRlIiBzdHJva2U9IiNEREREREQiLz4gPHBhdGggZD0iTTI1IDE5VjM2IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4gPHBhdGggZD0iTTMyIDI2TDI1IDE5TDE4IDI2IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4gPHBhdGggZD0iTTE4IDE0SDMyIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4gPC9zdmc+IA==) no-repeat;
+    z-index: 10;
+    transition: .5s;
+}
+
+ /**************** main ******************/
+
+/* main01 */
+.main01 {
+  width: 100%;
+  height: 810px;
+  z-index: 9;
+}
+
+.main01 .main-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.main01 .main-swiper .swiper-slide.slide01 {
+  background-color: rgb(145, 255, 160);
+}
+
+.main01 .main-swiper .swiper-slide.slide02 {
+  background-color: rgb(182, 169, 255);
+}
+
+.main01 .main-swiper .swiper-slide.slide03 {
+  background-color: rgb(255, 189, 189);
+}
+
+.main01 .main-swiper .swiper-slide.slide04 {
+  background-color: rgb(255, 255, 187);
+}
+
+/* main-container */
+.main-container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 200px 0;
+}
+
+.main-banner{
+  padding-top:120px;
+}
+
+/* main-allproduct */
+.main-container .product.no-border h3{
+  border-top:none;
+  padding-top:0px;
+}
+.main-container .product h3 {
+  margin-top: 120px;
+  padding-top: 120px;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 42px;
+  text-align: center;
+  border-top: 1px solid #DDD;
+}
+
+.b-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.b-list .list-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 60px 0 0 24px;
+}
+
+.b-list .list-box a img {
+  width: 240px;
+}
+
+.b-list .list-box .info {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.b-list .list-box .cate {
+  font-size: 12px;
+    margin: 0 auto;
+    color: #6236FF;
+    border-bottom: 1px solid #6236ff;
+    line-height: 15px;
+    margin-bottom: 8px;
+}
+
+.b-list .list-box .cate.new{
+  color:#20911c;
+  border-bottom: 1px solid #20911c;
+}
+
+.b-list .list-box .name {
+  line-height: 24px;
+  font-weight: 500;
+  word-break: keep-all;
+}
+
+.b-list .list-box .price {
+  margin-top: 10px;
+  font-weight: 500;
+  justify-content: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+
+ /**************** font ******************/
+ @font-face {
+  font-family: 'Pretendard';
+  font-weight: 100;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 200;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 800;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf') format("truetype");
+  font-display: swap;
+}
+
+
