@@ -15,7 +15,7 @@
  }
 
  .admin-info .nav {
-  width:30%;
+  width:25%;
   padding-left:70px;
  }
 
@@ -46,10 +46,31 @@
   padding-bottom:9px;
  }
 
+ .contents .admin-list .admin-title .admin-confirm {
+  cursor: pointer;
+  background: #533ac0;
+  border:none;
+  padding:7px 9px;
+  border-radius: 5px;
+  color:#fff;
+  font-weight:700;
+  margin-right:4px;
+ }
+
+ .contents .admin-list .admin-title .admin-remove {
+  cursor: pointer;
+  background: #d9d9d9;
+  border:none;
+  padding:7px 9px;
+  border-radius: 5px;
+  font-weight:700;
+ }
+
  .contents .admin-list .admin-filter{
   display:flex;
   justify-content: space-between;
   padding:9px 0;
+  align-items: center;
  }
 
  .contents .admin-list .admin-title .title-btn{
@@ -63,6 +84,44 @@
 
  .contents .admin-list .admin-title h5 i {
   padding-right:5px;
+ }
+
+ .contents .admin-filter p{
+  font-size: 16px;
+  font-weight:500;
+ }
+
+ .contents .admin-filter p span {
+  color:#7156ED;
+  font-weight:800;
+ }
+
+
+ .contents .admin-filter .admin-input select{
+  border:1px solid #D1D1D1;
+  padding:8px 3px;
+  border-radius: 3px;
+  color:#646464;
+ }
+
+ .contents .admin-filter .admin-input input{
+  border:1px solid #D1D1D1;
+  padding:8px 3px;
+  border-radius: 3px;
+  color:#646464;
+  width:230px;
+ }
+
+ .contents .admin-filter .admin-input:focus{
+  border:none;
+ }
+
+ .contents .admin-filter .admin-input button {
+  cursor: pointer;
+  background-color: #d9d9d9;
+  border:none;
+  border-radius: 3px;
+  padding:7px;
  }
 
  .admin-tbl table {
@@ -87,12 +146,9 @@
 }
 
 .admin-tbl table tbody tr td.p-img{
-  width: 120px;
   height: 120px;
-  background: #e4e4e4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 4px 0;
+
 }
 
 .admin-tbl table tbody tr td{
@@ -104,3 +160,77 @@
 .admin-tbl table tbody tr td.p-img img{
   height:100%;
 }
+
+.admin-tbl table tbody tr td button{
+  width:45px;
+  cursor: pointer;
+  border-radius: 5px;
+  border:none;
+  padding:4px 0;
+}
+
+.admin-tbl table tbody tr td button.admin-change{
+  margin-bottom:8px;
+  background-color: #7156ED;
+  color:#fff;
+}
+
+.admin-tbl table tbody tr td button.admin-remove-in{
+  background-color: #D9D9D9;
+}
+
+ /**************** product-add ******************/
+
+ .contents .admin-list .title-btn .admin-list {
+  cursor: pointer;
+  background: #d9d9d9;
+  border:none;
+  padding:8px 13px;
+  border-radius: 5px;
+  font-weight:800;
+ }
+
+ .contents .product-add-tbl {
+  padding: 20px 0;
+ }
+
+ .contents .product-add-tbl table{
+  width:100%;
+  border-top:1px solid #dcdcdc;
+ }
+
+ .contents .product-add-tbl tr {
+  border-bottom: 1px solid #dcdcdc;
+ }
+
+ .contents .product-add-tbl tr th:nth-child(1){
+  background-color: #f3f3f3;
+  padding:20px 13px;
+  width:110px;
+  text-align: left;
+  font-size:13px;
+ }
+
+ .contents .product-add-tbl tr td input {
+  margin:0 10px;
+  border:1px solid #d1d1d1;
+  padding: 10px 5px;
+  border-radius: 5px;
+ }
+
+ .contents .product-add-tbl tr td input.input-name{
+  width:100%;
+ }
+
+ .contents .product-add-tbl tr td select {
+  border: 1px solid #d1d1d1;
+  margin:0 10px;
+  padding:12px;
+  font-size:13px;
+  width:180px;
+  border-radius: 5px;
+ }
+
+ .contents .admin-list .admin-tbl table tbody tr{
+  height:70px;
+ }

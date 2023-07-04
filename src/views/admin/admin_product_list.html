@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>관리자페이지|상품 등록</title>
+  <title>관리자페이지|상품관리</title>
   <!-- css -->
   <link rel="stylesheet" href="./admin.css">
 
@@ -56,6 +56,7 @@
           <div class="admin-title">
             <h5><i class="fa-solid fa-box" style="color: #000000;"></i>상품관리</h5>
             <div class="title-btn">
+              <button class="admin-confirm">등록하기</button>
               <button class="admin-remove">선택삭제</button>
             </div>
           </div>
@@ -71,8 +72,8 @@
                 <option value="">자기계발</option>
                 <option value="">대학서적</option>
               </select>
-              <label for=""></label>
-              <input type="text" placeholder="상품명 검색">
+              <label for="searchName"></label>
+              <input type="text" placeholder="상품명 검색" id="searchName">
               <button class="search-btn">검색</button>
             </div>
           </div>
@@ -90,38 +91,34 @@
               <thead>
                 <tr>
                   <th><input type="checkbox"></th>
+                  <th>이미지</th>
                   <th>상품명</th>
-                  <th>수량</th>
-                  <th>구매금액</th>
-                  <th>배송비</th>
-                  <th>주문상태</th>
+                  <th>판매가</th>
+                  <th>분류</th>
+                  <th>관리</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><input type="checkbox"></td>
+                  <td class="p-img"><img src="./img/deep_dive.jpg" alt=""></td>
                   <td>모던 자바스크립트 Deep Dive</td>
-                  <td>2개</td>
-                  <td>90,000원</td>
-                  <td>0원</td>
+                  <td>45,000원</td>
+                  <td>웹/모바일</td>
                   <td>
-                    <select name="" id="">
-                      <option value="">주문</option>
-                      <option value="">배송</option>
-                    </select>
+                    <button class="admin-change">수정</button>
+                    <button class="admin-remove-in">삭제</button>
                   </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox"></td>
+                  <td class="p-img"><img src="./img/deep_dive.jpg" alt=""></td>
                   <td>모던 자바스크립트 Deep Dive</td>
-                  <td>2개</td>
-                  <td>90,000원</td>
-                  <td>0원</td>
+                  <td>45,000원</td>
+                  <td>웹/모바일</td>
                   <td>
-                    <select name="" id="">
-                      <option value="">주문</option>
-                      <option value="">배송</option>
-                    </select>
+                    <button class="admin-change">수정</button>
+                    <button class="admin-remove-in">삭제</button>
                   </td>
                 </tr>
               </tbody>
