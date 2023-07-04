@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>관리자페이지|상품 등록</title>
+  <title>다독다독</title>
   <!-- css -->
-  <link rel="stylesheet" href="./admin.css">
-
+  <link rel="stylesheet" href="./product.css">
+ 
   <!-- js -->
   <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
-  <script defer src="./admin.js"></script>
+  <script defer src="./product.js"></script>
 </head>
 <body>
   <header>
@@ -40,22 +40,24 @@
     </div>
   </header>
   <div class="wrap">
-    <div class="page-title">
-      <h2>관리자 페이지</h2>
-    </div>
-    <div class="admin-info">
-      <div class="nav">
-        <h3>쇼핑몰 관리</h3>
-        <ul>
-          <li><a href="">주문관리</a></li>
-          <li><a href="">상품관리</a></li>
-        </ul>
+    <div class="detail-contents">
+      <div class="detail-img">
+        <img src="./img/deep_dive.jpg" alt="">
       </div>
-      <div class="contents">
-        <div class="admin-list">
-          <div class="admin-title">
-            <h5>상품관리</h5>
-          </div>
+      <div class="detail-info">
+        <h3>모던 자바스크립트 Deep Dive</h3>
+        <h4>45,000원</h4>
+        <div class="detail-price">
+          <h5>배송정보</h5>
+          <p>3,000원 (30,000원 이상 구매 시 무료)</p>
+        </div>
+        <div class="all-price">
+          <h6>총 금액</h6>
+          <p>45,000원</p>
+        </div>
+        <div class="detail-btn">
+          <button class="detail-cart"></button>
+          <button class="detail-buy">바로 구매하기</button>
         </div>
       </div>
     </div>

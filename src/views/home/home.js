@@ -1,4 +1,3 @@
-
 // 메인 swiper
 var swiper = new Swiper(".main-swiper", {
   cssMode: true,
@@ -37,7 +36,7 @@ window.addEventListener('scroll', function() {
   } else {
     Top.classList.remove('on');
   }
-})
+});
 
 Top.addEventListener('click', function (e) {
   e.preventDefault();
@@ -55,3 +54,4 @@ var swiper = new Swiper(".list-swiper", {
   },
   loop: true,
 });
+
