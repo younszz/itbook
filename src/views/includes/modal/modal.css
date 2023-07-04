@@ -56,7 +56,7 @@ form {
   transition: 0.3s;
 }
 .input-box.focus input {
-  border-color: #000000;
+  border-color: #7156ed;
 }
 
 .input-box.focus .label {
@@ -82,7 +82,7 @@ form {
   transition: 0.3s;
 }
 .modal-footer > button:hover {
-  background: #000;
+  background: #7156ed;
   color: #fff;
 }
 .modal-bg {
