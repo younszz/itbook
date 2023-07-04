@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>다독다독</title>
+    <!-- css -->
+    <link rel="stylesheet" href="./mypage.css" />
+
+    <!-- js -->
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script defer src="../home/home.js"></script>
+    <script defer src="./mypage.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <!-- 로고 -->
+      <div class="header-in">
+        <a href="#">
+          <img src="../../public/img/logo.png" alt="logo" />
+        </a>
+      </div>
+      <!-- 메뉴 -->
+      <ul class="header-menu">
+        <li><a href="">전체</a></li>
+        <li><a href="">수험서</a></li>
+        <li><a href="">알고리즘</a></li>
+        <li><a href="">Ai</a></li>
+        <li><a href="">웹/모바일</a></li>
+        <li><a href="">자기계발</a></li>
+        <li><a href="">대학서적</a></li>
+      </ul>
+      <!-- 로그인/회원가입/장바구니 -->
+      <div class="header-btn">
+        <ul>
+          <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+          <li>
+            <a href=""><i class="fas fa-cart-shopping fa-lg"></i></a>
+          </li>
+          <li><a href="">로그인</a></li>
+          <li><a href="">회원가입</a></li>
+        </ul>
+      </div>
+    </header>
+    <div class="wrap">
+      <h2 class="mypage-title">마이페이지</h2>
+      <div class="mypage-info">
+        <div class="nav">
+          <ul>
+            <li><a href="">회원정보 변경</a></li>
+            <li><a href="">주문/배송조회</a></li>
+          </ul>
+        </div>
+        <div class="contents">
+          <div class="my-container">
+            <h4 class="my-welcome">
+              반가워요,
+              <p class="name"><b>윤성지</b>님</p>
+            </h4>
+          </div>
+          <div class="user-midify">
+            <div class="my-info-header">
+              <h3 class="my-title">회원정보 변경</h3>
+              <button id="unregister">
+                회원탈퇴 <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="my-content">
+              <form id="user-info">
+                <ul class="user-info-box">
+                  <li>
+                    <label for="userEmail">이메일</label>
+                    <input
+                      type="text"
+                      name="userEmail"
+                      autocomplete="off"
+                      readonly
+                      id="userEmail"
+                    />
+                  </li>
+                  <li>
+                    <label for="userName">이름</label>
+                    <input
+                      type="text"
+                      name="userName"
+                      autocomplete="off"
+                      id="userName"
+                    />
+                  </li>
+                  <li>
+                    <label for="password">비밀번호</label>
+                    <input type="password" name="password" id="password" />
+                  </li>
+                  <li>
+                    <label for="passwordCheck">비밀번호 확인</label>
+                    <input
+                      type="password"
+                      name="passwordCheck"
+                      id="passwordCheck"
+                    />
+                  </li>
+                  <li>
+                    <label for="phoneNumber">전화번호</label>
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      autocomplete="off"
+                      id="phoneNumber"
+                    />
+                  </li>
+                  <li>
+                    <label for="address2">주소</label>
+                    <div class="field-body">
+                      <div class="field">
+                        <p class="control">
+                          <input
+                            class="input"
+                            id="postalCode"
+                            type="text"
+                            placeholder="주소찾기를 클릭해 주세요."
+                            readonly
+                          />
+                        </p>
+                        <div>
+                          <button id="searchAddressButton">주소찾기</button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="field-label is-normal no-label"></div>
+                    <div class="field-body">
+                      <div class="field">
+                        <p class="control">
+                          <input
+                            class="input"
+                            id="address1"
+                            type="text"
+                            placeholder=""
+                            autocomplete="on"
+                            readonly
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="field-label is-normal no-label"></div>
+                    <div class="field-body">
+                      <div class="field">
+                        <p class="control">
+                          <input
+                            class="input"
+                            id="address2"
+                            type="text"
+                            placeholder=""
+                            autocomplete="on"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+              <button type="submit" form="user-info" id="user-info-save">
+                저장하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="top-btn"></button>
+    </div>
+    <footer>
+      <div class="footer-in">
+        <a href="#">
+          <img src="../../public/img/logo.png" alt="logo" />
+        </a>
+        <ul>
+          <li class="footer-address">
+            <span>주소</span>서울특별시 강남구 선릉로 433 (역삼동, 세방빌딩)
+            6층,16층
+          </li>
+          <li class="footer-tel"><span>Tel</span>010-0000-0000</li>
+          <li class="footer-mail"><span>E-mail</span>elice@gmail.com</li>
+          <li class="footer-reserved">
+            © 2023 Gwanggaeto. All rights reserved
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
