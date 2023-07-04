@@ -54,7 +54,75 @@
       <div class="contents">
         <div class="admin-list">
           <div class="admin-title">
-            <h5>상품관리</h5>
+            <h5><i class="fa-solid fa-box" style="color: #000000;"></i>상품관리</h5>
+            <div class="title-btn">
+              <button class="admin-confirm">등록하기</button>
+              <button class="admin-remove">선택삭제</button>
+            </div>
+          </div>
+          <div class="admin-filter">
+            <p>전체 <span>21</span> 건</p>
+            <div class="admin-input">
+              <select name="p-cate" id="productCategory">
+                <option value="" selected>전체 분류</option>
+                <option value="">수험서</option>
+                <option value="">알고리즘</option>
+                <option value="">Ai</option>
+                <option value="">웹/모바일</option>
+                <option value="">자기계발</option>
+                <option value="">대학서적</option>
+              </select>
+              <label for=""></label>
+              <input type="text" placeholder="상품명 검색">
+              <button class="search-btn">검색</button>
+            </div>
+          </div>
+          <div class="admin-tbl">
+            <table>
+              <caption>상품 목록</caption>
+              <colgroup> 
+                  <col style="width: 5%;"/> 
+                  <col style="width: 25%;"/> 
+                  <col style="width: 35%;"/> 
+                  <col style="width: 15%;"/> 
+                  <col style="width: 15%;"/> 
+                  <col style="width: 15%;"/> 
+              </colgroup> 
+              <thead>
+                <tr>
+                  <th><input type="checkbox"></th>
+                  <th>이미지</th>
+                  <th>상품명</th>
+                  <th>판매가</th>
+                  <th>분류</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td class="p-img"><img src="./img/deep_dive.jpg" alt=""></td>
+                  <td>모던 자바스크립트 Deep Dive</td>
+                  <td>45,000원</td>
+                  <td>웹/모바일</td>
+                  <td>
+                    <button>수정</button>
+                    <button>삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td class="p-img"><img src="./img/deep_dive.jpg" alt=""></td>
+                  <td>모던 자바스크립트 Deep Dive</td>
+                  <td>45,000원</td>
+                  <td>웹/모바일</td>
+                  <td>
+                    <button>수정</button>
+                    <button>삭제</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
