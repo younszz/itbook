@@ -1,0 +1,81 @@
+/** reset **/
+@import url("../../public/css/reset.css");
+
+/** common **/
+@import url("../../public/css/common.css");
+
+/** font **/
+@import url("../../public/css/font.css");
+
+.mypage-title {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 70px;
+  font-size: 32px;
+  line-height: 42px;
+  text-align: center;
+}
+.mypage-info {
+  display: flex;
+  justify-content: center;
+}
+.nav {
+  width: 180px;
+  margin-right: 60px;
+}
+.nav ul li {
+  font-size: 16px;
+  line-height: 24px;
+}
+.nav ul li:nth-child(2) a {
+  color: #7156ed;
+}
+
+.my-container {
+  width: 720px;
+}
+.my-title {
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 1px solid #ddd; */
+  /* margin-bottom: 16px;
+  padding-bottom: 16px; */
+  font-size: 24px;
+  line-height: 29px;
+}
+h4 {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+  margin-top: 40px;
+}
+.product li img {
+  width: 100px;
+}
+
+.product li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 24px;
+}
+.order-list {
+  padding: 24px 0;
+  border-bottom: 1px solid #ddd;
+}
+.order-list dl {
+  display: flex;
+  padding: 8px;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.order-list dl dt {
+  width: 200px;
+  color: #999;
+}
+.payment-list dl:first-child dt,
+.payment-list dl:first-child dd {
+  color: #7156ed;
+  font-size: 16px;
+}
