@@ -1,7 +1,11 @@
+import path from 'path'
 import express from 'express';
 import serveStatic from './src/routes/serve-static.js';
 import bodyParser  from 'body-parser';
 import mongoose from 'mongoose';
+
+import shopRoutes from './src/routes/shop.js';
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -10,6 +14,8 @@ app.use('/', serveStatic('home'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(shopRoutes);
 
 mongoose
   .connect(
