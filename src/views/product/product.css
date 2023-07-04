@@ -10,4 +10,73 @@
  @import url('../../public/css/font.css');
 
   /**************** product ******************/
+  .product-title {
+    display:flex;
+    align-items: center;
+    padding-bottom: 30px;
+  }
+ .product-title h2{
+  font-size: 55px;
+    font-weight: 900;
+    line-height: 74px;
+    display: flex;
+    padding-right:8px;
+ }
+
+ .product-list {
+  border-top:1px solid #d1d1d1;
+ }
+
+  .b-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
+  .b-list .list-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 60px 0 0 24px;
+  }
+  
+  .b-list .list-box a img {
+    width: 240px;
+  }
+  
+  .b-list .list-box .info {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .b-list .list-box .cate {
+    font-size: 12px;
+      margin: 0 auto;
+      color: #6236FF;
+      border-bottom: 1px solid #6236ff;
+      line-height: 15px;
+      margin-bottom: 8px;
+  }
+  
+  .b-list .list-box .cate.new{
+    color:#20911c;
+    border-bottom: 1px solid #20911c;
+  }
+  
+  .b-list .list-box .name {
+    line-height: 24px;
+    font-weight: 500;
+    word-break: keep-all;
+  }
+  
+  .b-list .list-box .price {
+    margin-top: 10px;
+    font-weight: 500;
+    justify-content: center;
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
