@@ -24,7 +24,7 @@ exports.postAddProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.getOneProduct = (req, res) => {
+exports.getproductDetail = (req, res) => {
   const productId = req.params.pid;
 
   Product.findById(productId)
