@@ -80,6 +80,76 @@ header .header-btn ul li a {
   cursor: pointer;
 }
 
+/* bookList */
+.b-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-content: center;
+}
+
+.b-list .list-box {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 60px 0 0 24px;
+}
+
+.b-list .list-box:hover .name {
+  color:#7156ed;
+  transition: .2s;
+}
+
+.b-list .list-box:hover .price {
+  color:#7156ed;
+  transition: .2s;
+}
+
+.b-list .list-box a img {
+  width: 240px;
+}
+
+.b-list .list-box .info {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.b-list .list-box .cate {
+  font-size: 13px;
+    margin: 0 auto;
+    color: #6236FF;
+    border-bottom: 1px solid #6236ff;
+    line-height: 15px;
+    margin-bottom: 8px;
+    font-weight:700;
+}
+
+.b-list .list-box .cate.new{
+  color:#20911c;
+  border-bottom: 1px solid #20911c;
+}
+
+.b-list .list-box .name {
+  line-height: 24px;
+  font-weight: 500;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.b-list .list-box .price {
+  margin-top: 10px;
+  font-weight: 500;
+  justify-content: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
 /* footer */
 footer{
   width:100%;
