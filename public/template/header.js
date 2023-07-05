@@ -99,7 +99,7 @@ const showJoinModal = () => {
   <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="modal-body">
-  <form id="joinForm">
+  <form id="joinForm" action="/signup" method="POST">
     <ul class="form-list">
       <li class="input-box">
         <label class="label" for="joinUserName">이름</label>
