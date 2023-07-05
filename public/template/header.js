@@ -9,13 +9,11 @@ const renderHeader = () => {
   </div>
   <!-- 메뉴 -->
   <ul class="header-menu">
-    <li><a href="">전체</a></li>
-    <li><a href="">수험서</a></li>
-    <li><a href="">알고리즘</a></li>
-    <li><a href="">Ai</a></li>
-    <li><a href="">웹/모바일</a></li>
-    <li><a href="">자기계발</a></li>
-    <li><a href="">대학서적</a></li>
+    <li><a href="/products">알고리즘</a></li>
+    <li><a href="/products">Ai</a></li>
+    <li><a href="/products">웹</a></li>
+    <li><a href="/products">모바일</a></li>
+    <li><a href="/products">대학서적</a></li>
   </ul>
   <!-- 로그인/회원가입/장바구니 -->
   <div class="header-btn">
