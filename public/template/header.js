@@ -10,7 +10,7 @@ const showLoginModal = () => {
   <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="modal-body">
-  <form class="login-form">
+  <form id="loginForm">
     <ul class="form-list">
       <li class="input-box">
         <label class="label" for="loginEmail">이메일</label>
@@ -18,17 +18,18 @@ const showLoginModal = () => {
           type="email"
           name="loginEmail"
           autocomplete="off"
+          id= "loginEmail"
         />
       </li>
       <li class="input-box">
-        <label class="label" for="loginpassword">비밀번호</label>
-        <input type="password" name="password" id="loginpassword" />
+        <label class="label" for="loginPassword">비밀번호</label>
+        <input type="password" name="password" id="loginPassword" />
       </li>
     </ul>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="submit">로그인</button>
+  <button type="submit" form="loginForm">로그인</button>
 </div>
 </div>
   `;
@@ -59,6 +60,24 @@ const showLoginModal = () => {
     input.addEventListener("focusout", inputFocusOut);
   });
 
+  // 유효성 검사
+  const loginEmail = document.querySelector("#loginEmail");
+  const loginPassword = document.querySelector("#loginPassword");
+  const loginForm = document.querySelector("#loginForm");
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!loginEmail.value) {
+      alert("이메일을 입력하세요.");
+      loginEmail.focus();
+      return false;
+    }
+    if (!loginPassword.value) {
+      alert("비밀번호를 입력하세요.");
+      loginPassword.focus();
+      return false;
+    }
+  });
+
   // 모달배경, 모달창 사라짐
   const closeBtn = document.querySelector(".btn-close");
   const modalClose = () => {
@@ -80,7 +99,7 @@ const showJoinModal = () => {
   <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="modal-body">
-  <form class="login-form">
+  <form id="joinForm">
     <ul class="form-list">
       <li class="input-box">
         <label class="label" for="joinUserName">이름</label>
@@ -102,7 +121,7 @@ const showJoinModal = () => {
   </form>
 </div>
 <div class="modal-footer">
-  <button type="submit">회원가입</button>
+  <button type="submit" form="joinForm">회원가입</button>
 </div>
 </div>
   `;
@@ -129,6 +148,35 @@ const showJoinModal = () => {
   });
   inputs.forEach((input) => {
     input.addEventListener("focusout", inputFocusOut);
+  });
+
+  const joinUserName = document.querySelector("#joinUserName");
+  const joinEmail = document.querySelector("#joinEmail");
+  const joinPassword = document.querySelector("#joinPassword");
+  const passwordCheck = document.querySelector("#passwordCheck");
+  const joinForm = document.querySelector("#joinForm");
+  joinForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!joinUserName.value) {
+      alert("이름을 입력하세요.");
+      joinUserName.focus();
+      return false;
+    }
+    if (!joinEmail.value) {
+      alert("이메일을 입력하세요.");
+      joinEmail.focus();
+      return false;
+    }
+    if (!joinPassword.value) {
+      alert("비밀번호를 입력하세요.");
+      joinPassword.focus();
+      return false;
+    }
+    if (joinPassword.value !== passwordCheck.value) {
+      alert("비밀번호가 일치하지 않습니다.");
+      passwordCheck.focus();
+      return false;
+    }
   });
 
   const closeBtn = document.querySelector(".btn-close");
