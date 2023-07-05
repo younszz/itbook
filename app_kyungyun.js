@@ -2,8 +2,12 @@
 //npm install express
 //npm install -g nodemon
 //npm install passport-jwt
+//npm install mongoose
+//npm install bcrypt
+//npm install passport
 
-
+require('dotenv').config()
+console.log("JWT Secret Key:", process.env.JWT_SECRET);
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
@@ -11,6 +15,7 @@ const adminRoutes = require('./routes/admin');
 const app = express();
 
 app.use(express.json()); //
+app.use(express.static('public'));
 
 mongoose.connect('mongodb://localhost/myshop', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))

@@ -46,6 +46,7 @@ router.post("/signup", async (req, res) => {
     res.send({ token });
     //status(500)은 서버가 요청을 처리하다가 예상치 못한 에러에 직면했을때 반환되는 상태. try-catch로 잡힌 오류는 500으로 처리했음.
   } catch (err) {
+    console.log(err);
     res.status(500).send("회원가입 중 오류가 발생하였습니다.");
   }
 });
@@ -106,6 +107,81 @@ router.post('/cart', passport.authenticate('jwt', { session: false }), async (re
     res.send({ message: "상품이 장바구니에 추가되었습니다." });
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+
+// 로그아웃
+router.post("/logout", passport.authenticate('jwt', { session: false }), (req, res) => {
+  req.logout();
+  res.send({ message: '로그아웃되었습니다.' });
+});
+
+// 사용자 정보 조회
+router.get("/profile", passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).send("유저를 찾을 수 없습니다.");
+    res.send(user);
+  } catch (err) {
+    res.status(500).send("사용자 정보 조회 중 오류가 발생하였습니다.");
+  }
+});
+
+// 사용자 정보 수정
+router.put("/profile", passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const { name, email, password, newPassword, newEmail } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).send("유저를 찾을 수 없습니다.");
+
+    if (email !== user.email) {
+      return res.status(400).send("현재 이메일이 일치하지 않습니다.");
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(400).send("비밀번호가 틀렸습니다.");
+
+    if (newPassword) {
+      user.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    if (newEmail) {
+      const existingUser = await User.findOne({ email: newEmail });
+      if (existingUser) return res.status(400).send("이미 존재하는 email 입니다.");
+      user.email = newEmail;
+    }
+
+    if (name) {
+      user.name = name;
+    }
+
+    await user.save();
+
+    res.send({ message: "사용자 정보가 수정되었습니다." });
+  } catch (err) {
+    res.status(500).send("사용자 정보 수정 중 오류가 발생하였습니다.");
+  }
+});
+
+// 사용자 정보 삭제
+router.delete("/profile", passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).send("유저를 찾을 수 없습니다.");
+
+    if (email !== user.email) {
+      return res.status(400).send("현재 이메일이 일치하지 않습니다.");
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(400).send("비밀번호가 틀렸습니다.");
+
+    await user.remove();
+    res.send({ message: "계정이 삭제되었습니다." });
+  } catch (err) {
+    res.status(500).send("사용자 정보 삭제 중 오류가 발생하였습니다.");
   }
 });
 
