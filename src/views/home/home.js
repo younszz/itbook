@@ -16,32 +16,6 @@ var swiper = new Swiper(".main-swiper", {
   keyboard: true,
 });
 
-// 스크롤 시 헤더 고정
-let header = document.querySelector("header");
-let lnb = header.offsetTop;
-
-window.addEventListener("scroll", function () {
-  let windowScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (lnb < windowScroll) {
-    header.classList.add("fixed");
-  } else {
-    header.classList.remove("fixed");
-  }
-});
-
-window.addEventListener("scroll", function () {
-  if (this.scrollY > 200) {
-    Top.classList.add("on");
-  } else {
-    Top.classList.remove("on");
-  }
-});
-
-Top.addEventListener("click", function (e) {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 
 // book-list swiper
 var swiper = new Swiper(".list-swiper", {
@@ -54,6 +28,7 @@ var swiper = new Swiper(".list-swiper", {
   loop: true,
 });
 
+// 상품 데이터 바인딩 함수
 async function fetchProducts() {
   try {
     const bookList = document.getElementById("bookList");
@@ -72,8 +47,7 @@ async function fetchProducts() {
       </div>
     </div>`
       )
-
-      .join("");
+      .join('');
     bookList.innerHTML = books;
   } catch (error) {
     console.error("Error:", error);
