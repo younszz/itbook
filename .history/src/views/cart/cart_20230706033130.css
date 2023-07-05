@@ -236,7 +236,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .amount dd{
   font-weight: 600;
-  font-size: 16px;
 }
 
 .total{
@@ -259,7 +258,6 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: var(--border-radius);
   border: 1px solid transparent;
   transition: all 250ms ease-out;
-  padding: 2px 0;
 }
 
 .btn-order:hover{

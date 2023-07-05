@@ -1,0 +1,23 @@
+@import url('/css/reset.css');
+@import url('/css/common.css');
+@import url('/css/font.css');
+
+:root{
+  --color-accent: #7156ed;
+  --border-radius: 5px;
+  --border-color: #EEE;
+}
+
+a{
+  text-decoration: none;
+}
+
+.cart{
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+img{
+  width: 10rem;
+}
