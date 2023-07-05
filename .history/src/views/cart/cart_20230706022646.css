@@ -1,0 +1,69 @@
+@import url('/css/reset.css');
+@import url('/css/common.css');
+@import url('/css/font.css');
+
+:root{
+  --color-accent: #7156ed;
+  --border-radius: 5px;
+  --border-color: #EEE;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul,li{
+  list-style: none;
+}
+
+img{
+  width: 7rem;
+}
+
+button{
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  background-color: var(--color-accent);
+  color: white;
+}
+
+input[type="checkbox"]{
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
+.cart{
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h3{
+  font-size: 1.8rem;
+}
+
+.cart-content{
+  width: 100%;
+  display: flex;
+}
+
+.cart-list{
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

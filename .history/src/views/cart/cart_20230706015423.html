@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다독다독</title>
+  <link rel="stylesheet" href="cart.css">
+  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
+  <script defer src="/template/header.js"></script>
+  <script defer src="/template/scroll-top-btn.js"></script>
+  <script defer src="/template/footer.js"></script>
+  <script src="cart.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <section class="cart">
+      <h3>장바구니</h3>
+      <div class="cart-content">
+        <div class="cart-list">
+          <div class="cart-header">
+            <div class="all-box-container">
+              <input type="checkbox" id="allCheck" checked>
+              <label for="allCheck">전체선택(3/3)</label>
+            </div>
+            <button>선택삭제</button>
+          </div>
+          <ul class="cart-list">
+            <li class="cart-item">
+              <input type="checkbox" id="selectCheck">
+              <a href="#" class="item-info">
+                <img src="" alt="도서 사진">
+                <div class="info-text">
+                  <p class="info-title">요즘 사는 맛2</p>
+                  <p class="description">요즘 사는 맛2</p>
+                </div>
+              </a>
+              <div class="item-count">
+                <button class="btn-minus"><i class="fa-solid fa-minus"></i></button>
+                <input type="number" id="item-number">
+                <button class="btn-plus"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <p class="item-price">17,000원</p>
+              <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
+            </li>
+            <li class="cart-item">
+              <input type="checkbox" id="selectCheck">
+              <a href="#" class="item-info">
+                <img src="" alt="도서 사진">
+                <div class="info-text">
+                  <p class="info-title">요즘 사는 맛2</p>
+                  <p class="description">요즘 사는 맛2</p>
+                </div>
+              </a>
+              <div class="item-count">
+                <button class="btn-minus"><i class="fa-solid fa-minus"></i></button>
+                <input type="number" id="item-number">
+                <button class="btn-plus"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <p class="item-price">17,000원</p>
+              <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
+            </li>
+            <li class="cart-item">
+              <input type="checkbox" id="selectCheck">
+              <a href="#" class="item-info">
+                <img src="" alt="도서 사진">
+                <div class="info-text">
+                  <p class="info-title">요즘 사는 맛2</p>
+                  <p class="description">요즘 사는 맛2</p>
+                </div>
+              </a>
+              <div class="item-count">
+                <button class="btn-minus"><i class="fa-solid fa-minus"></i></button>
+                <input type="number" id="item-number">
+                <button class="btn-plus"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <p class="item-price">17,000원</p>
+              <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
+            </li>
+          </ul>
+        </div>
+        <div class="payment"></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
