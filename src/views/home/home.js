@@ -30,9 +30,6 @@ window.addEventListener("scroll", function () {
   }
 });
 
-// 스크롤 top-btn
-let Top = document.querySelector(".top-btn");
-
 window.addEventListener("scroll", function () {
   if (this.scrollY > 200) {
     Top.classList.add("on");
@@ -57,7 +54,6 @@ var swiper = new Swiper(".list-swiper", {
   loop: true,
 });
 
-// 상품 데이터 바인딩 함수
 async function fetchProducts() {
   try {
     const bookList = document.getElementById("bookList");
@@ -76,6 +72,7 @@ async function fetchProducts() {
       </div>
     </div>`
       )
+
       .join("");
     bookList.innerHTML = books;
   } catch (error) {

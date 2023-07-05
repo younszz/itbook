@@ -11,6 +11,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', serveStatic('home'));
+app.use('/mypage', serveStatic('mypage'));
+app.use('/ordercheck', serveStatic('ordercheck'));
+app.use('/cart', serveStatic('cart'));
+app.use('/product', serveStatic('product-detail'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
