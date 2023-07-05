@@ -1,9 +1,7 @@
 const renderHeader = () => {
-  return `
-  <header>
-  <!-- 로고 -->
-  <div class="header-in">
-    <a href="#">
+  const header = document.createElement('header');
+  header.innerHTML = `
+    <a href="/">
       <img src="/img/logo.png" alt="logo">
     </a>
   </div>
@@ -20,10 +18,11 @@ const renderHeader = () => {
     <ul>
       <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
       <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
-      <li><a href="">로그인</a></li>
-      <li><a href="">회원가입</a></li>
+      <li>로그인</li>
+      <li>회원가입</li>
     </ul>
   </div>
-</header>
-  `
-}
+  `;
+  return header;
+};
+document.body.prepend(renderHeader());

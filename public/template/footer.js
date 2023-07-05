@@ -1,8 +1,9 @@
 const renderFooter = () => {
-  return `
-  <footer>
+  const footer = document.createElement('footer');
+  footer.innerHTML = 
+  `
   <div class="footer-in">
-    <a href="#">
+    <a href="/">
       <img src="/img/logo.png" alt="logo">
     </a>
     <ul>
@@ -12,7 +13,8 @@ const renderFooter = () => {
       <li class="footer-reserved">© 2023 Gwanggaeto. All rights reserved</li>
     </ul>
   </div>
-
-</footer>
   `;
+  return footer
 };
+
+document.body.append(renderFooter());
