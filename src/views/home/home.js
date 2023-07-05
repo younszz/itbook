@@ -58,8 +58,7 @@ var swiper = new Swiper(".list-swiper", {
   loop: true,
 });
 
-// 
-
+// 상품 데이터 바인딩 함수
 async function fetchProducts() {
   try {
     const bookList = document.getElementById('bookList');
