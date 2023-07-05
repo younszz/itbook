@@ -34,7 +34,7 @@ async function fetchProducts() {
       .map(
         (book) =>
           `<div class="list-box">
-      <a href='/api/product/${book._id}'><img src=${book.imageUrl} alt="" /></a>
+      <a href='/product/${book._id}'><img src=${book.imageUrl} alt="" /></a>
       <div class="info">
         <p class="cate new">${book.category}</p>
         <p class="name">${book.title}</p>

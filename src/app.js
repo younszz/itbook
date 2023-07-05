@@ -1,4 +1,3 @@
-console.log('hi')
 import path from 'path'
 import express from 'express';
 import serveStatic from './routes/serve-static.js';
