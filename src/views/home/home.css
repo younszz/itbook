@@ -51,27 +51,39 @@
   padding-top:0px;
 }
 .main-container .product h3 {
-  margin-top: 120px;
-  padding-top: 120px;
+  /* margin-top: 120px; */
+  /* padding-top: 80px; */
   font-size: 30px;
   font-weight: 800;
   line-height: 42px;
   text-align: center;
-  border-top: 1px solid #DDD;
+  /* border-top: 1px solid #DDD; */
 }
 
 .b-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-content: center;
 }
 
 .b-list .list-box {
+  cursor: pointer;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   margin: 60px 0 0 24px;
+}
+
+.b-list .list-box:hover .name {
+  color:#7156ed;
+  transition: .2s;
+}
+
+.b-list .list-box:hover .price {
+  color:#7156ed;
+  transition: .2s;
 }
 
 .b-list .list-box a img {
@@ -87,12 +99,13 @@
 }
 
 .b-list .list-box .cate {
-  font-size: 12px;
+  font-size: 13px;
     margin: 0 auto;
     color: #6236FF;
     border-bottom: 1px solid #6236ff;
     line-height: 15px;
     margin-bottom: 8px;
+    font-weight:700;
 }
 
 .b-list .list-box .cate.new{
@@ -104,6 +117,7 @@
   line-height: 24px;
   font-weight: 500;
   word-break: keep-all;
+  text-align: center;
 }
 
 .b-list .list-box .price {
@@ -112,7 +126,5 @@
   justify-content: center;
   display: inline-flex;
   flex-wrap: wrap;
+  text-align: center;
 }
-
-
- 
