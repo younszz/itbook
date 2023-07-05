@@ -51,7 +51,7 @@
         <h3>모던 자바스크립트 Deep Dive</h3>
         <p class="detail-description">자바스크립트의 기본 개념과 동작 원리를 책 한권으로!</p>
         <p class="detail-description">이웅모 (지은이) / 956쪽</p>
-        <h4>45,000원</h4>
+        <h4 id="price">45,000원</h4>
         <div class="detail-price">
           <h5>배송정보</h5>
           <p>3,000원 (30,000원 이상 구매 시 무료)</p>
@@ -64,14 +64,14 @@
               <div id='result' class="count-result">1</div>
               <input type='button' class="bt-plus" onclick='count("plus")' value='+'/>
             </div>
-            <div class="detail-price-info">
+            <!-- <div class="detail-price-info" id="totalPrice">
               45,000원
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="all-price">
           <h6>총 금액</h6>
-          <p>45,000원</p>
+          <p id="totalPrice">45,000원</p>
         </div>
         <div class="detail-btn">
           <button class="detail-cart"></button>
