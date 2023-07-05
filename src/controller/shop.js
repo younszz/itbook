@@ -23,3 +23,13 @@ exports.postAddProduct = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.getOneProduct = (req, res) => {
+  const productId = req.params.pid;
+
+  Product.findById(productId)
+    .then((product) => {
+      res.send(product);
+    })
+    .catch((err) => console.log(err));
+};

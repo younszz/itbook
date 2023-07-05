@@ -88,6 +88,7 @@
 
 .b-list .list-box a img {
   width: 240px;
+  cursor: pointer;
 }
 
 .b-list .list-box .info {
