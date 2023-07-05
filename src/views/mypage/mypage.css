@@ -1,0 +1,134 @@
+/** reset **/
+@import url("/css/reset.css");
+
+/** common **/
+@import url("/css/common.css");
+
+/** font **/
+@import url("/css/font.css");
+
+.mypage-title {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 70px;
+  font-size: 32px;
+  line-height: 42px;
+  text-align: center;
+}
+
+.mypage-info {
+  display: flex;
+  justify-content: center;
+}
+.nav {
+  width: 180px;
+  margin-right: 60px;
+}
+.nav ul li {
+  font-size: 16px;
+  line-height: 24px;
+}
+.my-container {
+  width: 720px;
+}
+.my-welcome {
+  min-height: 240px;
+  padding: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 41px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+.my-welcome .name {
+  margin-top: 6px;
+}
+.my-welcome .name b {
+  padding-right: 6px;
+  color: #7156ed;
+}
+.user-midify {
+  margin-top: 70px;
+  width: 100%;
+  position: relative;
+}
+.my-info-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+#unregister {
+  margin-right: 12px;
+  font-size: 14px;
+  line-height: 16px;
+  background: none;
+  border: none;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.my-title {
+  font-size: 24px;
+  line-height: 29px;
+}
+.my-content {
+  width: 400px;
+}
+
+.user-info-box {
+  width: 100%;
+}
+
+.user-info-box li {
+  padding-top: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+.user-info-box li:nth-child(n + 6) {
+  border-bottom: none;
+}
+.user-info-box li label {
+  font-size: 11px;
+  color: #999;
+}
+.user-info-box li input {
+  margin-top: 8px;
+  outline: none;
+  padding: 0;
+}
+#postalCode {
+  width: 300px;
+}
+#searchAddressButton {
+  width: calc(100px - 8px);
+}
+.control,
+#address1,
+#address2 {
+  width: 400px;
+}
+button[type="submit"] {
+  margin-top: 30px;
+  width: 100%;
+  height: 62px;
+  font-size: 16px;
+  line-height: 19px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+}

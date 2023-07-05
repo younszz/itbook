@@ -1,4 +1,4 @@
-//.env에 시크릿키 저장
+require('dotenv').config();
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -35,18 +35,22 @@ router.post("/signup", async (req, res) => {
     }
 
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).send("이미 존재하는 email 입니다.");
+    console.log(JSON.stringify(existingUser));
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); // 환경 변수에서 JWT 시크릿키 액세스
-    res.send({ token });
+    // if (existingUser) return res.status(400).send("이미 존재하는 email 입니다.");
+    if (!existingUser) {
+      //console.log('해당 이메일을 가진 사용자를 찾을 수 없습니다.');
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new User({ name, email, password: hashedPassword });
+      await user.save();
+    
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      return res.send({ token });
+    } else {
+      return res.status(400).json("이미 존재하는 email 입니다.");
+    }
     //status(500)은 서버가 요청을 처리하다가 예상치 못한 에러에 직면했을때 반환되는 상태. try-catch로 잡힌 오류는 500으로 처리했음.
   } catch (err) {
-    console.log(err);
     res.status(500).send("회원가입 중 오류가 발생하였습니다.");
   }
 });
