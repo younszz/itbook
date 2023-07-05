@@ -1,3 +1,6 @@
+document.body.insertAdjacentHTML('afterbegin', renderHeader());
+document.body.insertAdjacentHTML('beforeend', renderFooter());
+
 // 메인 swiper
 var swiper = new Swiper(".main-swiper", {
   cssMode: true,
