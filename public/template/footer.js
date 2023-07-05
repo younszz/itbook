@@ -16,3 +16,5 @@ const renderFooter = () => {
 </footer>
   `;
 };
+
+document.body.append(renderHeader());
