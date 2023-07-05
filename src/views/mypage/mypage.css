@@ -28,6 +28,9 @@
   font-size: 16px;
   line-height: 24px;
 }
+.nav ul li.active a {
+  color: #7156ed;
+}
 .my-container {
   width: 720px;
 }
@@ -88,8 +91,8 @@
 }
 
 .user-info-box li {
-  padding-top: 10px;
-  padding-bottom: 6px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #ddd;
   display: flex;
   flex-direction: column;
@@ -105,6 +108,7 @@
   margin-top: 8px;
   outline: none;
   padding: 0;
+  border: 1px solid #000;
 }
 #postalCode {
   width: 300px;
@@ -123,9 +127,17 @@ button[type="submit"] {
   height: 62px;
   font-size: 16px;
   line-height: 19px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
+  border: 1px solid #7156ed;
+  color: #7156ed;
+  background-color: transparent;
+  transition: 0.3s;
+}
+button[type="submit"]:hover {
+  background-color: #7156ed;
+  color: #fff;
 }
 
 .field {
