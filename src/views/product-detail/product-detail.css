@@ -1,13 +1,13 @@
 /**************** reset ******************/
-@import url('../../../public/css/reset.css');
+@import url('/css/reset.css');
 
 
 /**************** common ******************/
-@import url('../../../public/css/common.css');
+@import url('/css/common.css');
 
 
 /**************** font ******************/
-@import url('../../../public/css/font.css');
+@import url('/css/font.css');
 
 /**************** product-detail ******************/
 .detail-contents {

@@ -26,3 +26,18 @@ const renderHeader = () => {
   return header;
 };
 document.body.prepend(renderHeader());
+
+
+// 스크롤 시 헤더 고정
+let header = document.querySelector('header');
+let lnb = header.offsetTop;
+
+window.addEventListener('scroll', function () {
+  let windowScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (lnb < windowScroll) {
+    header.classList.add('fixed');
+  } else {
+    header.classList.remove('fixed');
+  }
+});
