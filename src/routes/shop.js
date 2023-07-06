@@ -2,9 +2,10 @@ const express = require('express');
 const shopController = require('../controller/shop');
 const router = express.Router();
 
-router.post('/products', shopController.postAddProduct);
 
-router.get('/products', shopController.getProducts);
+router.get('/api/products', shopController.getProducts);
+
+router.post('/api/product', shopController.postAddProduct);
 
 router.get('/api/product/:pid', shopController.getproductDetail);
 

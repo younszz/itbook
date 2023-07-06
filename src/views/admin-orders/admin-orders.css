@@ -1,13 +1,13 @@
  /**************** reset ******************/
- @import url('../../../public/css/reset.css');
+ @import url('/css/reset.css');
 
 
 /**************** common ******************/
-@import url('../../../public/css/common.css');
+@import url('/css/common.css');
 
 
  /**************** font ******************/
- @import url('../../../public/css/font.css');
+ @import url('/css/font.css');
 
 
 
@@ -180,7 +180,6 @@
  
  .admin-tbl table tbody tr td button.admin-remove-in{
    background-color: #D9D9D9;
- }
   width:25%;
   padding-left:70px;
  }
