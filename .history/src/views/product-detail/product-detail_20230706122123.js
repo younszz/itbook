@@ -1,12 +1,16 @@
+// 수량 증가 / 감소 버튼
 function count(type) {
+  // 결과를 표시할 element
   const resultElement = document.getElementById('result');
   const priceElement = document.getElementById('price');
   const totalpriceElement = document.getElementById('totalPrice');
 
+  // 현재 화면에 표시된 값
   let number = parseInt(resultElement.innerText);
   let price = parseInt(priceElement.innerText);
   let totalprice = parseInt(totalpriceElement.innerText);
 
+  // 더하기/빼기
   if (type === 'plus') {
     number += 1;
     totalprice += price;
@@ -17,11 +21,13 @@ function count(type) {
     }
   }
 
+  // 결과 출력
   resultElement.innerText = number;
   totalpriceElement.innerText = totalprice;
 }
 
-async function appndProduct() {
+// 상품 데이터 바인딩 함수
+async function fetchProduct() {
   const id = getUrl();
   try {
     const detailContainer = document.getElementById('detailContainer');
@@ -33,6 +39,13 @@ async function appndProduct() {
   }
 }
 
+async function getProduct(id){
+  const response = await fetch(`/api/product/${id}`);
+  const book = await response.json();
+
+  return book;
+}
+
 function getUrl(){
   const url = window.location.pathname;
   const parts = url.split('/').filter(Boolean);
@@ -41,22 +54,15 @@ function getUrl(){
   return id;
 }
 
-async function getProduct(id){
-  const response = await fetch(`/api/product/${id}`);
-  const book = await response.json();
-
-  return book;
-}
-
 function detailContentTemplate(book){
   return `<div class="detail-img">
       <img src=${book.imageUrl} alt="">
     </div>
     <div class="detail-info">
-      <p class="detail-cate">#${book.category}</p>
+      <p class="detail-cate web">#${book.category}</p>
       <h3>${book.title}</h3>
       <p class="detail-description">${book.description}</p>
-      <p class="detail-description">${book.author} (지은이) / ${book.pages}쪽</p>
+      <p class="detail-description">이웅모 (지은이) / 956쪽</p>
       <h4><span id="price">${book.price}</span>원</h4>
       <div class="detail-price">
         <h5>배송정보</h5>
@@ -77,26 +83,10 @@ function detailContentTemplate(book){
         <p><span id="totalPrice">${book.price}</span>원</p>
       </div>
       <div class="detail-btn">
-        <button class="detail-cart" onclick="setLocalItems()"></button>
+        <button class="detail-cart"></button>
         <button class="detail-buy">바로 구매하기</button>
       </div>
     </div>`;
 }
 
-appndProduct();
-
-async function setLocalItems(){
-  const books = JSON.parse(localStorage.getItem("books")) || [];
-  const id = getUrl();
-  const book = await getProduct(id);
-  const count = parseInt(document.getElementById("result").innerText);
-  const newBook = {...book, count};
-  const isBook = books && Object.values(books).find(obj => obj.title == newBook.title);
-  if(isBook){
-    alert('이미 장바구니에 담은 상품입니다.');
-    return ;
-  }
-  books.push(newBook);
-  localStorage.setItem("books",JSON.stringify(books));
-  alert('💟 장바구니에 추가되었습니다.');
-}
+fetchProduct();
