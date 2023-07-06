@@ -1,0 +1,29 @@
+import express from 'express';
+import path from 'path';
+
+// views폴더 내의 ${resource} 폴더 내의 모든 파일을 웹에 띄우며,
+// 이 때 ${resource}.html 을 기본 파일로 설정함.
+const serveStatic = (resource, fileName) => {
+  const resourcePath = path.join(__dirname, `../views/${resource}`);
+  let option = { index: `${resource}.html` };
+
+  if (fileName) {
+    option = { index: `${fileName}.html` };
+  }
+  return express.static(resourcePath, option);
+};
+
+const router = express.Router();
+
+router.use('/', serveStatic('home'));
+router.use('/mypage', serveStatic('mypage'));
+router.use('/ordercheck', serveStatic('ordercheck'));
+router.use('/cart', serveStatic('cart'));
+router.use('/product/:pid', serveStatic('product-detail'));
+
+router.use('/admin/products', serveStatic('admin-products'));
+router.use('/admin/products/edit/:pid', serveStatic('admin-products-edit'));
+router.use('/admin/products/add/:pid', serveStatic('admin-products-edit'));
+router.use('/admin/orders', serveStatic('admin-orders'));
+
+export default router;
