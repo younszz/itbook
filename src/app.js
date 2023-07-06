@@ -22,8 +22,8 @@ app.use('/cart', serveStatic('cart'));
 app.use('/product/:pid', serveStatic('product-detail'));
 
 app.use('/admin/products', serveStatic('admin-products'));
-app.use('/admin/products/edit', serveStatic('admin-products-edit'));
-app.use('/admin/products/add', serveStatic('admin-products-edit'));
+app.use('/admin/products/edit/:pid', serveStatic('admin-products-edit'));
+app.use('/admin/products/add/:pid', serveStatic('admin-products-edit'));
 app.use('/admin/orders', serveStatic('admin-orders'));
 
 app.use(bodyParser.urlencoded({ extended: false }));

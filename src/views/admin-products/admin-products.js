@@ -3,6 +3,7 @@ async function fetchProducts() {
     const response = await fetch('/products');
     const data = await response.json();
     console.log(data)
+    
 
   } catch (error) {
     console.error('Error:', error);
