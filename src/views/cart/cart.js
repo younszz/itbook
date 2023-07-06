@@ -20,11 +20,21 @@ window.addEventListener('load',()=>{
   orderBtn.innerHTML=`${total}원 주문하기`;
   totalPrice.innerHTML = `${total}원`;
   totalPre.innerHTML = `${total}원`;
+
+  const allCheckBtn = document.querySelector('#allCheck');
+  const checkBoxs = document.querySelectorAll('.selectCheck');
+  allCheckBtn.addEventListener('change',(e)=>{
+      if(e.target.checked){
+        checkBoxs.forEach((box) => box.checked = true);
+      }else{
+        checkBoxs.forEach((box) => box.checked = false);
+      }
+    })
 })
 
 function itemTemplate(book){
   return `
-  <input type="checkbox" id="selectCheck" checked>
+  <input type="checkbox" class="selectCheck" checked>
   <a href="#" class="item-info">
     <img src="${book.imageUrl}" alt="도서 사진">
     <div class="info-text">
