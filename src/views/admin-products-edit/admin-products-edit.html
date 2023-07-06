@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,13 @@
   <link rel="stylesheet" href="./admin-products-edit.css">
 
   <!-- js -->
+  <script defer src="/template/header.js"></script>
+  <script defer src="/template/scroll-top-btn.js"></script>
+  <script defer src="/template/footer.js"></script>
   <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
   <script defer src="./admin-products-edit.js"></script>
 </head>
+
 <body>
   <div class="wrap">
     <div class="page-title">
@@ -20,8 +25,8 @@
       <div class="nav">
         <h3>쇼핑몰 관리</h3>
         <ul>
-          <li><a href="">주문관리</a></li>
-          <li><a href="">상품관리</a></li>
+          <li><a href="/admin/orders">주문관리</a></li>
+          <li class="on"><a href="/admin/products">상품관리</a></li>
         </ul>
       </div>
       <div class="contents">
@@ -29,46 +34,41 @@
           <div class="admin-title">
             <h5><i class="fa-solid fa-box" style="color: #000000;"></i>상품등록/수정</h5>
             <div class="title-btn">
-              <button class="admin-confirm">등록하기</button>
-              <button class="admin-list">목록</button>
+              <!-- <button class="admin-confirm" id="submitButton">등록하기</button> -->
+              <button class="admin-list"><a href="/admin/products">목록</a></button>
             </div>
           </div>
           <div class="product-add-tbl">
-            <table>
-              <tr>
-                <th>상품 이미지</th>
-                <td>
-                  <input type="text">
-                  <button>파일 찾기</button>
-                </td>
-              </tr>
-              <tr>
-                <th>상품명</th>
-                <td><input type="text" class="input-name"></td>
-              </tr>
-              <tr>
-                <th>판매가</th>
-                <td><input type="text">원</td>
-              </tr>
-              <tr>
-                <th>분류</th>
-                <td>
-                  <select name="" id="">
-                    <option value="" selected>전체 분류</option>
-                    <option value="">수험서</option>
-                    <option value="">알고리즘</option>
-                    <option value="">Ai</option>
-                    <option value="">웹/모바일</option>
-                    <option value="">자기계발</option>
-                    <option value="">대학서적</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
+            <form id="form">
+              <label for="fileInput">상품 이미지</label>
+              <input type="text" id="fileInput" name="file">
+            
+              <label for="titleInput">상품명</label>
+              <input type="text" id="titleInput" name="title">
+            
+              <label for="descriptionInput">설명</label>
+              <input type="text" id="descriptionInput" name="description">
+            
+              <label for="priceInput">판매가</label>
+              <input type="text" id="priceInput" name="price">
+            
+              <label for="categoryInput">분류</label>
+              <input type="text" id="categoryInput" name="category">
+            
+              <label for="authorInput">저자</label>
+              <input type="text" id="authorInput" name="author">
+            
+              <label for="pageInput">페이지</label>
+              <input type="text" id="pageInput" name="pages">
+            
+              <button type="submit">등록하기</button>
+            </form>
+         
           </div>
         </div>
       </div>
     </div>
   </div>
 </body>
+
 </html>
