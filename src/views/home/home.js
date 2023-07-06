@@ -29,6 +29,7 @@ async function fetchProducts() {
   try {
     const bookList = document.getElementById('bookList');
     const response = await fetch('/products');
+    console.log(response)
     const data = await response.json();
     const books = data
       .map(
