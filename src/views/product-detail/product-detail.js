@@ -9,7 +9,7 @@ function count(type) {
   // 현재 화면에 표시된 값
   let number = parseInt(resultElement.innerText);
   let price = parseInt(priceElement.innerText);
-  let totalprice = parseFloat(totalpriceElement.innerText);
+  let totalprice = parseInt(totalpriceElement.innerText);
 
   // 더하기/빼기
   if (type === 'plus') {

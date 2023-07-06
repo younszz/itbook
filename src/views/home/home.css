@@ -60,12 +60,6 @@
   /* border-top: 1px solid #DDD; */
 }
 
-<<<<<<< HEAD
-
-
-
- 
-=======
 .b-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -134,4 +128,3 @@
   flex-wrap: wrap;
   text-align: center;
 }
->>>>>>> 8e2bd423e044cfaaf6787f5672bb2168171877f4
