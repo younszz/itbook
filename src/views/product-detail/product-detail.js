@@ -1,4 +1,3 @@
-
 // 수량 증가 / 감소 버튼
 function count(type) {
   // 결과를 표시할 element
@@ -28,15 +27,17 @@ function count(type) {
 }
 
 // 상품 데이터 바인딩 함수
-async function fetchProducts() {
+async function fetchProduct() {
+  const url = window.location.pathname;
+  const parts = url.split('/').filter(Boolean);
+  const id = parts.pop();
+
   try {
-    const detail = document.getElementById('detailContents');
-    const response = await fetch('/products');
-    const data = await response.json();
-
-    const book = data[0]; // 첫 번째 상품 데이터만 가져옴
-
-    const detailHtml = `<div class="detail-img">
+    const detailContainer = document.getElementById('detailContainer');
+    const response = await fetch(`/api/product/${id}`);
+    const book = await response.json();
+    
+    const detailContent = `<div class="detail-img">
       <img src=${book.imageUrl} alt="">
     </div>
     <div class="detail-info">
@@ -69,10 +70,10 @@ async function fetchProducts() {
       </div>
     </div>`;
 
-    detail.innerHTML = detailHtml;
+    detailContainer.innerHTML = detailContent;
   } catch (error) {
     console.error('Error:', error);
   }
 }
 
-fetchProducts();
+fetchProduct();
