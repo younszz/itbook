@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자페이지|상품 등록</title>
+  <!-- css -->
+  <link rel="stylesheet" href="./admin-products-edit.css">
+
+  <!-- js -->
+  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
+  <script defer src="./admin-products-edit.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-title">
+      <h2>관리자 페이지</h2>
+    </div>
+    <div class="admin-info">
+      <div class="nav">
+        <h3>쇼핑몰 관리</h3>
+        <ul>
+          <li><a href="">주문관리</a></li>
+          <li><a href="">상품관리</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <div class="admin-list">
+          <div class="admin-title">
+            <h5><i class="fa-solid fa-box" style="color: #000000;"></i>상품등록/수정</h5>
+            <div class="title-btn">
+              <button class="admin-confirm">등록하기</button>
+              <button class="admin-list">목록</button>
+            </div>
+          </div>
+          <div class="product-add-tbl">
+            <table>
+              <tr>
+                <th>상품 이미지</th>
+                <td>
+                  <input type="text">
+                  <button>파일 찾기</button>
+                </td>
+              </tr>
+              <tr>
+                <th>상품명</th>
+                <td><input type="text" class="input-name"></td>
+              </tr>
+              <tr>
+                <th>판매가</th>
+                <td><input type="text">원</td>
+              </tr>
+              <tr>
+                <th>분류</th>
+                <td>
+                  <select name="" id="">
+                    <option value="" selected>전체 분류</option>
+                    <option value="">수험서</option>
+                    <option value="">알고리즘</option>
+                    <option value="">Ai</option>
+                    <option value="">웹/모바일</option>
+                    <option value="">자기계발</option>
+                    <option value="">대학서적</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

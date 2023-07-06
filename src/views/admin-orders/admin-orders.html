@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자페이지|상품 등록</title>
+  <!-- css -->
+  <link rel="stylesheet" href="./admin-order-list.css">
+
+  <!-- js -->
+  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
+  <script defer src="./admin-order-list.js"></script>
+  <script defer src="/template/header.js"></script>
+  <script defer src="/template/scroll-top-btn.js"></script>
+  <script defer src="/template/footer.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-title">
+      <h2>관리자 페이지</h2>
+    </div>
+    <div class="admin-info">
+      <div class="nav">
+        <h3>쇼핑몰 관리</h3>
+        <ul>
+          <li><a href="">주문관리</a></li>
+          <li><a href="">상품관리</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <div class="admin-list">
+          <div class="admin-title">
+            <h5><i class="fa-solid fa-box" style="color: #000000;"></i>주문관리</h5>
+            <div class="title-btn">
+              <button class="admin-remove">선택삭제</button>
+            </div>
+          </div>
+          <div class="admin-filter">
+            <p>전체 <span>21</span> 건</p>
+            <div class="admin-input">
+              <select name="p-cate" id="productCategory">
+                <option value="" selected>전체 분류</option>
+                <option value="">수험서</option>
+                <option value="">알고리즘</option>
+                <option value="">Ai</option>
+                <option value="">웹/모바일</option>
+                <option value="">자기계발</option>
+                <option value="">대학서적</option>
+              </select>
+              <label for=""></label>
+              <input type="text" placeholder="상품명 검색">
+              <button class="search-btn">검색</button>
+            </div>
+          </div>
+          <div class="admin-tbl">
+            <table>
+              <caption>상품 목록</caption>
+              <colgroup> 
+                  <col style="width: 5%;"/> 
+                  <col style="width: 25%;"/> 
+                  <col style="width: 35%;"/> 
+                  <col style="width: 15%;"/> 
+                  <col style="width: 15%;"/> 
+                  <col style="width: 15%;"/> 
+              </colgroup> 
+              <thead>
+                <tr>
+                  <th><input type="checkbox"></th>
+                  <th>상품명</th>
+                  <th>수량</th>
+                  <th>구매금액</th>
+                  <th>배송비</th>
+                  <th>주문상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>모던 자바스크립트 Deep Dive</td>
+                  <td>2개</td>
+                  <td>90,000원</td>
+                  <td>0원</td>
+                  <td>
+                    <select name="" id="">
+                      <option value="">주문</option>
+                      <option value="">배송</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>모던 자바스크립트 Deep Dive</td>
+                  <td>2개</td>
+                  <td>90,000원</td>
+                  <td>0원</td>
+                  <td>
+                    <select name="" id="">
+                      <option value="">주문</option>
+                      <option value="">배송</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
