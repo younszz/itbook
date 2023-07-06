@@ -10,6 +10,10 @@ async function fetchProduct() {
     const response = await fetch(`/api/product/${id}`);
     const data = await response.json();
     console.log(data)
+    
+    if(mode === 'add'){
+    
+    }
 
   } catch (error) {
     console.error('Error:', error);
@@ -24,16 +28,17 @@ document.getElementById('form').addEventListener('submit', async function(event)
 
   // FormData 객체로 input입력값 전부를 객체로 가져올 수 있음
   const formData = new FormData(event.target);
-
-  formData.forEach((value, key) => {
-    console.log(`${key}: ${value}`);
-  });
+  const data = Object.fromEntries(formData);
+  console.log(data)
 
   try {
      // POST 요청
-      const response = await fetch('/api/admin/product', {
+      const response = await fetch('/api/product', {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
       });
       console.log(response);
   } catch (error) {

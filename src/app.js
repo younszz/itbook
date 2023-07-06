@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(adminRoutes);
 app.use(userRoutes);
-app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 mongoose
