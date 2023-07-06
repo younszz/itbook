@@ -32,7 +32,7 @@ async function fetchProducts() {
       .map(
         (book) =>
           `<div class="list-box">
-      <a href="/product">
+      <a href="/product/${book._id}">
       <div class="img-wrap">
         <img src=${book.imageUrl} alt="" />
       </div>

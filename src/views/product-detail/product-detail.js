@@ -41,10 +41,10 @@ async function fetchProduct() {
       <img src=${book.imageUrl} alt="">
     </div>
     <div class="detail-info">
-      <p class="detail-cate web">#${book.category}</p>
+      <p class="detail-cate">#${book.category}</p>
       <h3>${book.title}</h3>
       <p class="detail-description">${book.description}</p>
-      <p class="detail-description">이웅모 (지은이) / 956쪽</p>
+      <p class="detail-description">${book.author} (지은이) / ${book.pages}쪽</p>
       <h4><span id="price">${book.price}</span>원</h4>
       <div class="detail-price">
         <h5>배송정보</h5>
