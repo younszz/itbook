@@ -28,9 +28,12 @@
   font-size: 16px;
   line-height: 24px;
 }
+<<<<<<< HEAD
 .nav ul li.active a {
   color: #7156ed;
 }
+=======
+>>>>>>> dev-BE-kyungyun
 .my-container {
   width: 720px;
 }
@@ -91,8 +94,13 @@
 }
 
 .user-info-box li {
+<<<<<<< HEAD
   padding-top: 12px;
   padding-bottom: 12px;
+=======
+  padding-top: 10px;
+  padding-bottom: 6px;
+>>>>>>> dev-BE-kyungyun
   border-bottom: 1px solid #ddd;
   display: flex;
   flex-direction: column;
@@ -108,7 +116,10 @@
   margin-top: 8px;
   outline: none;
   padding: 0;
+<<<<<<< HEAD
   border: 1px solid #000;
+=======
+>>>>>>> dev-BE-kyungyun
 }
 #postalCode {
   width: 300px;
@@ -127,6 +138,7 @@ button[type="submit"] {
   height: 62px;
   font-size: 16px;
   line-height: 19px;
+<<<<<<< HEAD
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -138,6 +150,11 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #7156ed;
   color: #fff;
+=======
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+>>>>>>> dev-BE-kyungyun
 }
 
 .field {

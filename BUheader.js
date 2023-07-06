@@ -64,8 +64,8 @@ const showLoginModal = () => {
   const loginEmail = document.querySelector("#loginEmail");
   const loginPassword = document.querySelector("#loginPassword");
   const loginForm = document.querySelector("#loginForm");
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  loginForm.addEventListener("submit", (e) => {
+    // e.preventDefault();
     if (!loginEmail.value) {
       alert("이메일을 입력하세요.");
       loginEmail.focus();
@@ -75,25 +75,6 @@ const showLoginModal = () => {
       alert("비밀번호를 입력하세요.");
       loginPassword.focus();
       return false;
-    }
-    //경연_fetch추가코드 
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: loginEmail.value,
-        password: loginPassword.value
-      })
-    });
-
-    if (response.ok) {
-      alert('로그인 성공');
-      // 이후 필요한 동작 수행...
-    } else {
-      const errorData = await response.json();
-      alert(`로그인 실패: ${errorData.message}`);
     }
   });
 
@@ -112,15 +93,13 @@ const showJoinModal = () => {
   const modal = document.createElement("div");
   modal.setAttribute("class", "modal");
   modal.setAttribute("id", "modalJoin");
-  //<form id="joinForm" action="/signup" method="POST">
   modal.innerHTML = `
   <div class="modal-header">
   <h2 class="modal-title">회원가입</h2>
   <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="modal-body">
-  
-  <form id="joinForm"  method="POST">
+  <form id="joinForm" action="/signup" method="POST">
     <ul class="form-list">
       <li class="input-box">
         <label class="label" for="joinUserName">이름</label>
@@ -176,8 +155,8 @@ const showJoinModal = () => {
   const joinPassword = document.querySelector("#joinPassword");
   const passwordCheck = document.querySelector("#passwordCheck");
   const joinForm = document.querySelector("#joinForm");
-  joinForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  joinForm.addEventListener("submit", (e) => {
+    // e.preventDefault();
     if (!joinUserName.value) {
       alert("이름을 입력하세요.");
       joinUserName.focus();
@@ -197,27 +176,6 @@ const showJoinModal = () => {
       alert("비밀번호가 일치하지 않습니다.");
       passwordCheck.focus();
       return false;
-    }
-    //경연_fetch추가코드
-    const response = await fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: joinUserName.value,
-        email: joinEmail.value,
-        password: joinPassword.value,
-        password_confirm: passwordCheck.value
-      })
-    });
-
-    if (response.ok) {
-      alert('회원가입 성공');
-      // 이후 필요한 동작 수행...
-    } else {
-      const errorData = await response.json();
-      alert(`회원가입 실패: ${errorData.message}`);
     }
   });
 
@@ -263,20 +221,3 @@ const renderHeader = () => {
   header.querySelector("#JoinBtn").addEventListener("click", showJoinModal);
   return header;
 };
-
-document.body.prepend(renderHeader());
-
-
-// 스크롤 시 헤더 고정
-let header = document.querySelector('header');
-let lnb = header.offsetTop;
-
-window.addEventListener('scroll', function () {
-  let windowScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (lnb < windowScroll) {
-    header.classList.add('fixed');
-  } else {
-    header.classList.remove('fixed');
-  }
-});

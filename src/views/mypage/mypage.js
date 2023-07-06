@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 const myName = document.createElement("b");
 const mypage = document.querySelector(".name");
 myName.innerHTML = "홍길동";
 mypage.prepend(myName);
 
+=======
+>>>>>>> dev-BE-kyungyun
 const unregister = document.querySelector("#unregister");
 
 unregister.addEventListener("click", function () {
   alert("정말로 탈퇴?");
 });
 
+<<<<<<< HEAD
+=======
+// 자유롭게 코드를 작성해 보세요.
+>>>>>>> dev-BE-kyungyun
 const userEmailInput = document.querySelector("#userEmail");
 const userNameInput = document.querySelector("#userName");
 const passwordInput = document.querySelector("#password");
@@ -19,9 +26,12 @@ const searchAddressButton = document.querySelector("#searchAddressButton");
 const address1Input = document.querySelector("#address1");
 const address2Input = document.querySelector("#address2");
 const saveBtn = document.querySelector("#user-info-save");
+<<<<<<< HEAD
 userEmailInput.value = "user@aaa.aaa";
 userNameInput.value = "홍길동";
 phoneNumberInput.value = "010-0000-0000";
+=======
+>>>>>>> dev-BE-kyungyun
 
 searchAddressButton.addEventListener("click", searchAddress);
 saveBtn.addEventListener("click", doCheckout);
