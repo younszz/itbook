@@ -25,7 +25,7 @@ var swiper = new Swiper('.list-swiper', {
 async function fetchProducts() {
   try {
     const bookList = document.getElementById('bookList');
-    const response = await fetch('/products');
+    const response = await fetch('/api/products');
     console.log(response)
     const data = await response.json();
     const books = data
