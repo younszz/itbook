@@ -87,7 +87,7 @@ appndProduct();
 
 function handleClick(){
   setLocalItems();
-  alert('✅ 장바구니에 추가되었습니다.');
+  alert('✅ 장바구니에 추가되었습니다');
 }
 
 async function setLocalItems(){

@@ -119,13 +119,9 @@
   transition: .3s ease background-image;
 }
 
-.detail-cart{
-  transition: all 250ms ease-out;
-}
-
-.detail-cart:hover{
-  color: #7156ED;
-  border-color: #7156ED;
+.detail-cart.active{
+  background-color: #7156ED;
+  color: white;
 }
 
 .detail-contents .detail-info .detail-btn .detail-buy {

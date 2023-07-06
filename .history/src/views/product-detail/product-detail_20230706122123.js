@@ -1,12 +1,16 @@
+// 수량 증가 / 감소 버튼
 function count(type) {
+  // 결과를 표시할 element
   const resultElement = document.getElementById('result');
   const priceElement = document.getElementById('price');
   const totalpriceElement = document.getElementById('totalPrice');
 
+  // 현재 화면에 표시된 값
   let number = parseInt(resultElement.innerText);
   let price = parseInt(priceElement.innerText);
   let totalprice = parseInt(totalpriceElement.innerText);
 
+  // 더하기/빼기
   if (type === 'plus') {
     number += 1;
     totalprice += price;
@@ -17,11 +21,13 @@ function count(type) {
     }
   }
 
+  // 결과 출력
   resultElement.innerText = number;
   totalpriceElement.innerText = totalprice;
 }
 
-async function appndProduct() {
+// 상품 데이터 바인딩 함수
+async function fetchProduct() {
   const id = getUrl();
   try {
     const detailContainer = document.getElementById('detailContainer');
@@ -33,19 +39,19 @@ async function appndProduct() {
   }
 }
 
+async function getProduct(id){
+  const response = await fetch(`/api/product/${id}`);
+  const book = await response.json();
+
+  return book;
+}
+
 function getUrl(){
   const url = window.location.pathname;
   const parts = url.split('/').filter(Boolean);
   const id = parts.pop();
 
   return id;
-}
-
-async function getProduct(id){
-  const response = await fetch(`/api/product/${id}`);
-  const book = await response.json();
-
-  return book;
 }
 
 function detailContentTemplate(book){
@@ -77,25 +83,10 @@ function detailContentTemplate(book){
         <p><span id="totalPrice">${book.price}</span>원</p>
       </div>
       <div class="detail-btn">
-        <button class="detail-cart" onclick="handleClick()"></button>
+        <button class="detail-cart"></button>
         <button class="detail-buy">바로 구매하기</button>
       </div>
     </div>`;
 }
 
-appndProduct();
-
-function handleClick(){
-  setLocalItems();
-  alert('✅ 장바구니에 추가되었습니다.');
-}
-
-async function setLocalItems(){
-  const books = JSON.parse(localStorage.getItem("books")) || [];
-  const id = getUrl();
-  const book = await getProduct(id);
-  const count = parseInt(document.getElementById("result").innerText);
-  const newBook = {...book, count};
-  books.push(newBook);
-  localStorage.setItem("books",JSON.stringify(books));
-}
+fetchProduct();

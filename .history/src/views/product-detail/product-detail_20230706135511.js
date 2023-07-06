@@ -77,7 +77,7 @@ function detailContentTemplate(book){
         <p><span id="totalPrice">${book.price}</span>원</p>
       </div>
       <div class="detail-btn">
-        <button class="detail-cart" onclick="handleClick()"></button>
+        <button class="detail-cart" onclick='setItemBook()'></button>
         <button class="detail-buy">바로 구매하기</button>
       </div>
     </div>`;
@@ -85,12 +85,9 @@ function detailContentTemplate(book){
 
 appndProduct();
 
-function handleClick(){
-  setLocalItems();
-  alert('✅ 장바구니에 추가되었습니다.');
-}
 
-async function setLocalItems(){
+
+async function setItemBook(){
   const books = JSON.parse(localStorage.getItem("books")) || [];
   const id = getUrl();
   const book = await getProduct(id);
