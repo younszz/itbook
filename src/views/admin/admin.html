@@ -27,8 +27,8 @@
         <div class="nav">
           <h3>쇼핑몰 관리</h3>
           <ul>
-            <li><a href="">주문관리</a></li>
-            <li><a href="">상품관리</a></li>
+            <li><a href="/admin/orders">주문관리</a></li>
+            <li class="on"><a href="/admin/products">상품관리</a></li>
           </ul>
         </div>
         <div class="contents">
@@ -38,20 +38,19 @@
                 <i class="fa-solid fa-box" style="color: #000000"></i>상품관리
               </h5>
               <div class="title-btn">
-                <button class="admin-confirm">등록하기</button>
-                <button class="admin-remove">선택삭제</button>
+                <button class="admin-confirm"><a href="/admin/products/add/:pid">등록하기</a></button>
+                <button class="admin-remove"><a href="">선택삭제</a></button>
               </div>
             </div>
             <div class="admin-filter">
-              <p>전체 <span>21</span> 건</p>
+              <p>전체 <span id="listCount"></span> 건</p>
               <div class="admin-input">
                 <select name="p-cate" id="productCategory">
                   <option value="" selected>전체 분류</option>
-                  <option value="">수험서</option>
                   <option value="">알고리즘</option>
                   <option value="">Ai</option>
-                  <option value="">웹/모바일</option>
-                  <option value="">자기계발</option>
+                  <option value="">웹</option>
+                  <option value="">모바일</option>
                   <option value="">대학서적</option>
                 </select>
                 <label for="searchName"></label>
@@ -65,9 +64,9 @@
                   상품 목록
                 </caption>
                 <colgroup>
-                  <col style="width: 5%" />
-                  <col style="width: 25%" />
-                  <col style="width: 35%" />
+                  <col style="width: 3%" />
+                  <col style="width: 20%" />
+                  <col style="width: 40%" />
                   <col style="width: 15%" />
                   <col style="width: 15%" />
                   <col style="width: 15%" />
@@ -82,33 +81,8 @@
                     <th>관리</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td class="p-img">
-                      <img src="./img/deep_dive.jpg" alt="" />
-                    </td>
-                    <td>모던 자바스크립트 Deep Dive</td>
-                    <td>45,000원</td>
-                    <td>웹/모바일</td>
-                    <td>
-                      <button class="admin-change">수정</button>
-                      <button class="admin-remove-in">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td class="p-img">
-                      <img src="./img/deep_dive.jpg" alt="" />
-                    </td>
-                    <td>모던 자바스크립트 Deep Dive</td>
-                    <td>45,000원</td>
-                    <td>웹/모바일</td>
-                    <td>
-                      <button class="admin-change">수정</button>
-                      <button class="admin-remove-in">삭제</button>
-                    </td>
-                  </tr>
+                <tbody id="adminTbl">
+                  
                 </tbody>
               </table>
             </div>

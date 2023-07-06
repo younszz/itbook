@@ -18,3 +18,27 @@ async function fetchProduct() {
 }
 
 fetchProduct();
+
+
+document.getElementById('form').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  // FormData 객체로 input입력값 전부를 객체로 가져올 수 있음
+  const formData = new FormData(event.target);
+
+  formData.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
+
+  try {
+     // POST 요청
+      const response = await fetch('/api/admin/product', {
+          method: 'POST',
+          body: formData
+      });
+      console.log(response);
+  } catch (error) {
+      console.error(error);
+  }
+});
+
