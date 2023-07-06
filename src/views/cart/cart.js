@@ -9,7 +9,7 @@ window.addEventListener('load',()=>{
   books.map((book) => {
     const li = document.createElement('li');
     li.setAttribute('class','cart-item');
-    li.setAttribute('key',book._id);
+    li.setAttribute('id',book._id);
     li.innerHTML = itemTemplate(book);
     ul.append(li);
   });
@@ -30,7 +30,31 @@ window.addEventListener('load',()=>{
         checkBoxs.forEach((box) => box.checked = false);
       }
     })
+    
+  ul.addEventListener('click',(e)=>{
+    if(e.target.className !== 'fa-solid fa-xmark'){
+      return ;
+    }
+    const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+    if(!confirmDelete){
+      return;
+    }
+    const itemId = e.target.parentElement.parentElement.id;
+    deleteLocalItem(itemId);
+    
+  })
 })
+
+function deleteLocalItem(id){
+  const books = localStorage.getItem("books");
+  const arr = JSON.parse(books);
+  const values = Object.values(arr);
+  if(books){
+    const updatedArr = values.filter(obj => obj._id !== id);
+    localStorage.setItem('books',JSON.stringify(updatedArr));
+    location.reload();
+  }
+}
 
 function itemTemplate(book){
   return `
