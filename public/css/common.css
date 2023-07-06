@@ -233,6 +233,7 @@ footer {
 
 /* top-btn */
 .top-btn {
+  cursor: pointer;
   opacity: 0;
   transition: 0.5s;
 }

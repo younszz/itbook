@@ -1,16 +1,13 @@
 // 메인 swiper
-var swiper = new Swiper('.main-swiper', {
-  cssMode: true,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+var swiper = new Swiper(".main-swiper", {
   pagination: {
-    el: '.swiper-pagination',
+    el: ".swiper-pagination",
+    clickable: true,
   },
-  loop: true,
-  mousewheel: true,
-  keyboard: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: true // 쓸어 넘기거나 버튼 클릭 시 자동 슬라이드 정지.
+  }
 });
 
 // book-list swiper
@@ -35,12 +32,16 @@ async function fetchProducts() {
       .map(
         (book) =>
           `<div class="list-box">
-      <a href='/product/${book._id}'><img src=${book.imageUrl} alt="" /></a>
+      <a href="/product">
+      <div class="img-wrap">
+        <img src=${book.imageUrl} alt="" />
+      </div>
       <div class="info">
         <p class="cate new">${book.category}</p>
         <p class="name">${book.title}</p>
-        <p class="price">${book.description}</p>
+        <p class="price">${book.price}원</p>
       </div>
+      </a>
     </div>`
       )
       .join('');

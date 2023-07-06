@@ -14,7 +14,7 @@
 /* main01 */
 .main01 {
   width: 100%;
-  height: 810px;
+  height: 235px;
   z-index: 9;
 }
 
@@ -86,9 +86,14 @@
   transition: .2s;
 }
 
-.b-list .list-box a img {
+.b-list .list-box .img-wrap {
   width: 240px;
-  cursor: pointer;
+  height: 330px;
+}
+
+.b-list .list-box .img-wrap img {
+  width: 100%;
+  height: 100%;
 }
 
 .b-list .list-box .info {
@@ -119,6 +124,8 @@
   font-weight: 500;
   word-break: keep-all;
   text-align: center;
+  width:250px;
+  height:48px;
 }
 
 .b-list .list-box .price {
