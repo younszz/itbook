@@ -2,7 +2,6 @@ const express = require('express');
 const shopController = require('../controller/shop');
 const router = express.Router();
 
-
 router.get('/api/products', shopController.getProducts);
 
 router.get('/api/product/:pid', shopController.getproductDetail);

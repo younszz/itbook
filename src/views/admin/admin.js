@@ -1,9 +1,13 @@
 //데이터 바인딩 함수
 async function fetchProducts() {
   try {
+<<<<<<< HEAD:src/views/admin-products/admin-products.js
     const bookList = document.getElementById('adminTbl');
     const response = await fetch('/api/products');
     console.log(response);
+=======
+    const response = await fetch('/api/products');
+>>>>>>> 4e121879a8d1a779b42f6d6a002f43fb94e625d9:src/views/admin/admin.js
     const data = await response.json();
     const books = data
       .map(
