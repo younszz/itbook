@@ -22,7 +22,29 @@ window.addEventListener('load',()=>{
       minusQuantityItem(id);
     }
   })
+  
+  paymentResult();
 })
+
+async function paymentResult(){
+  const totalPre = document.querySelector('.total-pre');
+  const totalPrice = document.querySelector('.total-price');
+  const orderBtn = document.querySelector('.btn-order');
+  const delivery = document.querySelector('.delivery');
+  const books = await getServerBooks();
+  if(books){
+    const total = books.reduce((acc,cur) => {
+      acc += cur.price * cur.quantity;
+      return acc;
+    },0);
+    if(total < 30000){
+      delivery.innerHTML = `+3000원`;
+    }
+    orderBtn.innerHTML=`${total}원 주문하기`;
+    totalPrice.innerHTML = `${total}원`;
+    totalPre.innerHTML = `${total}원`;
+  }
+}
 
 function minusQuantityItem(id){
   const books = JSON.parse(localStorage.getItem("books")) || '';
