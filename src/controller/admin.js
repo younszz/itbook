@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 
-exports.postAddProduct = (req, res) => {
+exports.postProduct = (req, res) => {
   const {
     title,
     description,
@@ -28,3 +28,14 @@ exports.postAddProduct = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.deleteProduct = (req, res) => {
+  const productId = req.body.productId;
+  console.log(productId)
+  Product.findByIdAndRemove(productId)
+    .then(() => {
+      console.log('상품 삭제');
+      res.redirect('/admin');
+    })
+    .catch(err => console.log(err));
+}
