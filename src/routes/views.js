@@ -21,9 +21,9 @@ router.use('/ordercheck', serveStatic('ordercheck'));
 router.use('/cart', serveStatic('cart'));
 router.use('/product/:pid', serveStatic('product-detail'));
 
-router.use('/admin/products', serveStatic('admin-products'));
-router.use('/admin/products/edit/:pid', serveStatic('admin-products-edit'));
-router.use('/admin/products/add/:pid', serveStatic('admin-products-edit'));
-router.use('/admin/orders', serveStatic('admin-orders'));
+router.use('/admin/', serveStatic('admin'));
+router.use('/admin/product/edit/:pid', serveStatic('admin-product'));
+router.use('/admin/product/add/', serveStatic('admin-product'));
+router.use('/admin/order', serveStatic('admin-order'));
 
 export default router;
