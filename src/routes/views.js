@@ -16,8 +16,8 @@ const serveStatic = (resource, fileName) => {
 const router = express.Router();
 
 router.use('/', serveStatic('home'));
-router.use('/mypage', serveStatic('mypage'));
-router.use('/ordercheck', serveStatic('ordercheck'));
+router.use('/user/info', serveStatic('user-info'));
+router.use('/user/order', serveStatic('user-order'));
 router.use('/cart', serveStatic('cart'));
 router.use('/product/:pid', serveStatic('product-detail'));
 
