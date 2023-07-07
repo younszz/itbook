@@ -88,15 +88,14 @@ appndProduct();
 async function setLocalItems(){
   const books = JSON.parse(localStorage.getItem("books")) || [];
   const id = getUrl();
-  const book = await getProduct(id);
-  const count = parseInt(document.getElementById("result").innerText);
-  const newBook = {...book, count};
-  const isBook = books && Object.values(books).find(obj => obj.title == newBook.title);
+  const quantity = parseInt(document.getElementById("result").innerText);
+  const book = { id, quantity};
+  const isBook = Object.values(books).find(obj => obj.id == book.id);
   if(isBook){
     alert('이미 장바구니에 담은 상품입니다.');
     return ;
   }
-  books.push(newBook);
+  books.push(book);
   localStorage.setItem("books",JSON.stringify(books));
   alert('💟 장바구니에 추가되었습니다.');
 }
