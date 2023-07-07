@@ -1,30 +1,49 @@
 'use strict';
 const ul = document.querySelector('.cart-list');
+const allCheckBox = document.querySelector('#allCheck');
+const allSelectLabel = document.querySelector('.all-box-container>label');
 
-window.addEventListener('load',()=>{
+window.addEventListener('load', async()=>{
+  const books = await getServerBooks();
   renderBooks();
-
-  ul.addEventListener('click',(e)=>{
-    if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
-      const confirmDelete = confirm('상품을 삭제하시겠습니까?');
-      const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
-      console.log(id);
-      if(confirmDelete){
-        deleteLocalItem(id);
-      }
-    }
-    if(e.target.className == "btn-plus" || e.target.className == "fa-solid fa-plus"){
-      const id = e.target.className == "fa-solid fa-plus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
-      plusQuantityItem(id);
-    }
-    if(e.target.className == "btn-minus" || e.target.className == "fa-solid fa-minus"){
-      const id = e.target.className == "fa-solid fa-minus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
-      minusQuantityItem(id);
+  ul.addEventListener('click',enableBtnFunc);
+  paymentResult();
+  allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`;
+  
+  allCheckBox.addEventListener('change',async ()=>{
+    const selectCheckBoxs = document.querySelectorAll('.selectCheck');
+    if(allCheckBox.checked){
+      selectCheckBoxs.forEach((box)=>{
+        box.checked = true;
+        allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`;
+      })
+    }else{
+      selectCheckBoxs.forEach((box)=>{
+        box.checked = false;
+        allSelectLabel.innerHTML = `전체선택(0/${books.length})`;
+      })
     }
   })
-  
-  paymentResult();
 })
+
+function enableBtnFunc(e){
+  if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
+    const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+    const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
+    console.log(id);
+    if(confirmDelete){
+      deleteLocalItem(id);
+    }
+  }
+  if(e.target.className == "btn-plus" || e.target.className == "fa-solid fa-plus"){
+    const id = e.target.className == "fa-solid fa-plus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
+    plusQuantityItem(id);
+  }
+  if(e.target.className == "btn-minus" || e.target.className == "fa-solid fa-minus"){
+    const id = e.target.className == "fa-solid fa-minus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
+    minusQuantityItem(id);
+  }
+}
 
 async function paymentResult(){
   const totalPre = document.querySelector('.total-pre');
@@ -43,6 +62,7 @@ async function paymentResult(){
     orderBtn.innerHTML=`${total}원 주문하기`;
     totalPrice.innerHTML = `${total}원`;
     totalPre.innerHTML = `${total}원`;
+    
   }
 }
 
@@ -133,42 +153,5 @@ function itemTemplate(book){
   <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
 }
-
-// window.addEventListener('load',()=>{
-//   const ul = document.querySelector('.cart-list');
-//   const books = JSON.parse(localStorage.getItem("books"));
-//   const orderBtn = document.querySelector('.btn-order');
-//   const totalPrice = document.querySelector('.total-price');
-//   const totalPre = document.querySelector('.total-pre');
-//   books.map((book) => {
-//     const li = document.createElement('li');
-//     li.setAttribute('class','cart-item');
-//     li.setAttribute('id',book._id);
-//     li.innerHTML = itemTemplate(book);
-//     ul.append(li);
-//   });
-//   const total = books.reduce((acc,cur) => {
-//     acc += cur.price * cur.count
-//     return acc;
-//   },0);
-//   orderBtn.innerHTML=`${total}원 주문하기`;
-//   totalPrice.innerHTML = `${total}원`;
-//   totalPre.innerHTML = `${total}원`;
-
-//   const allCheckBtn = document.querySelector('#allCheck');
-//   const checkBoxs = document.querySelectorAll('.selectCheck');
-//   allCheckBtn.addEventListener('change',(e)=>{
-//       if(e.target.checked){
-//         checkBoxs.forEach((box) => box.checked = true);
-//       }else{
-//         checkBoxs.forEach((box) => box.checked = false);
-//       }
-//     })
-    
-//   
-    
-//   })
-// })
-
 
 
