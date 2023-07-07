@@ -93,8 +93,7 @@ const showLoginModal = () => {
       // 로그인 성공 시 페이지 새로고침
       window.location.reload();
     } else {
-      const errorData = await response.json();
-      alert(`로그인 실패: ${errorData.message}`);
+      alert(`로그인 실패`);
     }
   });
 
