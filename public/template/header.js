@@ -263,13 +263,15 @@ const renderHeader = () => {
     </a>
   </div>
   <!-- 메뉴 -->
-  <ul class="header-menu">
+  <ul class="header-menu" id="headerMenu">
 
-    <li><a href="/products">알고리즘</a></li>
-    <li><a href="/products">Ai</a></li>
-    <li><a href="/products">웹</a></li>
-    <li><a href="/products">모바일</a></li>
-    <li><a href="/products">대학서적</a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
 
   </ul>
   <!-- 로그인/회원가입/장바구니 -->
@@ -295,14 +297,14 @@ const renderHeader = () => {
     </a>
   </div>
   <!-- 메뉴 -->
-  <ul class="header-menu">
-
-    <li><a href="/products">알고리즘</a></li>
-    <li><a href="/products">Ai</a></li>
-    <li><a href="/products">웹</a></li>
-    <li><a href="/products">모바일</a></li>
-    <li><a href="/products">대학서적</a></li>
-
+  <ul class="header-menu" id="headerMenu">
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
+    <li><a href="/products"></a></li>
   </ul>
   <!-- 로그인/회원가입/장바구니 -->
   <div class="header-btn">
