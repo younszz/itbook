@@ -5,21 +5,58 @@ window.addEventListener('load',()=>{
   renderBooks();
 
   ul.addEventListener('click',(e)=>{
-    if(e.target.className == "fa-solid fa-xmark"){
-      const id = e.target.parentElement.parentElement.id;
+    if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
       const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+      const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
+      console.log(id);
       if(confirmDelete){
         deleteLocalItem(id);
       }
     }
+    if(e.target.className == "btn-plus" || e.target.className == "fa-solid fa-plus"){
+      const id = e.target.className == "fa-solid fa-plus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
+      plusQuantityItem(id);
+    }
+    if(e.target.className == "btn-minus" || e.target.className == "fa-solid fa-minus"){
+      const id = e.target.className == "fa-solid fa-minus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
+      minusQuantityItem(id);
+    }
   })
 })
 
-function deleteLocalItem(id){
-  const books = JSON.parse(localStorage.getItem("books"));
+function minusQuantityItem(id){
+  const books = JSON.parse(localStorage.getItem("books")) || '';
   const values = Object.values(books);
   if(books){
-    const updatedBooks = values.filter(obj => obj._id !== id);
+    const filteredBooks = values.filter(obj => obj.id !== id);
+    const findBook = values.find(obj => obj.id == id);
+    const index = values.findIndex((item) => item == findBook);
+    const updatedBook = findBook.quantity > 1 ? {...findBook, quantity: findBook.quantity - 1} : findBook;
+    filteredBooks.splice(index,0,updatedBook);
+    localStorage.setItem('books',JSON.stringify(filteredBooks));
+    location.reload();
+  }
+}
+
+function plusQuantityItem(id){
+  const books = JSON.parse(localStorage.getItem("books")) || '';
+  const values = Object.values(books);
+  if(books){
+    const filteredBooks = values.filter(obj => obj.id !== id);
+    const findBook = values.find(obj => obj.id == id);
+    const index = values.findIndex((item) => item == findBook);
+    const updatedBook = {...findBook, quantity: findBook.quantity + 1};
+    filteredBooks.splice(index,0,updatedBook);
+    localStorage.setItem('books',JSON.stringify(filteredBooks));
+    location.reload();
+  }
+}
+
+function deleteLocalItem(id){
+  const books = JSON.parse(localStorage.getItem("books")) || '';
+  const values = Object.values(books);
+  if(books){
+    const updatedBooks = values.filter(obj => obj.id !== id);
     localStorage.setItem('books',JSON.stringify(updatedBooks));
     location.reload();
   }
