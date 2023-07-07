@@ -1,4 +1,40 @@
 'use strict';
+const ul = document.querySelector('.cart-list');
+
+window.addEventListener('load',()=>{
+  renderBooks();
+
+  ul.addEventListener('click',(e)=>{
+    if(e.target.className == "fa-solid fa-xmark"){
+      const id = e.target.parentElement.parentElement.id;
+      const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+      if(confirmDelete){
+        deleteLocalItem(id);
+      }
+    }
+  })
+})
+
+function deleteLocalItem(id){
+  const books = JSON.parse(localStorage.getItem("books"));
+  const values = Object.values(books);
+  if(books){
+    const updatedBooks = values.filter(obj => obj._id !== id);
+    localStorage.setItem('books',JSON.stringify(updatedBooks));
+    location.reload();
+  }
+}
+
+async function renderBooks(){
+  const books = await getServerBooks();
+  books.forEach((book)=>{
+    const li = document.createElement('li');
+    li.setAttribute('class','cart-item');
+    li.setAttribute('id',book._id);
+    li.innerHTML = itemTemplate(book);
+    ul.append(li);
+  });
+}
 
 function getLocalBooks(){
   const books = JSON.parse(localStorage.getItem("books"));
@@ -18,19 +54,6 @@ async function getServerBooks(){
   }
   return books;
 }
-
-async function renderBooks(){
-  const books = await getServerBooks();
-  const ul = document.querySelector('.cart-list');
-  books.forEach((book)=>{
-    const li = document.createElement('li');
-    li.setAttribute('class','cart-item');
-    li.innerHTML = itemTemplate(book);
-    ul.append(li);
-  });
-}
-
-renderBooks();
 
 function itemTemplate(book){
   return `
@@ -83,28 +106,10 @@ function itemTemplate(book){
 //       }
 //     })
     
-//   ul.addEventListener('click',(e)=>{
-//     if(e.target.className !== 'fa-solid fa-xmark'){
-//       return ;
-//     }
-//     const confirmDelete = confirm('상품을 삭제하시겠습니까?');
-//     if(!confirmDelete){
-//       return;
-//     }
-//     const itemId = e.target.parentElement.parentElement.id;
-//     deleteLocalItem(itemId);
+//   
     
 //   })
 // })
 
-// function deleteLocalItem(id){
-//   const books = localStorage.getItem("books");
-//   const arr = JSON.parse(books);
-//   const values = Object.values(arr);
-//   if(books){
-//     const updatedArr = values.filter(obj => obj._id !== id);
-//     localStorage.setItem('books',JSON.stringify(updatedArr));
-//     location.reload();
-//   }
-// }
+
 
