@@ -4,6 +4,7 @@ async function fetchProduct() {
   const id = parts.pop();
 
   const mode = parts.pop();
+  console.log(mode)
   // mode가 'add'면 빈 form 랜더링, mode가 'edit'이면 현재 데이터로 value 값들이 채워진 form 렌더링
   
   try {

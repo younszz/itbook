@@ -1,16 +1,12 @@
-// 수량 증가 / 감소 버튼
 function count(type) {
-  // 결과를 표시할 element
   const resultElement = document.getElementById('result');
   const priceElement = document.getElementById('price');
   const totalpriceElement = document.getElementById('totalPrice');
 
-  // 현재 화면에 표시된 값
   let number = parseInt(resultElement.innerText);
   let price = parseInt(priceElement.innerText);
   let totalprice = parseInt(totalpriceElement.innerText);
 
-  // 더하기/빼기
   if (type === 'plus') {
     number += 1;
     totalprice += price;
@@ -21,23 +17,39 @@ function count(type) {
     }
   }
 
-  // 결과 출력
   resultElement.innerText = number;
   totalpriceElement.innerText = totalprice;
 }
 
-// 상품 데이터 바인딩 함수
-async function fetchProduct() {
+async function appndProduct() {
+  const id = getUrl();
+  try {
+    const detailContainer = document.getElementById('detailContainer');
+    const book = await getProduct(id);
+    const detailContent = detailContentTemplate(book);
+    detailContainer.innerHTML = detailContent;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+function getUrl(){
   const url = window.location.pathname;
   const parts = url.split('/').filter(Boolean);
   const id = parts.pop();
 
-  try {
-    const detailContainer = document.getElementById('detailContainer');
-    const response = await fetch(`/api/product/${id}`);
-    const book = await response.json();
-    
-    const detailContent = `<div class="detail-img">
+  return id;
+}
+
+async function getProduct(id){
+  const response = await fetch(`/api/product/${id}`);
+  const book = await response.json();
+
+  return book;
+}
+
+function detailContentTemplate(book){
+  return `<div class="detail-img">
       <img src=${book.imageUrl} alt="">
     </div>
     <div class="detail-info">
@@ -65,15 +77,26 @@ async function fetchProduct() {
         <p><span id="totalPrice">${book.price}</span>원</p>
       </div>
       <div class="detail-btn">
-        <button class="detail-cart"></button>
+        <button class="detail-cart" onclick="setLocalItems()"></button>
         <button class="detail-buy">바로 구매하기</button>
       </div>
     </div>`;
-
-    detailContainer.innerHTML = detailContent;
-  } catch (error) {
-    console.error('Error:', error);
-  }
 }
 
-fetchProduct();
+appndProduct();
+
+async function setLocalItems(){
+  const books = JSON.parse(localStorage.getItem("books")) || [];
+  const id = getUrl();
+  const book = await getProduct(id);
+  const count = parseInt(document.getElementById("result").innerText);
+  const newBook = {...book, count};
+  const isBook = books && Object.values(books).find(obj => obj.title == newBook.title);
+  if(isBook){
+    alert('이미 장바구니에 담은 상품입니다.');
+    return ;
+  }
+  books.push(newBook);
+  localStorage.setItem("books",JSON.stringify(books));
+  alert('💟 장바구니에 추가되었습니다.');
+}
