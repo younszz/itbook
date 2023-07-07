@@ -36,3 +36,17 @@ async function fetchProducts() {
 
 fetchProducts();
 
+
+// 삭제
+bookList.addEventListener('click',(e)=>{
+    if(e.target.className !== 'admin-remove-in'){
+      return ;
+    }
+    const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+    if(!confirmDelete){
+      return;
+    }
+    const itemId = e.target.parentElement.parentElement.id;
+    deleteLocalItem(itemId);
+    
+  })

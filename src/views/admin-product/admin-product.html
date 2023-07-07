@@ -34,34 +34,30 @@
           <div class="admin-title">
             <h5><i class="fa-solid fa-box" style="color: #000000;"></i>상품등록/수정</h5>
             <div class="title-btn">
-              <!-- <button class="admin-confirm" id="submitButton">등록하기</button> -->
-              <button class="admin-list"><a href="/admin/products">목록</a></button>
             </div>
           </div>
-          <div class="product-add-tbl">
-            <form id="form">
-              <label for="fileInput">상품 이미지</label>
-              <input type="text" id="fileInput" name="imageUrl">
-            
-              <label for="titleInput">상품명</label>
-              <input type="text" id="titleInput" name="title">
-            
-              <label for="descriptionInput">설명</label>
-              <input type="text" id="descriptionInput" name="description">
-            
-              <label for="priceInput">판매가</label>
-              <input type="text" id="priceInput" name="price">
-            
-              <label for="categoryInput">분류</label>
-              <input type="text" id="categoryInput" name="category">
-            
-              <label for="authorInput">저자</label>
-              <input type="text" id="authorInput" name="author">
-            
-              <label for="pageInput">페이지</label>
-              <input type="text" id="pageInput" name="pages">
-            
-              <button type="submit">등록하기</button>
+          <div class="product-add-form">
+            <form id="form" class="admin-form">
+              <ul>
+                <li><label for="fileInput">상품 이미지</label></li>
+                <li><input type="text" id="fileInput" name="imageUrl"></li>
+                <li><label for="titleInput">상품명</label></li>
+                <li><input type="text" id="titleInput" name="title"></li>
+                <li><label for="descriptionInput">설명</label></li>
+                <li><input type="text" id="descriptionInput" name="description"></li>
+                <li><label for="priceInput">판매가</label></li>
+                <li><input type="number" id="priceInput" name="price" class="numberInput">원</li>
+                <li><label for="categoryInput">분류</label></li>
+                <li><input type="text" id="categoryInput" name="category"></li>
+                <li><label for="authorInput">저자</label></li>
+                <li><input type="text" id="authorInput" name="author"></li>
+                <li><label for="pageInput">페이지</label></li>
+                <li><input type="number" id="pageInput" name="pages" class="numberInput">쪽</li>
+              </ul>
+              <div class="admin-btn">
+                <button type="submit" class="admin-submit">등록하기</button>
+                <button class="admin-list"><a href="/admin/products">목록</a></button>
+              </div>
             </form>
          
           </div>

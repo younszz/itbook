@@ -117,3 +117,49 @@
   font-size: 14px;
   cursor: pointer;
  }
+
+
+ /* .contents .product-add-tbl {
+  padding: 20px 0;
+ }
+
+ .contents .product-add-tbl table{
+  width:100%;
+  border-top:1px solid #dcdcdc;
+ }
+
+ .contents .product-add-tbl tr {
+  border-bottom: 1px solid #dcdcdc;
+ }
+
+ .contents .product-add-tbl tr th:nth-child(1){
+  background-color: #f3f3f3;
+  padding:20px 13px;
+  width:110px;
+  text-align: left;
+  font-size:13px;
+ }
+
+ .contents .product-add-tbl tr td input {
+  margin:0 10px;
+  border:1px solid #d1d1d1;
+  padding: 10px 5px;
+  border-radius: 5px;
+ }
+
+ .contents .product-add-tbl tr td input.input-name{
+  width:100%;
+ }
+
+ .contents .product-add-tbl tr td select {
+  border: 1px solid #d1d1d1;
+  margin:0 10px;
+  padding:12px;
+  font-size:13px;
+  width:180px;
+  border-radius: 5px;
+ }
+
+ .contents .admin-list .admin-tbl table tbody tr{
+  height:70px;
+ } */
