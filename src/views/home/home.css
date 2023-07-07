@@ -24,11 +24,11 @@
 }
 
 .main01 .main-swiper .swiper-slide.slide01 {
-  background-color: rgb(145, 255, 160);
+  background: url('/img/bnr.jpg') no-repeat center/cover;
 }
 
 .main01 .main-swiper .swiper-slide.slide02 {
-  background-color: rgb(182, 169, 255);
+  background-color: rgb(189, 218, 255);
 }
 
 .main01 .main-swiper .swiper-slide.slide03 {

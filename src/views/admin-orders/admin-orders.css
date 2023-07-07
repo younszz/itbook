@@ -31,7 +31,7 @@
     padding-bottom:15px;
    }
    .admin-info .nav ul{
-    width:90px;
+    width:100px;
     padding-top:10px;
     font-size:18px;
     line-height: 32px;
@@ -154,6 +154,10 @@
    padding: 4px 0;
  
  }
+
+ .admin-tbl table tbody tr td:nth-child(2) {
+  text-align: left;
+ }
  
  .admin-tbl table tbody tr td{
    display:table-cell; 
@@ -195,7 +199,7 @@
   padding-bottom:15px;
  }
  .admin-info .nav ul{
-  width:90px;
+  width:100px;
   padding-top:10px;
   font-size:18px;
   line-height: 32px;
