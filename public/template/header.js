@@ -76,21 +76,22 @@ const showLoginModal = () => {
       loginPassword.focus();
       return false;
     }
-    //경연_fetch추가코드 
-    const response = await fetch('/login', {
-      method: 'POST',
+    //fetch추가코드
+    const response = await fetch("/api/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: loginEmail.value,
-        password: loginPassword.value
-      })
+        password: loginPassword.value,
+      }),
     });
 
     if (response.ok) {
-      alert('로그인 성공');
-      // 이후 필요한 동작 수행...
+      alert("로그인 성공");
+      // 로그인 성공 시 페이지 새로고침
+      window.location.reload();
     } else {
       const errorData = await response.json();
       alert(`로그인 실패: ${errorData.message}`);
@@ -112,7 +113,6 @@ const showJoinModal = () => {
   const modal = document.createElement("div");
   modal.setAttribute("class", "modal");
   modal.setAttribute("id", "modalJoin");
-  //<form id="joinForm" action="/signup" method="POST">
   modal.innerHTML = `
   <div class="modal-header">
   <h2 class="modal-title">회원가입</h2>
@@ -198,23 +198,24 @@ const showJoinModal = () => {
       passwordCheck.focus();
       return false;
     }
-    //경연_fetch추가코드
-    const response = await fetch('/signup', {
-      method: 'POST',
+    //fetch
+    const response = await fetch("/api/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: joinUserName.value,
         email: joinEmail.value,
         password: joinPassword.value,
-        password_confirm: passwordCheck.value
-      })
+        password_confirm: passwordCheck.value,
+      }),
     });
 
     if (response.ok) {
-      alert('회원가입 성공');
-      // 이후 필요한 동작 수행...
+      alert("회원가입 성공");
+      // 회원가입 성공 시 페이지 새로고침
+      window.location.reload();
     } else {
       const errorData = await response.json();
       alert(`회원가입 실패: ${errorData.message}`);
@@ -230,9 +231,65 @@ const showJoinModal = () => {
   closeBtn.addEventListener("click", modalClose);
 };
 
+// 쿠키에 name="jwt"로 저장되어있는 값 찾음
+function getTokenFromCookie() {
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "jwt") {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+}
+const token = getTokenFromCookie();
+
+// 쿠키삭제 후 새로고침(로그아웃)
+const deleteCookie = (name) => {
+  document.cookie = `${encodeURIComponent(
+    name
+  )}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  window.location.reload();
+};
 const renderHeader = () => {
+  console.log(token);
   const header = document.createElement("header");
-  header.innerHTML = `
+
+  // 쿠키에 token이 존재하면 보여지는 화면(로그인 상태)
+  if (token) {
+    header.innerHTML = `
+    <a href="/">
+      <img src="/img/logo.png" alt="logo">
+    </a>
+  </div>
+  <!-- 메뉴 -->
+  <ul class="header-menu">
+
+    <li><a href="/products">알고리즘</a></li>
+    <li><a href="/products">Ai</a></li>
+    <li><a href="/products">웹</a></li>
+    <li><a href="/products">모바일</a></li>
+    <li><a href="/products">대학서적</a></li>
+
+  </ul>
+  <!-- 로그인/회원가입/장바구니 -->
+  <div class="header-btn">
+    <ul>
+      <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+      <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+      <li><a href="/user/info">마이페이지</a></li>
+      <li id="logout">로그아웃</li>
+    </ul>
+  </div>
+</header>
+  `;
+    header.querySelector("#logout").addEventListener("click", () => {
+      deleteCookie("jwt");
+    });
+  } else {
+    // 쿠키에 token이 없으면 보여지는 화면(로그아웃 상태)
+
+    header.innerHTML = `
     <a href="/">
       <img src="/img/logo.png" alt="logo">
     </a>
@@ -259,24 +316,25 @@ const renderHeader = () => {
 </header>
   `;
 
-  header.querySelector("#loginBtn").addEventListener("click", showLoginModal);
-  header.querySelector("#JoinBtn").addEventListener("click", showJoinModal);
+    header.querySelector("#loginBtn").addEventListener("click", showLoginModal);
+    header.querySelector("#JoinBtn").addEventListener("click", showJoinModal);
+  }
+
   return header;
 };
 
 document.body.prepend(renderHeader());
 
-
 // 스크롤 시 헤더 고정
-let header = document.querySelector('header');
+let header = document.querySelector("header");
 let lnb = header.offsetTop;
 
-window.addEventListener('scroll', function () {
+window.addEventListener("scroll", function () {
   let windowScroll = window.pageYOffset || document.documentElement.scrollTop;
 
   if (lnb < windowScroll) {
-    header.classList.add('fixed');
+    header.classList.add("fixed");
   } else {
-    header.classList.remove('fixed');
+    header.classList.remove("fixed");
   }
 });
