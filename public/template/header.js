@@ -306,7 +306,7 @@ const renderHeader = () => {
   <!-- 로그인/회원가입/장바구니 -->
   <div class="header-btn">
     <ul>
-      <li><a href="/cart">관리자(임시)</i></a></li>
+      <li><a href="/admin">관리자(임시)</i></a></li>
       <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
       <li id="loginBtn">로그인</li>
       <li id="JoinBtn">회원가입</li>

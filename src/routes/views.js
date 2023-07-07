@@ -21,6 +21,9 @@ router.use('/user/order', serveStatic('user-order'));
 router.use('/cart', serveStatic('cart'));
 router.use('/product/:pid', serveStatic('product-detail'));
 
+router.use('/user/info', serveStatic('user-info'));
+router.use('/user/order', serveStatic('user-order'));
+
 router.use('/admin/', serveStatic('admin'));
 router.use('/admin/product/edit/:pid', serveStatic('admin-product'));
 router.use('/admin/product/add/', serveStatic('admin-product'));
