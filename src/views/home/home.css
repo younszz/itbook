@@ -13,12 +13,16 @@
   height: 100%;
 }
 
+.swiper-pagination-bullet-active {
+  background-color:  #7156ed;
+}
+
 .main01 .main-swiper .swiper-slide.slide01 {
   background: url('/img/bnr.jpg') no-repeat center/cover;
 }
 
 .main01 .main-swiper .swiper-slide.slide02 {
-  background-color: rgb(189, 218, 255);
+  background: url('/img/bnr2.jpg') no-repeat center/cover;
 }
 
 .main01 .main-swiper .swiper-slide.slide03 {

@@ -47,6 +47,7 @@ document.getElementById('form').addEventListener('submit', async function(event)
   }
 });
 
+// select (카테고리 렌더링)
 const categoryList = async () => {
   try {
     const response = await fetch('/api/category');
@@ -66,3 +67,4 @@ const categoryList = async () => {
 };
 
 categoryList();
+
