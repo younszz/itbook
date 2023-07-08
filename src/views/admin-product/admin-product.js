@@ -47,3 +47,22 @@ document.getElementById('form').addEventListener('submit', async function(event)
   }
 });
 
+const categoryList = async () => {
+  try {
+    const response = await fetch('/api/category');
+    const data = await response.json();
+
+    const categoryselect = document.querySelector("#category");
+    for (let i = 0; i < 7; i++) {
+      const option = document.createElement('option');
+      const item = data[i] || ""; // 빈 값인 경우 빈칸으로 처리
+      option.innerHTML = `${item}`;
+      categoryselect.appendChild(option);
+      console.log(option);
+    }
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
+
+categoryList();
