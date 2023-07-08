@@ -262,13 +262,7 @@ const renderHeader = () => {
     </a>
   </div>
   <!-- 메뉴 -->
-  <ul class="header-menu">
-
-    <li><a href="/products">알고리즘</a></li>
-    <li><a href="/products">Ai</a></li>
-    <li><a href="/products">웹</a></li>
-    <li><a href="/products">모바일</a></li>
-    <li><a href="/products">대학서적</a></li>
+  <ul class="header-menu" id="headerMenu">
 
   </ul>
   <!-- 로그인/회원가입/장바구니 -->
@@ -294,13 +288,7 @@ const renderHeader = () => {
     </a>
   </div>
   <!-- 메뉴 -->
-  <ul class="header-menu">
-
-    <li><a href="/products">알고리즘</a></li>
-    <li><a href="/products">Ai</a></li>
-    <li><a href="/products">웹</a></li>
-    <li><a href="/products">모바일</a></li>
-    <li><a href="/products">대학서적</a></li>
+  <ul class="header-menu" id="headerMenu">
 
   </ul>
   <!-- 로그인/회원가입/장바구니 -->
@@ -337,3 +325,26 @@ window.addEventListener("scroll", function () {
     header.classList.remove("fixed");
   }
 });
+
+
+// 헤더 카테고리 
+const headerMenuList = async () => {
+  try {
+    const response = await fetch('/api/category');
+    const data = await response.json();
+
+    const headerMenu = document.querySelector("#headerMenu");
+    for (let i = 0; i < 7; i++) {
+      const li = document.createElement('li');
+      const item = data[i] || ""; // 빈 값인 경우 빈칸으로 처리
+      li.innerHTML = `<a href="/products">${item}</a>`;
+      headerMenu.appendChild(li);
+      console.log(li);
+    }
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
+
+headerMenuList();
+

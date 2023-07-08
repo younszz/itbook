@@ -11,7 +11,7 @@
 
 
 
- /**************** product-add ******************/
+ /**************** product-category ******************/
 
  .contents .admin-list .admin-title h5{
   font-size:20px;
@@ -61,18 +61,21 @@
    font-weight: 800;
  }
 
- .contents .admin-list .product-add-form .admin-form {
+.admin-form {
    display: flex;
    flex-direction: column;
  }
 
- .contents .admin-list .product-add-form .admin-form ul {
+.admin-form ul {
    display: flex;
-   flex-wrap: wrap;
-   align-items: center;
+  flex-direction: column;
  }
 
- .contents .admin-list .product-add-form .admin-form ul li:nth-child(2n-1) {
+.admin-form ul li {
+  display: flex;
+ }
+
+.admin-form ul li label {
    background-color: #f3f3f3;
    padding: 16px;
    width: 20%;
@@ -80,26 +83,26 @@
    font-size: 14px;
  }
 
- .contents .admin-list .product-add-form .admin-form ul li:nth-child(2n) {
+.admin-form ul li input:nth-child(2n) {
    width: 65%;
  }
 
 
- .contents .admin-list .product-add-form .admin-form ul li .numberInput {
+.admin-form ul li .numberInput {
    width: 20% !important;
    margin-right: 7px;
  }
 
- .contents .admin-list .product-add-form .admin-form ul li:nth-child(2n) input {
+.admin-form ul li input {
    width: 100%;
    border-radius: 5px;
    padding: 9px 7px;
    border: 1px solid #d1d1d1;
-   margin-left: 10px;
+   margin: 5px 10px;
    font-family: 'Pretendard';
  }
 
- .contents .admin-list .product-add-form .admin-form .admin-btn {
+.admin-form .admin-btn {
    display: flex;
    margin-top: 20px;
    align-items: center;
@@ -107,7 +110,7 @@
    justify-content: center;
  }
 
- .contents .admin-list .product-add-form .admin-form .admin-btn .admin-submit {
+.admin-btn .admin-submit {
   background-color: #7156ed;
   border-radius: 5px;
   border: none;
@@ -119,7 +122,7 @@
   margin-right:10px;
  }
 
- .contents .admin-list .product-add-form .admin-form .admin-btn .admin-list {
+.admin-btn .admin-list {
   background-color: #d1d1d1;
   border-radius: 5px;
   border: none;
@@ -128,3 +131,4 @@
   font-size: 14px;
   cursor: pointer;
  }
+

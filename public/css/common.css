@@ -41,6 +41,7 @@ header.fixed {
 }
 
 header ul.header-menu {
+  display: flex;
   position: absolute;
   top: 0px;
   left: 272px;
@@ -262,4 +263,10 @@ footer {
   font-weight: 800;
   line-height: 42px;
   text-align: center;
+  margin-bottom:70px;
+}
+
+
+li.on a{
+  color:#7156ed;
 }

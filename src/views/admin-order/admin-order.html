@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>관리자페이지|상품 등록</title>
+  <title>관리자페이지</title>
   <!-- css -->
   <link rel="stylesheet" href="./admin-order.css">
 
@@ -23,20 +23,21 @@
       <div class="nav">
         <h3>쇼핑몰 관리</h3>
         <ul>
-          <li><a href="">주문관리</a></li>
-          <li><a href="">상품관리</a></li>
+          <li class="on"><a href="#">주문관리</a></li>
+          <li><a href="/admin">상품관리</a></li>
+          <li><a href="/admin/category">카테고리관리</a></li>
         </ul>
       </div>
       <div class="contents">
         <div class="admin-list">
           <div class="admin-title">
-            <h5><i class="fa-solid fa-box" style="color: #000000;"></i>주문관리</h5>
+            <h5><i class="fa-solid fa-cart-flatbed" style="color: #000000;"></i></i>주문관리</h5>
             <div class="title-btn">
               <button class="admin-remove">선택삭제</button>
             </div>
           </div>
           <div class="admin-filter">
-            <p>전체 <span>21</span> 건</p>
+            <p>전체 <span id="listCount"></span> 건</p>
             <div class="admin-input">
               <select name="p-cate" id="productCategory">
                 <option value="" selected>전체 분류</option>
@@ -53,12 +54,12 @@
             </div>
           </div>
           <div class="admin-tbl">
-            <table>
+            <table id="orderList">
               <caption>상품 목록</caption>
               <colgroup> 
                   <col style="width: 5%;"/> 
-                  <col style="width: 25%;"/> 
-                  <col style="width: 35%;"/> 
+                  <col style="width: 55%;"/> 
+                  <col style="width: 15%;"/> 
                   <col style="width: 15%;"/> 
                   <col style="width: 15%;"/> 
                   <col style="width: 15%;"/> 
@@ -73,33 +74,8 @@
                   <th>주문상태</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>모던 자바스크립트 Deep Dive</td>
-                  <td>2개</td>
-                  <td>90,000원</td>
-                  <td>0원</td>
-                  <td>
-                    <select name="" id="">
-                      <option value="">주문</option>
-                      <option value="">배송</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>모던 자바스크립트 Deep Dive</td>
-                  <td>2개</td>
-                  <td>90,000원</td>
-                  <td>0원</td>
-                  <td>
-                    <select name="" id="">
-                      <option value="">주문</option>
-                      <option value="">배송</option>
-                    </select>
-                  </td>
-                </tr>
+              <tbody id="adminTbl">
+            
               </tbody>
             </table>
           </div>
