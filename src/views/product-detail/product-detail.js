@@ -96,10 +96,18 @@ async function setLocalItems(){
     const newBooks = Object.values(books).filter((obj) => obj.id !== book.id)
     newBooks.push(newBook);
     localStorage.setItem("books",JSON.stringify(newBooks));
-    alert('💟 장바구니에 추가되었습니다.');
+    showPutMessage();
     return ;
   }
   books.push(book);
   localStorage.setItem("books",JSON.stringify(books));
-  alert('💟 장바구니에 추가되었습니다.');
+  showPutMessage();
 }
+
+function showPutMessage(){
+  const message = document.querySelector('.put-message-modal');
+    message.classList.add('visible');
+    setTimeout(() => {
+      message.classList.remove('visible');
+    },4000);
+} 
