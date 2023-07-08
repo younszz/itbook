@@ -20,6 +20,7 @@ router.use('/user/info', serveStatic('user-info'));
 router.use('/user/order', serveStatic('user-order'));
 router.use('/cart', serveStatic('cart'));
 router.use('/product/:pid', serveStatic('product-detail'));
+router.use('/products/:categoryName', serveStatic('product-list'));
 
 router.use('/user/info', serveStatic('user-info'));
 router.use('/user/order', serveStatic('user-order'));
