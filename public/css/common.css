@@ -117,7 +117,7 @@ header .header-btn ul li a {
 .btn-close i {
   font-size: 16px;
 }
-form {
+.form {
   padding: 16px;
 }
 .form-list {
@@ -184,6 +184,12 @@ form {
   width: 100vw;
   height: 100vh;
   z-index: 9000;
+}
+.fade {
+  display: none;
+}
+.show {
+  display: block;
 }
 /* footer */
 footer {
@@ -263,10 +269,9 @@ footer {
   font-weight: 800;
   line-height: 42px;
   text-align: center;
-  margin-bottom:70px;
+  margin-bottom: 70px;
 }
 
-
-li.on a{
-  color:#7156ed;
+li.on a {
+  color: #7156ed;
 }
