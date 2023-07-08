@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 import viewsRoutes from './routes/views.js';
 import adminRoutes from './routes/admin';
-import shopRoutes from './routes/shop.js';
+import productRoutes from './routes/product.js';
 import userRoutes from './routes/user';
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(userRoutes);
 app.use(viewsRoutes);
 app.use(adminRoutes);
-app.use(shopRoutes);
+app.use(productRoutes);
 
 mongoose
   .connect(
