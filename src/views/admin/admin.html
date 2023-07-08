@@ -49,17 +49,17 @@
             <div class="admin-filter">
               <p>전체 <span id="listCount"></span> 건</p>
               <div class="admin-input">
-                <select name="p-cate" id="productCategory">
+                <!-- <select name="p-cate" id="productCategory">
                   <option value="" selected>전체 분류</option>
                   <option value="">알고리즘</option>
                   <option value="">Ai</option>
                   <option value="">웹</option>
                   <option value="">모바일</option>
                   <option value="">대학서적</option>
-                </select>
+                </select> -->
                 <label for="searchName"></label>
-                <input type="text" placeholder="상품명 검색" id="searchName" />
-                <button class="search-btn">검색</button>
+                <input type="search" placeholder="상품명을 입력하세요." id="searchName">
+                <button type="submit" class="search-btn" id="searchBtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
               </div>
             </div>
             <div class="admin-tbl">
@@ -77,7 +77,7 @@
                 </colgroup>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" /></th>
+                    <th><input type="checkbox" class="selectCheck" id="allCheck"></th>
                     <th>이미지</th>
                     <th>상품명</th>
                     <th>판매가</th>

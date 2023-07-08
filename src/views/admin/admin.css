@@ -103,6 +103,10 @@
   width:230px;
  }
 
+ .contents .admin-filter .admin-input input:focus {
+  outline: none;
+ }
+
  .contents .admin-filter .admin-input:focus{
   border:none;
  }
@@ -111,8 +115,8 @@
   cursor: pointer;
   background-color: #d9d9d9;
   border:none;
-  border-radius: 3px;
-  padding:7px;
+  border-radius: 5px;
+  padding:9px;
  }
 
  .admin-tbl table {
