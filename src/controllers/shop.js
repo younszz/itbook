@@ -2,9 +2,20 @@ import Product from '../models/product';
 import Category from '../models/category';
 
 exports.getProducts = (req, res) => {
-  Product.find().then((products) => {
-    res.send(products);
-  });
+  try {
+    // 카테고리가 쿼리 파라미터로 제공된 경우
+    if (req.query.category) {
+      const products = await Product.find({ category: req.query.category });
+      return res.json(products);
+    }
+
+    // 카테고리가 제공되지 않은 경우 모든 제품을 반환
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '서버 오류' });
+  }
 };
 
 exports.getproductDetail = (req, res) => {
