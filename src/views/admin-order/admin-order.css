@@ -1,17 +1,4 @@
- /**************** reset ******************/
- @import url('/css/reset.css');
 
-
-/**************** common ******************/
-@import url('/css/common.css');
-
-
- /**************** font ******************/
- @import url('/css/font.css');
-
-
-
-  /**************** admin_order_list ******************/
   .admin-info{
     display: flex;
    }

@@ -1,13 +1,3 @@
-/**************** reset ******************/
-@import url('/css/reset.css');
-
-
-/**************** common ******************/
-@import url('/css/common.css');
-
-
-/**************** font ******************/
-@import url('/css/font.css');
 
 /**************** product-detail ******************/
 .detail-contents {
@@ -118,7 +108,7 @@
   flex: 0 0 52px;
   border: 1px solid #CCC;
   border-radius: 6px;
-  background: url('./img/btn_cart.png') center center no-repeat;
+  background: url('/img/btn_cart.png') center center no-repeat;
   background-size: 28px auto;
   text-indent: -1000em;
   overflow: hidden;
