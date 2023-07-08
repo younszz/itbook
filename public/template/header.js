@@ -334,12 +334,12 @@ const headerMenuList = async () => {
     const data = await response.json();
 
     const headerMenu = document.querySelector("#headerMenu");
-    for (let i = 0; i < 7; i++) {
-      const li = document.createElement('li');
-      const item = data[i] || ""; // 빈 값인 경우 빈칸으로 처리
-      li.innerHTML = `<a href="/products">${item}</a>`;
-      headerMenu.appendChild(li);
-      console.log(li);
+    for (const item of data) {
+      if(item){ // 빈칸이 아닐 때 
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="/products/${item}">${item}</a>`;
+        headerMenu.appendChild(li);
+      } 
     }
   } catch (error) {
     console.log('Error:', error);
