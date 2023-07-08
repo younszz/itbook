@@ -2,7 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../models/user');
+const User = require('../models/User');
 
 // JWT 설정. .env에 저장된 시크릿키를 가져옴
 const options = {

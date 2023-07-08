@@ -1,7 +1,10 @@
 const Product = require('../models/product');
 import Category from '../models/category';
+const Order = require('../models/order');
 
-exports.postAddProduct = (req, res) => {
+
+//상품 생성 수정 삭제
+exports.postProduct = (req, res) => {
   const { title, description, price, pages, author, category, imageUrl } =
     req.body;
 
@@ -54,6 +57,43 @@ exports.postEditProduct = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
+//주문 조회 수정 삭제
+exports.getOrders = (req, res) => {
+  Order.find()
+    .then((orders) => {
+      console.log('주문 조회');
+      res.json(orders);
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.editOrder = (req, res) => {
+  const { orderId, newStatus } = req.body;
+
+  Order.findById(orderId)
+    .then((order) => {
+      order.status = newStatus;
+      return order.save();
+    })
+    .then(() => {
+      console.log('주문 업데이트');
+      res.redirect('/admin');
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.deleteOrder = (req, res) => {
+  const orderId = req.body.orderId;
+
+  Order.findByIdAndRemove(orderId)
+    .then(() => {
+      console.log('주문 삭제');
+      res.redirect('/admin');
+    })
+    .catch((err) => console.log(err));
+};
+
+//카테고리 조회 수정
 
 exports.getCategories = (req, res) => {
   Category.findOne()

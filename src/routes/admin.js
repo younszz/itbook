@@ -1,16 +1,24 @@
 import express from 'express';
-import adminController from '../controllers/admin';
+import passport from 'passport';
+import isAdmin from '../middleware/admin';
+import adminController from '../controller/admin';
 
 const router = express.Router();
 
-router.post('/api/product', adminController.postAddProduct);
+//주문 조회 수정 삭제
+router.get('/api/order', passport.authenticate('jwt', { session: false }), isAdmin, adminController.getOrders);
+router.put('/api/order/', passport.authenticate('jwt', { session: false }), isAdmin, adminController.editOrder);
+router.delete('/api/order/', passport.authenticate('jwt', { session: false }), isAdmin, adminController.deleteOrder);
 
-router.post('/api/product/:id', adminController.postEditProduct);
 
-router.delete('/api/product/:id', adminController.deleteProduct);
+//상품 추가 삭제 수정
+router.post('/api/product/', passport.authenticate('jwt', { session: false }), isAdmin, adminController.postProduct);
+router.put('/api/product/', passport.authenticate('jwt', { session: false }), isAdmin, adminController.postEditProduct);
+router.delete('/api/product/', passport.authenticate('jwt', { session: false }), isAdmin, adminController.deleteProduct);
 
-router.get('/api/category', adminController.getCategories);
-
-router.post('/api/category', adminController.updateCategory);
+//카테고리 조회 수정
+router.get('/api/category', passport.authenticate('jwt', { session: false }), isAdmin, adminController.getCategories);
+router.post('/api/category', passport.authenticate('jwt', { session: false }), isAdmin, adminController.updateCategory);
 
 module.exports = router;
+

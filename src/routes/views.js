@@ -17,17 +17,17 @@ export const serveStatic = (resource, fileName) => {
 const router = express.Router();
 
 router.use('/', serveStatic('home'));
-router.use('/user/info', serveStatic('user-info'));
-router.use('/user/order', serveStatic('user-order'));
 router.use('/cart', serveStatic('cart'));
 router.use('/product/:pid', serveStatic('product-detail'));
-
 router.use('/products/:categoryName', checkCategoryExists, serveStatic('product-list'));
 
-router.use('/admin/', serveStatic('admin'));
-router.use('/admin/product/edit/:pid', serveStatic('admin-product'));
-router.use('/admin/product/add/', serveStatic('admin-product'));
-router.use('/admin/order', serveStatic('admin-order'));
-router.use('/admin/category', serveStatic('admin-category'));
+router.use('/user/info', passport.authenticate('jwt', { session: false }), serveStatic('user-info'));
+router.use('/user/order', passport.authenticate('jwt', { session:false }), serveStatic('user-order'));
+
+router.use('/admin/', passport.authenticate('jwt', { session: false}), isAdmin, serveStatic('admin'));
+router.use('/admin/product/edit/:pid', passport.authenticate('jwt', { session:false }), isAdmin, serveStatic('admin-product'));
+router.use('/admin/product/add/', passport.authenticate('jwt', { session: false }), isAdmin, serveStatic('admin-product'));
+router.use('/admin/order', passport.authenticate('jwt', { session: false }), isAdmin, serveStatic('admin-order'));
+
 
 export default router;
