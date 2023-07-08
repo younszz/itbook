@@ -1,17 +1,3 @@
- /**************** reset ******************/
- @import url('/css/reset.css');
-
-
- /**************** common ******************/
- @import url('/css/common.css');
-
-
- /**************** font ******************/
- @import url('/css/font.css');
-
-
-
- /**************** product-category ******************/
 
  .contents .admin-list .admin-title h5{
   font-size:20px;
