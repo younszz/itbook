@@ -92,7 +92,11 @@ async function setLocalItems(){
   const book = { id, quantity};
   const isBook = Object.values(books).find(obj => obj.id == book.id);
   if(isBook){
-    alert('이미 장바구니에 담은 상품입니다.');
+    const newBook = {...isBook, quantity: book.quantity};
+    const newBooks = Object.values(books).filter((obj) => obj.id !== book.id)
+    newBooks.push(newBook);
+    localStorage.setItem("books",JSON.stringify(newBooks));
+    alert('💟 장바구니에 추가되었습니다.');
     return ;
   }
   books.push(book);
