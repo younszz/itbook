@@ -1,58 +1,64 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // 폼 요소를 선택합니다.
-  const form = document.getElementById('form');
-  const cate01Input = document.getElementById('cate01');
-  const cate02Input = document.getElementById('cate02');
-  const cate03Input = document.getElementById('cate03');
-  const cate04Input = document.getElementById('cate04');
+// 카테고리 리스트 만들기 (ul)
+const createCategoryList = (categories) => {
+  const ul = document.createElement('ul');
 
-    // form submit 이벤트 리스너를 추가합니다.
-    form.addEventListener('submit', async function(event) {
-      event.preventDefault(); // 폼의 기본 동작인 페이지 이동을 방지합니다.
-      editCategory(); // editCategory 함수를 호출합니다.
-    });
-
-  async function editCategory() {
-    try {
-      const response = await fetch('/api/category');
-      const data = await response.json();
-      console.log(data);
-
-      // 가져온 카테고리 값을 입력 폼에 설정합니다.
-      cate01Input.value = data[0];
-      cate02Input.value = data[1];
-      cate03Input.value = data[2];
-      cate04Input.value = data[3];
-
-      // 수정된 입력값을 가져옵니다.
-      const newCategories = [
-        cate01Input.value,
-        cate02Input.value,
-        cate03Input.value,
-        cate04Input.value
-      ];
-
-      // POST 요청을 보냅니다.
-      const postResponse = await fetch('/api/category', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newCategories)
-      });
-
-      if (postResponse.ok) {
-        console.log('POST 요청이 성공하였습니다.');
-      } else {
-        throw new Error('POST 요청이 실패하였습니다.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  for (let i = 0; i < 7; i++) {
+    const li = document.createElement('li');
+      li.innerHTML = `
+    <label for="cate${i}">분류${i + 1}</label>
+    <input name="cate${i}" id="cate${i}" type="text" value="${categories[i] || ''}" />
+    `;
+    ul.appendChild(li);
   }
 
-  // editCategory 함수를 초기 호출합니다.
-  editCategory();
-});
+  return ul;
+};
+
+// DB의 카테고리 데이터를 가져와서 form 요소에 추가
+const getCategoryFromDB = async () => {
+  try {
+    const response = await fetch('/api/category');
+    const data = await response.json();
+
+    const form = document.getElementById('form');
+    const ul = createCategoryList(data);
+    form.prepend(ul);
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
+
+// 입력한 카테고리 내용을 db에 저장
+const postCategoryToDB = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const dataArr = Array.from(formData.values());
+  console.log(dataArr);
+
+  try {
+    const response = await fetch('/api/category', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataArr),
+    });
+
+    if (!response.ok) {
+      throw new Error('POST 요청 실패');
+    }
+
+    alert('카테고리가 수정되었습니다');
+    location.reload();
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
 
 
+// 페이지가 로드되면 db에서 가져온 카테고리를 UI로 보여줌
+getCategoryFromDB();
+
+// form 제출 이벤트
+const form = document.getElementById('form');
+form.addEventListener('submit', postCategoryToDB);

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>관리자페이지|상품 등록</title>
+  <title>관리자페이지</title>
   <!-- css -->
   <link rel="stylesheet" href="./admin-product.css">
 
@@ -25,8 +25,9 @@
       <div class="nav">
         <h3>쇼핑몰 관리</h3>
         <ul>
-          <li><a href="/admin/orders">주문관리</a></li>
-          <li class="on"><a href="/admin/products">상품관리</a></li>
+          <li><a href="/admin/order">주문관리</a></li>
+          <li class="on"><a href="/admin">상품관리</a></li>
+          <li><a href="/admin/category">카테고리관리</a></li>
         </ul>
       </div>
       <div class="contents">
@@ -39,7 +40,7 @@
           <div class="product-add-form">
             <form id="form" class="admin-form">
               <ul>
-                <li><label for="fileInput">상품 이미지</label></li>
+                <li><label for="fileInput">상품 이미지(url)</label></li>
                 <li><input type="text" id="fileInput" name="imageUrl"></li>
                 <li><label for="titleInput">상품명</label></li>
                 <li><input type="text" id="titleInput" name="title"></li>
@@ -48,7 +49,10 @@
                 <li><label for="priceInput">판매가</label></li>
                 <li><input type="number" id="priceInput" name="price" class="numberInput">원</li>
                 <li><label for="categoryInput">분류</label></li>
-                <li><input type="text" id="categoryInput" name="category"></li>
+                <li>
+                  <select name="category" id="categoryInput">
+                  </select>
+                </li>
                 <li><label for="authorInput">저자</label></li>
                 <li><input type="text" id="authorInput" name="author"></li>
                 <li><label for="pageInput">페이지</label></li>
@@ -56,7 +60,7 @@
               </ul>
               <div class="admin-btn">
                 <button type="submit" class="admin-submit">등록하기</button>
-                <button class="admin-list"><a href="/admin/products">목록</a></button>
+                <button class="admin-list"><a href="/admin">목록</a></button>
               </div>
             </form>
          

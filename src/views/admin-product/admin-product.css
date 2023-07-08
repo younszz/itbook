@@ -12,6 +12,16 @@
 
 
  /**************** product-add ******************/
+
+ .contents .admin-list .admin-title h5{
+  font-size:20px;
+  font-weight:800;
+ }
+
+ .contents .admin-list .admin-title h5 i {
+  padding-right: 5px;
+}
+
  .admin-info {
    display: flex;
  }
@@ -86,6 +96,7 @@
    padding: 9px 7px;
    border: 1px solid #d1d1d1;
    margin-left: 10px;
+   font-family: 'Pretendard';
  }
 
  .contents .admin-list .product-add-form .admin-form .admin-btn {

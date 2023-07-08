@@ -41,6 +41,7 @@ header.fixed {
 }
 
 header ul.header-menu {
+  display: flex;
   position: absolute;
   top: 0px;
   left: 272px;
