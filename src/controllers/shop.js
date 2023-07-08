@@ -1,7 +1,7 @@
 import Product from '../models/product';
 import Category from '../models/category';
 
-exports.getProducts = (req, res) => {
+exports.getProducts = async (req, res) => {
   try {
     // 카테고리가 쿼리 파라미터로 제공된 경우
     if (req.query.category) {
