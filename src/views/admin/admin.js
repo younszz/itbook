@@ -70,25 +70,22 @@ window.addEventListener('load', () => {
 
 
 // 상품 검색
-const searchbtn = document.querySelector('#searchBtn'); // 검색 버튼 엘리먼트 선택
-const input = document.querySelector('#searchName'); // 입력창 엘리먼트 선택
-const bookList = document.querySelector('#adminTbl'); // 결과를 표시할 컨테이너 선택
+const searchbtn = document.querySelector('#searchBtn'); 
+const input = document.querySelector('#searchName'); 
+const bookList = document.querySelector('#adminTbl'); 
 
 searchbtn.addEventListener('click', async (event) => {
-  event.preventDefault(); // 기본 동작 방지
+  event.preventDefault(); 
 
-  const searchKeyword = input.value; // 입력된 검색 단어 가져오기
+  const searchKeyword = input.value; 
 
   try {
-    const response = await fetch('/api/products'); // 데이터 가져오기
-    const data = await response.json(); // JSON 형식의 데이터 변환
-
-    // title 값을 검색 단어와 비교하여 필터링
+    const response = await fetch('/api/products'); 
+    const data = await response.json(); 
     const filteredData = data.filter((book) => {
       return book.title.includes(searchKeyword);
     });
 
-    // 필터링된 데이터를 HTML 문자열로 변환
     const books = filteredData
       .map((book) => {
         return `<tr>
@@ -107,7 +104,6 @@ searchbtn.addEventListener('click', async (event) => {
       })
       .join('');
 
-    // 결과를 표시할 컨테이너에 HTML 문자열 삽입
     bookList.innerHTML = books;
   } catch (error) {
     console.error('데이터를 불러오는 중 오류가 발생했습니다:', error);
