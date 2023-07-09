@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import User from '../models/User';
 
 exports.postJoin = async (req, res) => {
   try {

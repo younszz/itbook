@@ -1,7 +1,8 @@
+// import mongoose, { model } from 'mongoose';
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+//const { Schema, model } = mongoose.Schema;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true, unique: true },
@@ -11,4 +12,5 @@ const userSchema = new Schema({
   cart: { type: Array, default: [], required: false },
 });
 
-module.exports = mongoose.model('User', userSchema);
+// module.exports = mongoose.model('User', userSchema);
+export default mongoose.models.User || mongoose.model('User', userSchema);
