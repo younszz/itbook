@@ -111,4 +111,12 @@ searchbtn.addEventListener('click', async (event) => {
 });
 
 
+// 엔터키로 검색
+const inputEnter = document.getElementById("searchName");
 
+inputEnter.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("searchBtn").click();
+  }
+});
