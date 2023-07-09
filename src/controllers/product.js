@@ -50,7 +50,8 @@ exports.postProduct = (req, res) => {
 };
 
 exports.updateProduct = (req, res) => {
-  const { prodId, description, imageUrl, price, title, pages, author } =
+  const prodId = req.params.id;
+  const { description, imageUrl, price, title, pages, author } =
     req.body;
 
   Product.findById(prodId)
@@ -71,7 +72,7 @@ exports.updateProduct = (req, res) => {
 };
 
 exports.deleteProduct = (req, res) => {
-  const productId = req.body.productId;
+  const productId = req.params.id;
   console.log(productId);
   Product.findByIdAndRemove(productId)
     .then(() => {
