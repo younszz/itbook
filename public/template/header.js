@@ -134,7 +134,7 @@ const showModal = (e) => {
 };
 
 // 쿠키에 name="jwt"로 저장되어있는 값 찾음
-function getTokenFromCookie() {
+const getTokenFromCookie = () => {
   const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split("=");
@@ -143,8 +143,28 @@ function getTokenFromCookie() {
     }
   }
   return null;
-}
+};
 const token = getTokenFromCookie();
+const getUserInfo = async () => {
+  try {
+    const response = await fetch("/api/user", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("실패");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+// getUserInfo();
 
 // 쿠키삭제 후 새로고침(로그아웃)
 const deleteCookie = (name) => {
@@ -153,63 +173,95 @@ const deleteCookie = (name) => {
   )}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   window.location.reload();
 };
+
 const renderHeader = () => {
-  console.log(token);
   const header = document.createElement("header");
   const div = document.createElement("div");
 
-  // 쿠키에 token이 존재하면 보여지는 화면(로그인 상태)
-  if (token) {
-    header.innerHTML = `
-    <a href="/">
-      <img src="/img/logo.png" alt="logo">
-    </a>
-  </div>
-  <!-- 메뉴 -->
-  <ul class="header-menu" id="headerMenu">
-
-  </ul>
-  <!-- 로그인/회원가입/장바구니 -->
-  <div class="header-btn">
-    <ul>
-      <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-      <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
-      <li><a href="/user/info">마이페이지</a></li>
-      <li id="logout">로그아웃</li>
+  const handleUserInfo = async () => {
+    const userInfo = await getUserInfo();
+    // 관리자 계정
+    if (userInfo.isAdmin) {
+      header.innerHTML = `
+      <a href="/">
+        <img src="/img/logo.png" alt="logo">
+      </a>
+    </div>
+    <!-- 메뉴 -->
+    <ul class="header-menu" id="headerMenu">
+    
     </ul>
-  </div>
-</header>
-  `;
-    header.querySelector("#logout").addEventListener("click", () => {
-      deleteCookie("jwt");
-    });
-  } else {
-    // 쿠키에 token이 없으면 보여지는 화면(로그아웃 상태)
+    <!-- 로그인/회원가입/장바구니 -->
+    <div class="header-btn">
+      <ul>
+        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="/admin">관리자</a></li>
+        <li id="logout">로그아웃</li>
+      </ul>
+    </div>
+    </header>
+    `;
+      header.querySelector("#logout").addEventListener("click", () => {
+        deleteCookie("jwt");
+      });
 
-    header.innerHTML = `
-    <a href="/">
-      <img src="/img/logo.png" alt="logo">
-    </a>
-  </div>
-  <!-- 메뉴 -->
-  <ul class="header-menu" id="headerMenu">
-
-  </ul>
-  <!-- 로그인/회원가입/장바구니 -->
-  <div class="header-btn">
-    <ul>
-      <li><a href="/admin">관리자(임시)</i></a></li>
-      <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
-      <li id="loginBtn">로그인</li>
-      <li id="JoinBtn">회원가입</li>
+      // 일반 계정
+    } else if (!userInfo.isAdmin) {
+      header.innerHTML = `
+      <a href="/">
+        <img src="/img/logo.png" alt="logo">
+      </a>
+    </div>
+    <!-- 메뉴 -->
+    <ul class="header-menu" id="headerMenu">
+    
     </ul>
-  </div>
-</header>
-  `;
+    <!-- 로그인/회원가입/장바구니 -->
+    <div class="header-btn">
+      <ul>
+        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="/user/info">마이페이지</a></li>
+        <li id="logout">로그아웃</li>
+      </ul>
+    </div>
+    </header>
+    `;
+      header.querySelector("#logout").addEventListener("click", () => {
+        deleteCookie("jwt");
+      });
+    }
+  };
+  handleUserInfo();
+
+  // 쿠키에 token이 없으면 보여지는 화면(로그아웃 상태)
+  if (!token) {
+    header.innerHTML = `
+        <a href="/">
+          <img src="/img/logo.png" alt="logo">
+        </a>
+      </div>
+      <!-- 메뉴 -->
+      <ul class="header-menu" id="headerMenu">
+  
+      </ul>
+      <!-- 로그인/회원가입/장바구니 -->
+      <div class="header-btn">
+        <ul>
+          <li><a href="/admin">관리자(임시)</i></a></li>
+          <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+          <li id="loginBtn">로그인</li>
+          <li id="JoinBtn">회원가입</li>
+        </ul>
+      </div>
+    </header>
+      `;
 
     header.querySelector("#loginBtn").addEventListener("click", showModal);
     header.querySelector("#JoinBtn").addEventListener("click", showModal);
   }
+
   const loginModalContent = `
   <div class="modal fade" id="loginModalContent">
 <div class="modal-header">
@@ -249,7 +301,7 @@ const renderHeader = () => {
   <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="modal-body">
-  
+
   <form id="joinForm"  method="POST" class="form">
     <ul class="form-list">
       <li class="input-box">
