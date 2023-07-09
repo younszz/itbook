@@ -1,11 +1,11 @@
 const express = require("express");
 const userController = require("../controllers/user");
-const authController = require("../controllers/auth")
+// const authController = require("../controllers/auth");
 const passport = require("passport");
 const router = express.Router();
 
-router.post("/api/join", authController.postJoin);
-router.post("/api/login", authController.postLogin);
+// router.post("/api/join", userController.postJoin);
+// router.post("/api/login", userController.postLogin);
 
 router.get("/api/user", passport.authenticate('jwt', { session: false}), userController.getUser);
 

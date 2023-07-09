@@ -1,11 +1,11 @@
 import express from 'express';
-import userController from '../controllers/auth';
+import authController from '../controllers/auth';
 
 
 const router = express.Router();
 
-router.post('/api/join', userController.postJoin);
+router.post('/api/join', authController.postJoin);
 
-router.post('/api/login', userController.postLogin);
+router.post('/api/login', authController.postLogin);
 
 module.exports = router;

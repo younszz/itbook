@@ -10,6 +10,7 @@ import viewsRoutes from './routes/views.js';
 import productRoutes from './routes/product.js';
 import categoryRoutes from './routes/category.js';
 import userRoutes from './routes/user';
+import authRoutes from './routes/auth';
 import './middlewares/pass.js';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 //Routes
 app.use(userRoutes);
+app.use(authRoutes);
 app.use(categoryRoutes)
 
 app.use(productRoutes);
