@@ -45,14 +45,14 @@ exports.postProduct = (req, res) => {
     .save()
     .then((result) => {
       console.log('상품 생성');
+      res.status(201).json(result);
     })
     .catch((err) => console.log(err));
 };
 
 exports.updateProduct = (req, res) => {
-  const prodId = req.params.id;
-  const { description, imageUrl, price, title, pages, author } =
-    req.body;
+  const prodId = req.params.pid;
+  const { description, imageUrl, price, title, pages, author } = req.body;
 
   Product.findById(prodId)
     .then((product) => {
@@ -65,19 +65,18 @@ exports.updateProduct = (req, res) => {
       return product.save();
     })
     .then((result) => {
-      console.log('상품 업데이트');
-      res.redirect('/admin');
+      console.log('상품 수정');
+      res.status(201).json(result);
     })
     .catch((err) => console.log(err));
 };
 
 exports.deleteProduct = (req, res) => {
-  const productId = req.params.id;
-  console.log(productId);
+  const productId = req.params.pid;
   Product.findByIdAndRemove(productId)
-    .then(() => {
+    .then((result) => {
       console.log('상품 삭제');
-      res.redirect('/admin');
+      res.status(201).json(result);
     })
     .catch((err) => console.log(err));
 };
