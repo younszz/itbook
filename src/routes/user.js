@@ -1,24 +1,25 @@
 import express from 'express';
-import userController from '../controllers/user';
+import { getUser, updateUser, deleteUser } from '../controllers/user';
 import passport from 'passport';
+
 const router = express.Router();
 
 router.get(
   '/api/user',
   passport.authenticate('jwt', { session: false }),
-  userController.getUser
+  getUser
 );
 
 router.post(
   '/api/user/:uid',
   passport.authenticate('jwt', { session: false }),
-  userController.updateUser
+  updateUser
 );
 
 router.delete(
   '/api/user/:uid',
   passport.authenticate('jwt', { session: false }),
-  userController.deleteUser
+  deleteUser
 );
 
-module.exports = router;
+export default router;

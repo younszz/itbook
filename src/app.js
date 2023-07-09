@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -12,6 +11,8 @@ import categoryRoutes from './routes/category.js';
 import userRoutes from './routes/user';
 import authRoutes from './routes/auth';
 import './middlewares/pass.js';
+
+dotenv.config();
 
 const app = express();
 

@@ -1,7 +1,7 @@
 import Category from '../models/category';
 
 // 카테고리
-exports.getCategories = (req, res) => {
+export const getCategories = (req, res) => {
   Category.findOne()
     .then((category) => {
       if (!category) {
@@ -12,7 +12,7 @@ exports.getCategories = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.updateCategory = (req, res) => {
+export const updateCategory = (req, res) => {
   const newValue = req.body;
 
   if (!Array.isArray(newValue)) {

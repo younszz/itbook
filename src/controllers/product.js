@@ -1,6 +1,6 @@
 import Product from '../models/product';
 
-exports.getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
     // 카테고리가 쿼리 파라미터로 제공된 경우
     if (req.query.category) {
@@ -17,7 +17,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.getproductDetail = (req, res) => {
+export const getproductDetail = (req, res) => {
   const productId = req.params.pid;
 
   Product.findById(productId)
@@ -27,7 +27,7 @@ exports.getproductDetail = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postProduct = (req, res) => {
+export const postProduct = (req, res) => {
   const { title, description, price, pages, author, category, imageUrl } =
     req.body;
 
@@ -50,7 +50,7 @@ exports.postProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.updateProduct = (req, res) => {
+export const updateProduct = (req, res) => {
   const prodId = req.params.pid;
   const { description, imageUrl, price, title, pages, author } = req.body;
 
@@ -71,7 +71,7 @@ exports.updateProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.deleteProduct = (req, res) => {
+export const deleteProduct = (req, res) => {
   const productId = req.params.pid;
   Product.findByIdAndRemove(productId)
     .then((result) => {
