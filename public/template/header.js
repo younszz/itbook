@@ -226,6 +226,7 @@ const renderHeader = () => {
         name="loginEmail"
         autocomplete="off"
         id= "loginEmail"
+        value="admin@admin.com"
       />
     </li>
     <li class="input-box">

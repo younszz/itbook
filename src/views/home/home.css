@@ -108,9 +108,29 @@
     font-weight:700;
 }
 
-.b-list .list-box .cate.new{
+.list-box .cate.green{
   color:#20911c;
   border-bottom: 1px solid #20911c;
+}
+
+.list-box .cate.orange{
+  color:#ff9000;
+  border-bottom: 1px solid #ff9000;
+}
+
+.list-box .cate.blue{
+  color:#140088;
+  border-bottom: 1px solid #140088;
+}
+
+.list-box .cate.pink{
+  color:#ff0097;
+  border-bottom: 1px solid #ff0097;
+}
+
+.list-box .cate.purple{
+  color:#9b08a0;
+  border-bottom: 1px solid #9b08a0;
 }
 
 .b-list .list-box .name {

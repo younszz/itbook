@@ -41,12 +41,17 @@ function getUrl(){
   return id;
 }
 
-async function getProduct(id){
-  const response = await fetch(`/api/product/${id}`);
-  const book = await response.json();
+async function getProduct(id) {
+  try {
+    const response = await fetch(`/api/product/${id}`);
+    const book = await response.json();
 
-  return book;
+    return book;
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
+
 
 function detailContentTemplate(book){
   return `<div class="detail-img">
