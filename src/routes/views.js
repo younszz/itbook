@@ -32,5 +32,6 @@ router.use('/admin/', serveStatic('admin'));
 router.use('/admin/product/edit/:pid', serveStatic('admin-product'));
 router.use('/admin/product/add/', serveStatic('admin-product'));
 router.use('/admin/order', serveStatic('admin-order'));
+router.use('/admin/category', serveStatic('admin-category'));
 
 export default router;
