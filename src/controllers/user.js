@@ -1,6 +1,4 @@
-
-const User = require('../models/User');
-
+import User from '../models/user';
 
 exports.getUser = async (req, res) => {
   try {

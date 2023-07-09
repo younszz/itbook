@@ -3,8 +3,6 @@ import userController from '../controllers/user';
 import passport from 'passport';
 const router = express.Router();
 
-
-
 router.get(
   '/api/user',
   passport.authenticate('jwt', { session: false }),
