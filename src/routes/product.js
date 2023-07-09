@@ -1,7 +1,6 @@
 import express from 'express';
 import productController from '../controllers/product';
-const passport = require('passport');
-
+import passport from 'passport';
 
 const router = express.Router();
 

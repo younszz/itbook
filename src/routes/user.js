@@ -1,16 +1,25 @@
-const express = require("express");
-const userController = require("../controllers/user");
-// const authController = require("../controllers/auth");
-const passport = require("passport");
+import express from 'express';
+import userController from '../controllers/user';
+import passport from 'passport';
+
 const router = express.Router();
 
-// router.post("/api/join", userController.postJoin);
-// router.post("/api/login", userController.postLogin);
+router.get(
+  '/api/user',
+  passport.authenticate('jwt', { session: false }),
+  userController.getUser
+);
 
-router.get("/api/user", passport.authenticate('jwt', { session: false}), userController.getUser);
+router.post(
+  '/api/user/:uid',
+  passport.authenticate('jwt', { session: false }),
+  userController.updateUser
+);
 
-router.post("/api/user/:uid", passport.authenticate('jwt', { session: false }), userController.updateUser);
-
-router.delete("/api/user/:uid", passport.authenticate('jwt', { session: false}), userController.deleteUser);
+router.delete(
+  '/api/user/:uid',
+  passport.authenticate('jwt', { session: false }),
+  userController.deleteUser
+);
 
 module.exports = router;

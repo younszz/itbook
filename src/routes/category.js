@@ -1,8 +1,6 @@
 import express from 'express';
 import categoryController from '../controllers/category';
-const passport = require('passport');
-
-
+import passport from 'passport'
 const router = express.Router();
 router.get('/api/category', categoryController.getCategories);
 
