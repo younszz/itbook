@@ -1,27 +1,24 @@
-require('dotenv').config();
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import viewsRoutes from './routes/views.js';
-import adminRoutes from './routes/admin';
 import productRoutes from './routes/product.js';
-import userRoutes from './routes/user';
+import categoryRoutes from './routes/category.js';
 
 const app = express();
 
-//미들웨어 파싱
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
 //Routes
-app.use(userRoutes);
-app.use(viewsRoutes);
-app.use(adminRoutes);
+// app.use(userRoutes);
+app.use(categoryRoutes)
 app.use(productRoutes);
+app.use(viewsRoutes);
 
 mongoose
   .connect(
