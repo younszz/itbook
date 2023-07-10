@@ -101,8 +101,9 @@
 
 //반가워요 OO님 기능
 //회원탈퇴 alert기능
+//전화번호 + 주소 + 생년월일 데이터 있어야함
 
-function getToken() {
+const getToken = () => {
   const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split("=");
@@ -125,7 +126,8 @@ const getUser = async () =>{
     })
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        const {name, email}  = data;
+        return {name, email};
       } else {
         console.error("실패");
       }
@@ -134,4 +136,15 @@ const getUser = async () =>{
     }
 }
 
-window.addEventListener('load',getUser);
+const showUserInfo = async () => {
+  const {name, email} = await getUser();
+  const welcomeName = document.querySelector('#welcomeName');
+  const userNameInput = document.querySelector("#userName");
+  const userEmailInput = document.querySelector("#userEmail");
+  welcomeName.innerText= name;
+  userEmailInput.value = email;
+  userNameInput.value = name;
+}
+
+window.addEventListener('load',showUserInfo);
+

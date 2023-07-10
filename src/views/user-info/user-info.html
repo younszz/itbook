@@ -38,7 +38,7 @@
           <div class="my-container">
             <h4 class="my-welcome">
               반가워요,
-              <p class="name"><b>윤성지</b>님</p>
+              <p class="name"><b id="welcomeName"></b>님</p>
             </h4>
           </div>
           <div class="user-midify">
@@ -52,13 +52,13 @@
               <form id="user-info">
                 <ul class="user-info-box">
                   <li>
-                    <label for="userEmail">이메일</label>
+                    <label for="userId">아이디</label>
                     <input
                       type="text"
-                      name="userEmail"
+                      name="userId"
                       autocomplete="off"
                       readonly
-                      id="userEmail"
+                      id="userId"
                     />
                   </li>
                   <li>
@@ -70,7 +70,7 @@
                       id="userName"
                     />
                   </li>
-                  <li>
+                  <!-- <li>
                     <label for="password">비밀번호</label>
                     <input type="password" name="password" id="password" />
                   </li>
@@ -81,15 +81,32 @@
                       name="passwordCheck"
                       id="passwordDBCheck"
                     />
-                  </li>
+                  </li> -->
                   <li>
-                    <label for="phoneNumber">전화번호</label>
+                    <label for="phoneNumber">휴대폰 번호</label>
                     <input
                       type="text"
                       name="phoneNumber"
                       autocomplete="off"
                       id="phoneNumber"
                     />
+                  </li>
+                  <li>
+                    <label for="userEmail">이메일</label>
+                    <input
+                      type="text"
+                      name="userEmail"
+                      autocomplete="off"
+                      readonly
+                      id="userEmail"
+                    />
+                  </li>
+                  <li>
+                    <label for="birthdate">생년월일</label>
+                    <input 
+                      type="date"
+                      id="birthdate"
+                      name="birthdate">
                   </li>
                   <li>
                     <label for="address2">주소</label>
