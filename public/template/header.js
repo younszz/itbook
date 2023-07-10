@@ -25,7 +25,7 @@ const showModal = (e) => {
         loginPassword.focus();
         return false;
       }
-      //fetch추가코드
+      //fetch
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -147,22 +147,24 @@ const getTokenFromCookie = () => {
 
 const getUserInfo = async () => {
   const token = getTokenFromCookie();
-  try {
-    const response = await fetch("/api/user", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      console.error("실패");
+  if (token !== null) {
+    try {
+      const response = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("실패");
+      }
+    } catch (err) {
+      console.error(err);
     }
-  } catch (err) {
-    console.error(err);
   }
 };
 

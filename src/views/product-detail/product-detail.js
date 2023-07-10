@@ -1,16 +1,16 @@
 function count(type) {
-  const resultElement = document.getElementById('result');
-  const priceElement = document.getElementById('price');
-  const totalpriceElement = document.getElementById('totalPrice');
+  const resultElement = document.getElementById("result");
+  const priceElement = document.getElementById("price");
+  const totalpriceElement = document.getElementById("totalPrice");
 
   let number = parseInt(resultElement.innerText);
   let price = parseInt(priceElement.innerText);
   let totalprice = parseInt(totalpriceElement.innerText);
 
-  if (type === 'plus') {
+  if (type === "plus") {
     number += 1;
     totalprice += price;
-  } else if (type === 'minus') {
+  } else if (type === "minus") {
     if (number > 1) {
       number -= 1;
       totalprice -= price;
@@ -25,19 +25,24 @@ function count(type) {
 async function appndProduct() {
   const id = getUrl();
   try {
-    const detailContainer = document.getElementById('detailContainer');
+    const detailContainer = document.getElementById("detailContainer");
     const book = await getProduct(id);
     const detailContent = detailContentTemplate(book);
     detailContainer.innerHTML = detailContent;
+    categoryColor();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 }
 
+<<<<<<< HEAD
 
 function getUrl(){
+=======
+function getUrl() {
+>>>>>>> 402061c91a99c12e3104773109ce16bcb87db37a
   const url = window.location.pathname;
-  const parts = url.split('/').filter(Boolean);
+  const parts = url.split("/").filter(Boolean);
   const id = parts.pop();
 
   return id;
@@ -50,12 +55,11 @@ async function getProduct(id) {
 
     return book;
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 }
 
-
-function detailContentTemplate(book){
+function detailContentTemplate(book) {
   return `<div class="detail-img">
       <img src=${book.imageUrl} alt="">
     </div>
@@ -91,29 +95,65 @@ function detailContentTemplate(book){
 }
 appndProduct();
 
-async function setLocalItems(){
+async function setLocalItems() {
   const books = JSON.parse(localStorage.getItem("books")) || [];
   const id = getUrl();
   const quantity = parseInt(document.getElementById("result").innerText);
-  const book = { id, quantity};
-  const isBook = Object.values(books).find(obj => obj.id == book.id);
-  if(isBook){
-    const newBook = {...isBook, quantity: book.quantity};
-    const newBooks = Object.values(books).filter((obj) => obj.id !== book.id)
+  const book = { id, quantity };
+  const isBook = Object.values(books).find((obj) => obj.id == book.id);
+  if (isBook) {
+    const newBook = { ...isBook, quantity: book.quantity };
+    const newBooks = Object.values(books).filter((obj) => obj.id !== book.id);
     newBooks.push(newBook);
-    localStorage.setItem("books",JSON.stringify(newBooks));
+    localStorage.setItem("books", JSON.stringify(newBooks));
     showPutMessage();
-    return ;
+    return;
   }
   books.push(book);
-  localStorage.setItem("books",JSON.stringify(books));
+  localStorage.setItem("books", JSON.stringify(books));
   showPutMessage();
 }
 
-function showPutMessage(){
-  const message = document.querySelector('.put-message-modal');
-    message.classList.add('visible');
-    setTimeout(() => {
-      message.classList.remove('visible');
-    },4000);
-} 
+function showPutMessage() {
+  const message = document.querySelector(".put-message-modal");
+  message.classList.add("visible");
+  setTimeout(() => {
+    message.classList.remove("visible");
+  }, 4000);
+}
+
+async function categoryColor() {
+  try {
+    const response = await fetch("/api/category");
+    const products = await response.json();
+    const cateList = document.getElementsByClassName("detail-cate");
+
+    Array.from(cateList).forEach((cate) => {
+      const category = cate.textContent.slice(1);
+      const productCategory0 = products[0];
+      const productCategory1 = products[1];
+      const productCategory2 = products[2];
+      const productCategory3 = products[3];
+      const productCategory4 = products[4];
+      const productCategory5 = products[5];
+
+      if (category === productCategory0) {
+        cate.classList.add("green");
+      } else if (category === productCategory1) {
+        cate.classList.add("orange");
+      } else if (category === productCategory2) {
+        cate.classList.add("blue");
+      } else if (category === productCategory3) {
+        cate.classList.add("pink");
+      } else if (category === productCategory4) {
+        cate.classList.add("purple");
+      } else if (category === productCategory5) {
+        cate.classList.add("navy");
+      } else {
+        cate.classList.add("red");
+      }
+    });
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}

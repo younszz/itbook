@@ -1,26 +1,5 @@
 'use strict';
 
-const getUserInfo = async () =>{
-  try{
-    const token = getTokenFromCookie();
-    const response = await fetch('/api/user',{
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("로그아웃 상태입니다.");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-}
-
 const onUserState = async () => {
   const user = await getUserInfo();
   const ul = document.querySelector('.cart-list');
@@ -96,13 +75,23 @@ function paymentResult(books){
       acc += cur.price * cur.quantity;
       return acc;
     },0);
-    if(total < 30000){
-      delivery.innerHTML = `+3000원`;
+    if(total == 0){
+      orderBtn.innerHTML=`주문하기`;
+      totalPrice.innerHTML = `0원`;
+      totalPre.innerHTML = `0원`;
+      return ;
     }
-    orderBtn.innerHTML=`${total}원 주문하기`;
-    totalPrice.innerHTML = `${total}원`;
-    totalPre.innerHTML = `${total}원`;
-    
+    else if(total < 30000){
+      delivery.innerHTML = `+3000원`;
+      orderBtn.innerHTML=`${total+3000}원 주문하기`;
+      totalPrice.innerHTML = `${total}원`;
+      totalPre.innerHTML = `${total+3000}원`;
+      return ;
+    }else{
+      orderBtn.innerHTML=`${total}원 주문하기`;
+      totalPrice.innerHTML = `${total}원`;
+      totalPre.innerHTML = `${total}원`;
+    }
   }
 }
 
@@ -197,14 +186,4 @@ function itemTemplate(book){
   `;
 }
 
-function getTokenFromCookie() {
-  const cookies = document.cookie.split(";");
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
-}
 

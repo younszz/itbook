@@ -29,6 +29,7 @@ app.use(categoryRoutes)
 
 app.use(productRoutes);
 app.use(viewsRoutes);
+//app.use(orderRoutes);
 
 mongoose
   .connect(

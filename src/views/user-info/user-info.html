@@ -38,7 +38,7 @@
           <div class="my-container">
             <h4 class="my-welcome">
               반가워요,
-              <p class="name"><b>윤성지</b>님</p>
+              <p class="name"><b id="welcomeName"></b>님</p>
             </h4>
           </div>
           <div class="user-midify">
@@ -52,16 +52,6 @@
               <form id="user-info">
                 <ul class="user-info-box">
                   <li>
-                    <label for="userEmail">이메일</label>
-                    <input
-                      type="text"
-                      name="userEmail"
-                      autocomplete="off"
-                      readonly
-                      id="userEmail"
-                    />
-                  </li>
-                  <li>
                     <label for="userName">이름</label>
                     <input
                       type="text"
@@ -71,24 +61,22 @@
                     />
                   </li>
                   <li>
-                    <label for="password">비밀번호</label>
-                    <input type="password" name="password" id="password" />
-                  </li>
-                  <li>
-                    <label for="passwordCheck">비밀번호 확인</label>
-                    <input
-                      type="password"
-                      name="passwordCheck"
-                      id="passwordCheck"
-                    />
-                  </li>
-                  <li>
-                    <label for="phoneNumber">전화번호</label>
+                    <label for="phoneNumber">휴대폰 번호</label>
                     <input
                       type="text"
                       name="phoneNumber"
                       autocomplete="off"
                       id="phoneNumber"
+                    />
+                  </li>
+                  <li class="item-box">
+                    <label for="userEmail">이메일</label>
+                    <input
+                      type="text"
+                      name="userEmail"
+                      autocomplete="off"
+                      readonly
+                      id="userEmail"
                     />
                   </li>
                   <li>
