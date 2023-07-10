@@ -1,9 +1,5 @@
 'use strict';
 
-const ul = document.querySelector('.cart-list');
-const allCheckBox = document.querySelector('#allCheck');
-const allSelectLabel = document.querySelector('.all-box-container>label');
-
 const getUserInfo = async () =>{
   try{
     const token = getTokenFromCookie();
@@ -14,25 +10,47 @@ const getUserInfo = async () =>{
         'Content-Type': 'application/json'
       }
     })
-    console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        return data;
       } else {
-        console.error("실패");
+        console.error("로그아웃 상태입니다.");
       }
     } catch (err) {
       console.error(err);
     }
 }
 
+const onUserState = async () => {
+  const user = await getUserInfo();
+  const ul = document.querySelector('.cart-list');
+  const isLogin = user ? true : false;
+  if(isLogin){
+    const userBooks = user.cart;
+
+    userBooks.forEach((book)=>{
+      const li = document.createElement('li');
+      li.setAttribute('class','cart-item');
+      li.setAttribute('id',book._id);
+      li.innerHTML = itemTemplate(book);
+      ul.append(li);
+    });
+  }
+  await renderBooks();
+}
+
 window.addEventListener('load', async()=>{
-  const books = await getServerBooks();
-  renderBooks();
+  const ul = document.querySelector('.cart-list');
+  await onUserState();
   ul.addEventListener('click',enableBtnFunc);
   paymentResult();
-  allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`;
-  
+})
+
+function checkBoxOnOff(books){
+  const allCheckBox = document.querySelector('#allCheck');
+  const allSelectLabel = document.querySelector('.all-box-container>label');
+
+  allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`; 
   allCheckBox.addEventListener('change',async ()=>{
     const selectCheckBoxs = document.querySelectorAll('.selectCheck');
     if(allCheckBox.checked){
@@ -47,8 +65,7 @@ window.addEventListener('load', async()=>{
       })
     }
   })
-  getUserInfo();
-})
+}
 
 function enableBtnFunc(e){
   if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
@@ -69,12 +86,11 @@ function enableBtnFunc(e){
   }
 }
 
-async function paymentResult(){
+function paymentResult(books){
   const totalPre = document.querySelector('.total-pre');
   const totalPrice = document.querySelector('.total-price');
   const orderBtn = document.querySelector('.btn-order');
   const delivery = document.querySelector('.delivery');
-  const books = await getServerBooks();
   if(books){
     const total = books.reduce((acc,cur) => {
       acc += cur.price * cur.quantity;
@@ -129,6 +145,7 @@ function deleteLocalItem(id){
 }
 
 async function renderBooks(){
+  const ul = document.querySelector('.cart-list');
   const books = await getServerBooks();
   books.forEach((book)=>{
     const li = document.createElement('li');
@@ -137,6 +154,8 @@ async function renderBooks(){
     li.innerHTML = itemTemplate(book);
     ul.append(li);
   });
+  checkBoxOnOff(books);
+  paymentResult(books);
 }
 
 function getLocalBooks(){
@@ -177,8 +196,6 @@ function itemTemplate(book){
   <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
 }
-
-
 
 function getTokenFromCookie() {
   const cookies = document.cookie.split(";");
