@@ -4,7 +4,7 @@ const renderFooter = () => {
   `
   <div class="footer-in">
     <a href="/">
-      <img src="/img/logo.png" alt="logo">
+      <img src="/img/logo2.svg" alt="logo">
     </a>
     <ul>
       <li class="footer-address"><span>주소</span>서울특별시 강남구 선릉로 433 (역삼동, 세방빌딩) 6층,16층 </li>

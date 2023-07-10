@@ -186,8 +186,8 @@ const renderHeader = () => {
       if (userInfo == undefined) {
         // 비로그인
         header.innerHTML = `
-        <a href="/">
-          <img src="/img/logo.png" alt="logo">
+        <a href="/" class="logo-img">
+          <img src="/img/logo2.svg">
         </a>
       </div>
       <!-- 메뉴 -->
