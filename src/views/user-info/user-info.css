@@ -160,3 +160,141 @@ button[type="submit"]:hover {
   display: flex;
   align-items: center;
 }
+
+/* Modal */
+.modal-back{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.6;
+  z-index: 11;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-back.visible{
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-container{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 460px;
+  max-width: 460px;
+  max-height: calc(100% -50px);
+  padding: 40px 30px 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-container.visible{
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-title{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+}
+
+.modal-main{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-main-title{
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.modal-main-text{
+  margin: 8px;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 400;
+}
+
+.modal-list{
+  list-style:circle;
+  font-size: 16px;
+  color: #777;
+  line-height: 24px;
+}
+
+.modal-list-item{
+  margin-top: 14px;
+  margin-left: 12px;
+  font-weight: 400;
+}
+
+.modal-form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-input-box{
+  width: 100%;
+  position: relative;
+}
+
+.modal-label{
+  position: absolute;
+  font-size: 11px;
+  line-height: 13px;
+  color: #999;
+  top: 54px;
+  left: 20px;
+  transition: 0.2s;
+}
+
+.modal-pw{
+  margin: 40px 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 62px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  padding: 31px 20px 14px 20px;
+  cursor: pointer;
+}
+
+.modal-Withdraw-btn{
+  width: 100%;
+  height: 62px;
+  border-radius: 5px;
+  background-color: #7156ed;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-close-btn{
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  outline: none; 
+  background:transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
