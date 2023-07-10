@@ -1,12 +1,22 @@
+// 토큰 가져오기
+const getTokenFromCookieI = () => {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'jwt') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
 // 상품 삭제
 const deleteProduct = async (e) => {
   const confirmDelete = confirm('상품을 삭제하시겠습니까?');
   if (!confirmDelete) {
     return;
   }
-
+  const token = getTokenFromCookieI();
   const id = e.target.closest('tr').dataset.id;
-
   try {
     const response = await fetch(`/api/product/${id}`, {
       method: 'DELETE',

@@ -73,6 +73,7 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const productId = req.params.pid;
+  console.log(productId);
   try {
     const result = await Product.findByIdAndRemove(productId);
     console.log('상품 삭제');
