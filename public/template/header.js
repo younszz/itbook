@@ -4,7 +4,7 @@ const showModal = (e) => {
   const loginModalContent = document.querySelector("#loginModalContent");
   const joinModalContent = document.querySelector("#joinModalContent");
   const bg = document.querySelector(".modal-bg");
-
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (mode === "loginBtn") {
     bg.classList.add("show");
     loginModalContent.classList.add("show");
@@ -15,8 +15,8 @@ const showModal = (e) => {
     const loginForm = document.querySelector("#loginForm");
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!loginEmail.value) {
-        alert("이메일을 입력하세요.");
+      if (!emailRegex.test(loginEmail.value)) {
+        alert("유효한 이메일을 입력하세요.");
         loginEmail.focus();
         return false;
       }
@@ -39,8 +39,8 @@ const showModal = (e) => {
 
       if (response.ok) {
         alert("로그인 성공");
-        // 로그인 성공 시 페이지 새로고침
-        window.location.reload();
+        // 로그인 성공 시 메인페이지로 이동
+        window.location.href = "/";
       } else {
         alert(`로그인 실패`);
       }
@@ -62,8 +62,8 @@ const showModal = (e) => {
         joinUserName.focus();
         return false;
       }
-      if (!joinEmail.value) {
-        alert("이메일을 입력하세요.");
+      if (!emailRegex.test(joinEmail.value)) {
+        alert("유효한 이메일을 입력하세요.");
         joinEmail.focus();
         return false;
       }
@@ -93,8 +93,8 @@ const showModal = (e) => {
 
       if (response.ok) {
         alert("회원가입 성공");
-        // 회원가입 성공 시 페이지 새로고침
-        window.location.reload();
+        // 회원가입 성공 시 메인페이지로 이동
+        window.location.href = "/";
       } else {
         // const errorData = await response.json();
         alert(`회원가입 실패`);
