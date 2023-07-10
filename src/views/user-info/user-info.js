@@ -101,7 +101,7 @@ const showUserInfo = async () => {
   welcomeName.innerText= name ? name : '비회원';
   userEmailInput.value = email ? email : '';
   userNameInput.value = name ? name : '';
-  phoneNumber.value = phone ? phone : '';
+  phoneNumber.value = phone ? phone : '010-1234-1234';
   addressFirst.value = address ? address : '';
 }
 
