@@ -1,39 +1,17 @@
-const myName = document.createElement("b");
-const mypage = document.querySelector(".name");
-myName.innerHTML = "홍길동";
-mypage.prepend(myName);
+'use strict';
 
-const unregister = document.querySelector("#unregister");
-
-unregister.addEventListener("click", function () {
-  alert("정말로 탈퇴?");
-});
-
-const userEmailInput = document.querySelector("#userEmail");
-const userNameInput = document.querySelector("#userName");
-const passwordInput = document.querySelector("#password");
-const passwordCheckInput = document.querySelector("#passwordCheck");
-const phoneNumberInput = document.querySelector("#phoneNumber");
-const postalCodeInput = document.querySelector("#postalCode");
 const searchAddressButton = document.querySelector("#searchAddressButton");
-const address1Input = document.querySelector("#address1");
-const address2Input = document.querySelector("#address2");
-const saveBtn = document.querySelector("#user-info-save");
-userEmailInput.value = "user@aaa.aaa";
-userNameInput.value = "홍길동";
-phoneNumberInput.value = "010-0000-0000";
-
 searchAddressButton.addEventListener("click", searchAddress);
-saveBtn.addEventListener("click", doCheckout);
 
 function searchAddress(e) {
+  const postalCodeInput = document.querySelector("#postalCode");
+  const address1Input = document.querySelector("#address1");
+  const address2Input = document.querySelector("#address2");    
   e.preventDefault();
-  console.log(e.target);
   new daum.Postcode({
     oncomplete: function (data) {
       let addr = ""; // 주소 변수
       let extraAddr = ""; // 참고항목 변수
-
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === "R") {
         // 사용자가 도로명 주소를 선택했을 경우
@@ -42,7 +20,6 @@ function searchAddress(e) {
         // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
-
       // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
       if (data.userSelectedType === "R") {
         // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -61,7 +38,6 @@ function searchAddress(e) {
         }
       } else {
       }
-
       // 우편번호와 주소 정보를 해당 필드에 넣는다.
       postalCodeInput.value = data.zonecode;
       address1Input.value = `${addr} ${extraAddr}`;
@@ -72,15 +48,18 @@ function searchAddress(e) {
   }).open();
 }
 
+const saveBtn = document.querySelector("#user-info-save");
+saveBtn.addEventListener("click", doCheckout);
+
 async function doCheckout(e) {
-  const userName = userNameInput.value;
-  const phoneNumber = phoneNumberInput.value;
-  const postalCode = postalCodeInput.value;
-  const address1 = address1Input.value;
-  const address2 = address2Input.value;
+  const userName = document.querySelector("#userName").value;
+  const phoneNumber = document.querySelector("#phoneNumber").value;
+  const postalCode = document.querySelector("#postalCode").value;
+  const address1 = document.querySelector("#address1").value;
+  const address2 = document.querySelector("#address2").value;
 
   e.preventDefault();
-  if (!userName || !phoneNumber || !postalCode || !address2) {
+  if (!userName || !phoneNumber || !postalCode || !address1 || !address2) {
     return alert("회원정보를 모두 입력해 주세요.");
   }
   // const data = {
@@ -106,3 +85,25 @@ async function doCheckout(e) {
   //   alert("주문에 실패하였습니다..");
   // }
 }
+
+const unregisterBtn = document.querySelector('#unregister');
+unregisterBtn.addEventListener('click',() => alert('정말... 가시나요?'));
+
+const showUserInfo = async () => {
+  const data = await getUserInfo() || '';
+  const { name , email, phone, address } =  data;
+  const welcomeName = document.querySelector('#welcomeName');
+  const userNameInput = document.querySelector("#userName");
+  const userEmailInput = document.querySelector("#userEmail");
+  const phoneNumber = document.querySelector('#phoneNumber');
+  const addressFirst = document.querySelector('#address1');
+
+  welcomeName.innerText= name ? name : '비회원';
+  userEmailInput.value = email ? email : '';
+  userNameInput.value = name ? name : '';
+  phoneNumber.value = phone ? phone : '';
+  addressFirst.value = address ? address : '';
+}
+
+window.addEventListener('load',showUserInfo);
+
