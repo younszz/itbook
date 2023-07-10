@@ -171,7 +171,7 @@ const deleteCookie = (name) => {
   document.cookie = `${encodeURIComponent(
     name
   )}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-  window.location.reload();
+  window.location.href = "/";
 };
 
 const renderHeader = () => {
