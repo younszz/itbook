@@ -101,49 +101,21 @@
 
 //반가워요 OO님 기능
 //회원탈퇴 alert기능
-//전화번호 + 주소 + 생년월일 데이터 있어야함
-
-const getToken = () => {
-  const cookies = document.cookie.split(";");
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
-}
-
-const getUser = async () =>{
-  try{
-    const token = getToken();
-    const response = await fetch('/api/user',{
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      if (response.ok) {
-        const data = await response.json();
-        const {name, email}  = data;
-        return {name, email};
-      } else {
-        console.error("실패");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-}
 
 const showUserInfo = async () => {
-  const {name, email} = await getUser();
+  const data = await getUserInfo();
+  const { name , email, phone, address } = data;
   const welcomeName = document.querySelector('#welcomeName');
   const userNameInput = document.querySelector("#userName");
   const userEmailInput = document.querySelector("#userEmail");
-  welcomeName.innerText= name;
-  userEmailInput.value = email;
-  userNameInput.value = name;
+  const phoneNumber = document.querySelector('#phoneNumber');
+  const addressFirst = document.querySelector('#address1');
+
+  welcomeName.innerText= name ? name : '비회원';
+  userEmailInput.value = email ? email : '';
+  userNameInput.value = name ? name : '';
+  phoneNumber.value = phone ? phone : '';
+  addressFirst.value = address ? address : '';
 }
 
 window.addEventListener('load',showUserInfo);
