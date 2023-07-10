@@ -211,8 +211,8 @@ const renderHeader = () => {
       } else if (userInfo.isAdmin) {
         // 관리자계정
         header.innerHTML = `
-      <a href="/">
-        <img src="/img/logo.png" alt="logo">
+        <a href="/" class="logo-img">
+        <img src="/img/logo2.svg">
       </a>
     </div>
     <!-- 메뉴 -->
