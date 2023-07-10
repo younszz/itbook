@@ -1,4 +1,4 @@
-// 주문
+// //주문
 // exports.getOrders = (req, res) => {
 //   Order.find()
 //     .then((orders) => {

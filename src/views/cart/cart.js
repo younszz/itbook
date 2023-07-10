@@ -1,7 +1,30 @@
 'use strict';
+
 const ul = document.querySelector('.cart-list');
 const allCheckBox = document.querySelector('#allCheck');
 const allSelectLabel = document.querySelector('.all-box-container>label');
+
+const getUserInfo = async () =>{
+  try{
+    const token = getTokenFromCookie();
+    const response = await fetch('/api/user',{
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        console.error("실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+}
 
 window.addEventListener('load', async()=>{
   const books = await getServerBooks();
@@ -24,6 +47,7 @@ window.addEventListener('load', async()=>{
       })
     }
   })
+  getUserInfo();
 })
 
 function enableBtnFunc(e){
@@ -137,8 +161,8 @@ async function getServerBooks(){
 function itemTemplate(book){
   return `
   <input type="checkbox" class="selectCheck" checked>
-  <a href="#" class="item-info">
-    <img src="${book.imageUrl}" alt="도서 사진">
+  <a href="/product/${book._id}" class="item-info">
+    <img class="item-img" src="${book.imageUrl}" alt="도서 사진">
     <div class="info-text">
       <p class="info-title">${book.title}</p>
       <p class="description">${book.author}</p>
@@ -146,7 +170,7 @@ function itemTemplate(book){
   </a>
   <div class="item-count">
     <button class="btn-minus"><i class="fa-solid fa-minus"></i></button>
-      <input type="number" id="item-number" value=${book.quantity}>
+      <input type="number" class="item-num" id="item-number" value=${book.quantity}>
       <button class="btn-plus"><i class="fa-solid fa-plus"></i></button>
   </div>
   <p class="item-price">${book.price * book.quantity}원</p>
@@ -154,4 +178,16 @@ function itemTemplate(book){
   `;
 }
 
+
+
+function getTokenFromCookie() {
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "jwt") {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+}
 

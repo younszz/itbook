@@ -1,10 +1,10 @@
-// import express from 'express';
-// import userController from '../controllers/users';
+import express from 'express';
+import { postJoin, postLogin } from '../controllers/auth';
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post('/api/join', userController.postJoin);
+router.post('/api/join', postJoin);
 
-// router.post('/api/login', userController.postLogin);
+router.post('/api/login', postLogin);
 
-// module.exports = router;
+export default router;

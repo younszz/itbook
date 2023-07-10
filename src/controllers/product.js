@@ -1,6 +1,6 @@
 import Product from '../models/product';
 
-exports.getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
     // 카테고리가 쿼리 파라미터로 제공된 경우
     if (req.query.category) {
@@ -17,19 +17,19 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.getproductDetail = (req, res) => {
+export const getproductDetail = async (req, res) => {
   const productId = req.params.pid;
 
-  Product.findById(productId)
-    .then((product) => {
-      res.send(product);
-    })
-    .catch((err) => console.log(err));
+  try {
+    const product = await Product.findById(productId);
+    res.send(product);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-exports.postProduct = (req, res) => {
-  const { title, description, price, pages, author, category, imageUrl } =
-    req.body;
+export const postProduct = async (req, res) => {
+  const { title, description, price, pages, author, category, imageUrl } = req.body;
 
   const product = new Product({
     title,
@@ -41,42 +41,43 @@ exports.postProduct = (req, res) => {
     imageUrl,
   });
 
-  product
-    .save()
-    .then((result) => {
-      console.log('상품 생성');
-    })
-    .catch((err) => console.log(err));
+  try {
+    const result = await product.save();
+    console.log('상품 생성');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-exports.updateProduct = (req, res) => {
-  const { prodId, description, imageUrl, price, title, pages, author } =
-    req.body;
+export const updateProduct = async (req, res) => {
+  const prodId = req.params.pid;
+  const { description, imageUrl, price, title, pages, author } = req.body;
 
-  Product.findById(prodId)
-    .then((product) => {
-      product.title = title;
-      product.pages = pages;
-      product.author = author;
-      product.price = price;
-      product.description = description;
-      product.imageUrl = imageUrl;
-      return product.save();
-    })
-    .then((result) => {
-      console.log('상품 업데이트');
-      res.redirect('/admin');
-    })
-    .catch((err) => console.log(err));
+  try {
+    const product = await Product.findById(prodId);
+    product.title = title;
+    product.pages = pages;
+    product.author = author;
+    product.price = price;
+    product.description = description;
+    product.imageUrl = imageUrl;
+    
+    const result = await product.save();
+    console.log('상품 수정');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-exports.deleteProduct = (req, res) => {
-  const productId = req.body.productId;
-  console.log(productId);
-  Product.findByIdAndRemove(productId)
-    .then(() => {
-      console.log('상품 삭제');
-      res.redirect('/admin');
-    })
-    .catch((err) => console.log(err));
+export const deleteProduct = async (req, res) => {
+  const productId = req.params.pid;
+  try {
+    const result = await Product.findByIdAndRemove(productId);
+    console.log('상품 삭제');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };

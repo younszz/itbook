@@ -1,3 +1,11 @@
+/** reset **/
+@import url("/css/reset.css");
+
+/** common **/
+@import url("/css/common.css");
+
+/** font **/
+@import url("/css/font.css");
 
 .mypage-title {
   width: 100%;
@@ -29,45 +37,63 @@
 .my-title {
   display: flex;
   justify-content: space-between;
-  /* border-bottom: 1px solid #ddd; */
-  /* margin-bottom: 16px;
-  padding-bottom: 16px; */
   font-size: 24px;
   line-height: 29px;
 }
-h4 {
-  padding-bottom: 16px;
-  border-bottom: 1px solid #ddd;
-  margin-top: 40px;
-}
-.product li img {
-  width: 100px;
-}
 
-.product li {
+.orderEmpty {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 300px;
+  border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  padding: 24px;
+  margin-top: 16px;
 }
-.order-list {
-  padding: 24px 0;
-  border-bottom: 1px solid #ddd;
+.orderEmpty button {
+  margin-top: 60px;
+  width: 124px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #7156ed;
 }
-.order-list dl {
-  display: flex;
-  padding: 8px;
-  width: 100%;
-  justify-content: space-between;
+.orderEmpty button a {
   font-size: 14px;
+  color: #fff;
+  padding: 10px 26px;
 }
-.order-list dl dt {
-  width: 200px;
-  color: #999;
+.my-body table {
+  width: 100%;
+  margin-top: 50px;
 }
-.payment-list dl:first-child dt,
-.payment-list dl:first-child dd {
-  color: #7156ed;
-  font-size: 16px;
+.my-body thead {
+  height: 40px;
+}
+.my-body th,
+td {
+  vertical-align: middle;
+}
+.my-body tr {
+  border-top: 1px solid #ddd;
+}
+.my-body tr td {
+  text-align: center;
+  line-height: 22px;
+  font-size: 14px;
+  padding: 22px 0;
+}
+.my-body tr td button {
+  width: 80px;
+  height: 32px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+.my-body tr td button:disabled {
+  border-color: #ddd;
+  cursor: default;
 }

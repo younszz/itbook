@@ -1,4 +1,6 @@
+// import mongoose, { model } from 'mongoose';
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -11,4 +13,4 @@ const userSchema = new Schema({
   cart: { type: Array, default: [], required: false },
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
