@@ -17,19 +17,19 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const getproductDetail = (req, res) => {
+export const getproductDetail = async (req, res) => {
   const productId = req.params.pid;
 
-  Product.findById(productId)
-    .then((product) => {
-      res.send(product);
-    })
-    .catch((err) => console.log(err));
+  try {
+    const product = await Product.findById(productId);
+    res.send(product);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const postProduct = (req, res) => {
-  const { title, description, price, pages, author, category, imageUrl } =
-    req.body;
+export const postProduct = async (req, res) => {
+  const { title, description, price, pages, author, category, imageUrl } = req.body;
 
   const product = new Product({
     title,
@@ -41,42 +41,43 @@ export const postProduct = (req, res) => {
     imageUrl,
   });
 
-  product
-    .save()
-    .then((result) => {
-      console.log('상품 생성');
-      res.status(201).json(result);
-    })
-    .catch((err) => console.log(err));
+  try {
+    const result = await product.save();
+    console.log('상품 생성');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const updateProduct = (req, res) => {
+export const updateProduct = async (req, res) => {
   const prodId = req.params.pid;
   const { description, imageUrl, price, title, pages, author } = req.body;
 
-  Product.findById(prodId)
-    .then((product) => {
-      product.title = title;
-      product.pages = pages;
-      product.author = author;
-      product.price = price;
-      product.description = description;
-      product.imageUrl = imageUrl;
-      return product.save();
-    })
-    .then((result) => {
-      console.log('상품 수정');
-      res.status(201).json(result);
-    })
-    .catch((err) => console.log(err));
+  try {
+    const product = await Product.findById(prodId);
+    product.title = title;
+    product.pages = pages;
+    product.author = author;
+    product.price = price;
+    product.description = description;
+    product.imageUrl = imageUrl;
+    
+    const result = await product.save();
+    console.log('상품 수정');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const deleteProduct = (req, res) => {
+export const deleteProduct = async (req, res) => {
   const productId = req.params.pid;
-  Product.findByIdAndRemove(productId)
-    .then((result) => {
-      console.log('상품 삭제');
-      res.status(201).json(result);
-    })
-    .catch((err) => console.log(err));
+  try {
+    const result = await Product.findByIdAndRemove(productId);
+    console.log('상품 삭제');
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+  }
 };
