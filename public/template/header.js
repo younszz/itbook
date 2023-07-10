@@ -25,7 +25,7 @@ const showModal = (e) => {
         loginPassword.focus();
         return false;
       }
-      //fetch추가코드
+      //fetch
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
