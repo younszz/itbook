@@ -1,26 +1,5 @@
 'use strict';
 
-const getUserInfo = async () =>{
-  try{
-    const token = getTokenFromCookie();
-    const response = await fetch('/api/user',{
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("로그아웃 상태입니다.");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-}
-
 const onUserState = async () => {
   const user = await getUserInfo();
   const ul = document.querySelector('.cart-list');
@@ -195,16 +174,5 @@ function itemTemplate(book){
   <p class="item-price">${book.price * book.quantity}원</p>
   <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
-}
-
-function getTokenFromCookie() {
-  const cookies = document.cookie.split(";");
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
 }
 
