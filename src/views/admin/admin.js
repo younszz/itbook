@@ -1,53 +1,80 @@
-// 데이터 바인딩 함수
-async function fetchProducts() {
+// 토큰 가져오기
+const getTokenFromCookieI = () => {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'jwt') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
+// 상품 삭제
+const deleteProduct = async (e) => {
+  const confirmDelete = confirm('상품을 삭제하시겠습니까?');
+  if (!confirmDelete) {
+    return;
+  }
+  const token = getTokenFromCookieI();
+  const id = e.target.closest('tr').dataset.id;
   try {
-    const bookList = document.getElementById('adminTbl');
-    const response = await fetch('/api/products');
-    console.log(response);
-    const data = await response.json();
-    const books = data
-      .map(
-        (book) =>
-          `<tr>
+    const response = await fetch(`/api/product/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      alert('상품이 삭제되었습니다.');
+      window.location.href = '/admin';
+    } else {
+      alert('상품 삭제에 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('잘못된 요청입니다.');
+  }
+};
+
+// 책 목록 랜더링
+const renderBookList = async (target) => {
+  const response = await fetch('/api/products');
+  const data = await response.json();
+  data.forEach((book) => {
+    const tr = document.createElement('tr');
+    tr.dataset.id = book._id;
+    tr.innerHTML = `
             <td><input type="checkbox" class="selectCheck"></td>
             <td class="p-img">
-              <img src=${book.imageUrl} alt="" />
+              <img src=${book.imageUrl} alt="${book.title}" />
             </td>
-            <td>${book.title}</td>
+            <td><a href="/product/${book._id}" class="book-title">${book.title}</a></td>
             <td>${book.price}원</td>
             <td>${book.category}</td>
             <td>
-              <button class="admin-change"><a href="/admin/products/edit/:pid">수정</a></button>
-              <button class="admin-remove-in">삭제</button>
+              <button class="admin-change"><a href="/admin/product/${book._id}/edit">수정</a></button>
+              <button class="admin-remove-in" id="deleteBtn">삭제</button>
             </td>
-          </tr>`
-      )
-      .join('');
-    
-    bookList.innerHTML = books;
+          `;
+    tr.querySelector('#deleteBtn').addEventListener('click', deleteProduct);
 
-    const listCount = document.getElementById('listCount');
-    const count = data.length;
-    listCount.innerHTML = count;
+    target.appendChild(tr);
+  });
+};
 
-    // 삭제 버튼 클릭 이벤트 처리
-    bookList.addEventListener('click', (e) => {
-      if (e.target.className !== 'admin-remove-in') {
-        return;
-      }
-      const confirmDelete = confirm('상품을 삭제하시겠습니까?');
-      if (!confirmDelete) {
-        return;
-      }
-      const itemId = e.target.parentElement.parentElement.id;
-      deleteLocalItem(itemId);
-    });
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+// 페이지 로드시 실행
+const onLoadPage = async () => {
+  const bookList = document.getElementById('adminTbl');
+  await renderBookList(bookList);
 
-fetchProducts();
+  const listCount = document.getElementById('listCount');
+  const count = bookList.querySelectorAll('tr').length;
+  listCount.innerHTML = count;
+};
+
+onLoadPage();
 
 // checkbox
 const allCheckBox = document.querySelector('#allCheck');
@@ -68,36 +95,34 @@ window.addEventListener('load', () => {
   });
 });
 
-
 // 상품 검색
-const searchbtn = document.querySelector('#searchBtn'); 
-const input = document.querySelector('#searchName'); 
-const bookList = document.querySelector('#adminTbl'); 
+const searchbtn = document.querySelector('#searchBtn');
+const input = document.querySelector('#searchName');
+const bookList = document.querySelector('#adminTbl');
 
 searchbtn.addEventListener('click', async (event) => {
-  event.preventDefault(); 
+  event.preventDefault();
 
-  const searchKeyword = input.value; 
+  const searchKeyword = input.value;
 
   try {
-    const response = await fetch('/api/products'); 
-    const data = await response.json(); 
+    const response = await fetch('/api/products');
+    const data = await response.json();
     const filteredData = data.filter((book) => {
       return book.title.includes(searchKeyword);
     });
-
     const books = filteredData
       .map((book) => {
         return `<tr>
                   <td><input type="checkbox" class="selectCheck"></td>
                   <td class="p-img">
-                    <img src="${book.imageUrl}" alt="" />
+                    <img src="${book.imageUrl}" alt="${book.title}" />
                   </td>
                   <td>${book.title}</td>
                   <td>${book.price}원</td>
                   <td>${book.category}</td>
                   <td>
-                    <button class="admin-change"><a href="/admin/products/edit/:pid">수정</a></button>
+                    <button class="admin-change"><a href="/admin/products/${book._id}/edit">수정</a></button>
                     <button class="admin-remove-in">삭제</button>
                   </td>
                 </tr>`;
@@ -109,6 +134,3 @@ searchbtn.addEventListener('click', async (event) => {
     console.error('데이터를 불러오는 중 오류가 발생했습니다:', error);
   }
 });
-
-
-

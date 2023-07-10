@@ -4,7 +4,7 @@ const showModal = (e) => {
   const loginModalContent = document.querySelector("#loginModalContent");
   const joinModalContent = document.querySelector("#joinModalContent");
   const bg = document.querySelector(".modal-bg");
-
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (mode === "loginBtn") {
     bg.classList.add("show");
     loginModalContent.classList.add("show");
@@ -15,8 +15,8 @@ const showModal = (e) => {
     const loginForm = document.querySelector("#loginForm");
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!loginEmail.value) {
-        alert("이메일을 입력하세요.");
+      if (!emailRegex.test(loginEmail.value)) {
+        alert("유효한 이메일을 입력하세요.");
         loginEmail.focus();
         return false;
       }
@@ -39,8 +39,8 @@ const showModal = (e) => {
 
       if (response.ok) {
         alert("로그인 성공");
-        // 로그인 성공 시 페이지 새로고침
-        window.location.reload();
+        // 로그인 성공 시 메인페이지로 이동
+        window.location.href = "/";
       } else {
         alert(`로그인 실패`);
       }
@@ -62,8 +62,8 @@ const showModal = (e) => {
         joinUserName.focus();
         return false;
       }
-      if (!joinEmail.value) {
-        alert("이메일을 입력하세요.");
+      if (!emailRegex.test(joinEmail.value)) {
+        alert("유효한 이메일을 입력하세요.");
         joinEmail.focus();
         return false;
       }
@@ -93,8 +93,8 @@ const showModal = (e) => {
 
       if (response.ok) {
         alert("회원가입 성공");
-        // 회원가입 성공 시 페이지 새로고침
-        window.location.reload();
+        // 회원가입 성공 시 메인페이지로 이동
+        window.location.href = "/";
       } else {
         // const errorData = await response.json();
         alert(`회원가입 실패`);
@@ -144,8 +144,9 @@ const getTokenFromCookie = () => {
   }
   return null;
 };
-const token = getTokenFromCookie();
+
 const getUserInfo = async () => {
+  const token = getTokenFromCookie();
   try {
     const response = await fetch("/api/user", {
       method: "GET",
@@ -164,14 +165,13 @@ const getUserInfo = async () => {
     console.error(err);
   }
 };
-// getUserInfo();
 
 // 쿠키삭제 후 새로고침(로그아웃)
 const deleteCookie = (name) => {
   document.cookie = `${encodeURIComponent(
     name
   )}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-  window.location.reload();
+  window.location.href = "/";
 };
 
 const renderHeader = () => {
@@ -179,65 +179,11 @@ const renderHeader = () => {
   const div = document.createElement("div");
 
   const handleUserInfo = async () => {
-    const userInfo = await getUserInfo();
-    // 관리자 계정
-    if (userInfo.isAdmin) {
-      header.innerHTML = `
-      <a href="/">
-        <img src="/img/logo.png" alt="logo">
-      </a>
-    </div>
-    <!-- 메뉴 -->
-    <ul class="header-menu" id="headerMenu">
-    
-    </ul>
-    <!-- 로그인/회원가입/장바구니 -->
-    <div class="header-btn">
-      <ul>
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
-        <li><a href="/admin">관리자</a></li>
-        <li id="logout">로그아웃</li>
-      </ul>
-    </div>
-    </header>
-    `;
-      header.querySelector("#logout").addEventListener("click", () => {
-        deleteCookie("jwt");
-      });
-
-      // 일반 계정
-    } else if (!userInfo.isAdmin) {
-      header.innerHTML = `
-      <a href="/">
-        <img src="/img/logo.png" alt="logo">
-      </a>
-    </div>
-    <!-- 메뉴 -->
-    <ul class="header-menu" id="headerMenu">
-    
-    </ul>
-    <!-- 로그인/회원가입/장바구니 -->
-    <div class="header-btn">
-      <ul>
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
-        <li><a href="/user/info">마이페이지</a></li>
-        <li id="logout">로그아웃</li>
-      </ul>
-    </div>
-    </header>
-    `;
-      header.querySelector("#logout").addEventListener("click", () => {
-        deleteCookie("jwt");
-      });
-    }
-  };
-  handleUserInfo();
-
-  // 쿠키에 token이 없으면 보여지는 화면(로그아웃 상태)
-  if (!token) {
-    header.innerHTML = `
+    try {
+      const userInfo = await getUserInfo();
+      if (userInfo == undefined) {
+        // 비로그인
+        header.innerHTML = `
         <a href="/">
           <img src="/img/logo.png" alt="logo">
         </a>
@@ -258,9 +204,85 @@ const renderHeader = () => {
     </header>
       `;
 
-    header.querySelector("#loginBtn").addEventListener("click", showModal);
-    header.querySelector("#JoinBtn").addEventListener("click", showModal);
-  }
+        header.querySelector("#loginBtn").addEventListener("click", showModal);
+        header.querySelector("#JoinBtn").addEventListener("click", showModal);
+      } else if (userInfo.isAdmin) {
+        // 관리자계정
+        header.innerHTML = `
+      <a href="/">
+        <img src="/img/logo.png" alt="logo">
+      </a>
+    </div>
+    <!-- 메뉴 -->
+    <ul class="header-menu" id="headerMenu">
+    
+    </ul>
+    <!-- 로그인/회원가입/장바구니 -->
+    <div class="header-btn">
+      <ul>
+        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="/admin">관리자</a></li>
+        <li id="logout">로그아웃</li>
+      </ul>
+    </div>
+    </header>
+    `;
+        header.querySelector("#logout").addEventListener("click", () => {
+          deleteCookie("jwt");
+        });
+      } else if (!userInfo.isAdmin) {
+        // 일반 계정
+        header.innerHTML = `
+      <a href="/">
+        <img src="/img/logo.png" alt="logo">
+      </a>
+    </div>
+    <!-- 메뉴 -->
+    <ul class="header-menu" id="headerMenu">
+    
+    </ul>
+    <!-- 로그인/회원가입/장바구니 -->
+    <div class="header-btn">
+      <ul>
+        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
+        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="/user/info">마이페이지</a></li>
+        <li id="logout">로그아웃</li>
+      </ul>
+    </div>
+    </header>
+    `;
+        header.querySelector("#logout").addEventListener("click", () => {
+          deleteCookie("jwt");
+        });
+      }
+      await headerMenuList();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  // 헤더 카테고리
+  const headerMenuList = async () => {
+    try {
+      const response = await fetch("/api/category");
+      const data = await response.json();
+
+      const headerMenu = document.querySelector("#headerMenu");
+      // console.log(headerMenu);
+      for (const item of data) {
+        if (item) {
+          // 빈칸이 아닐 때
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/products/${item}">${item}</a>`;
+          headerMenu.appendChild(li);
+        }
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  handleUserInfo();
 
   const loginModalContent = `
   <div class="modal fade" id="loginModalContent">
@@ -354,25 +376,3 @@ window.addEventListener("scroll", function () {
     header.classList.remove("fixed");
   }
 });
-
-// 헤더 카테고리
-const headerMenuList = async () => {
-  try {
-    const response = await fetch("/api/category");
-    const data = await response.json();
-
-    const headerMenu = document.querySelector("#headerMenu");
-    for (const item of data) {
-      if (item) {
-        // 빈칸이 아닐 때
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="/products/${item}">${item}</a>`;
-        headerMenu.appendChild(li);
-      }
-    }
-  } catch (error) {
-    console.log("Error:", error);
-  }
-};
-
-headerMenuList();

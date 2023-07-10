@@ -1,6 +1,6 @@
 import User from '../models/user';
 
-exports.getUser = async (req, res) => {
+export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) throw Error('사용자가 존재하지 않습니다.');
@@ -12,7 +12,7 @@ exports.getUser = async (req, res) => {
 };
 
 //사용자 정보 수정
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.user.id, req.body, {
       new: true,
@@ -26,7 +26,7 @@ exports.updateUser = async (req, res) => {
 };
 
 //사용자 정보 삭제
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdandDelete(req.user.id);
     if (!user) throw Error('사용자가 존재하지 않습니다.');

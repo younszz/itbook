@@ -13,5 +13,4 @@ const userSchema = new Schema({
   cart: { type: Array, default: [], required: false },
 });
 
-// module.exports = mongoose.model('User', userSchema);
-export default mongoose.models.User || mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
