@@ -44,7 +44,6 @@ const updateProduct = async (e, id) => {
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
   const token = getTokenFromCookieI();
-  console.log(data);
   try {
     const response = await fetch(`/api/product/${id}`, {
       method: 'PUT',

@@ -40,7 +40,7 @@ const renderBookList = async (target) => {
             <td class="p-img">
               <img src=${book.imageUrl} alt="${book.title}" />
             </td>
-            <td>${book.title}</td>
+            <td><a href="/product/${book._id}" class="book-title">${book.title}</a></td>
             <td>${book.price}원</td>
             <td>${book.category}</td>
             <td>

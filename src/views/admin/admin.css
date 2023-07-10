@@ -177,3 +177,7 @@
 .admin-tbl table tbody tr td button.admin-remove-in{
   background-color: #D9D9D9;
 }
+
+.book-title:hover {
+  text-decoration: underline;
+}
