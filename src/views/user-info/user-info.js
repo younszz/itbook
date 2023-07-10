@@ -85,9 +85,50 @@ async function doCheckout(e) {
   //   alert("주문에 실패하였습니다..");
   // }
 }
+const closeWithdrawModal = () => {
+  const modal = document.querySelector('.modal-container');
+  const modalBg = document.querySelector('.modal-back');
+  document.body.removeChild(modalBg);
+  document.body.removeChild(modal);
+}
+
+const withdrawModalTemplate = () => {
+  return `
+            <h5 class="modal-title">회원탈퇴</h5>
+            <div class="modal-main">
+              <h6 class="modal-main-title">정말... 가시나요?</h6>
+              <p class="modal-main-text">회원 탈퇴 유의사항을 확인해주세요.</p>
+              <ul class="modal-list">
+                <li class="modal-list-item">회원 탈퇴 시 회원님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리됩니다.</li>
+                <li class="modal-list-item">잇북은 계속 회원님을 기다리겠습니다.</li>
+              </ul>
+              <form class="modal-form">
+                <div class="modal-input-box">
+                  <label for="modalPw" class="modal-label">비밀번호</label>
+                  <input type="password" name="modalPw" id="modalPw" class="modal-pw">
+                </div>
+                <button class="modal-Withdraw-btn">탈퇴하기</button>
+              </form>
+              <button class="modal-close-btn" onclick="closeWithdrawModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          `
+}
+
+const createWithdrawModal = () => {
+  const modal = document.createElement('div');
+  modal.setAttribute('class','modal-container');
+  modal.innerHTML = withdrawModalTemplate();
+  const modalBg = document.createElement('div');
+  modalBg.setAttribute('onclick',"closeWithdrawModal()")
+  modalBg.setAttribute('class','modal-back');
+  document.body.append(modalBg);
+  document.body.prepend(modal);
+}
 
 const unregisterBtn = document.querySelector('#unregister');
-unregisterBtn.addEventListener('click',() => alert('정말... 가시나요?'));
+unregisterBtn.addEventListener('click',() => {
+  createWithdrawModal();
+});
 
 const showUserInfo = async () => {
   const data = await getUserInfo() || '';
@@ -106,4 +147,6 @@ const showUserInfo = async () => {
 }
 
 window.addEventListener('load',showUserInfo);
+
+
 

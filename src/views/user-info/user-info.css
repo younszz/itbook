@@ -171,13 +171,6 @@ button[type="submit"]:hover {
   background-color: #000;
   opacity: 0.6;
   z-index: 11;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.modal-back.visible{
-  visibility: visible;
-  pointer-events: auto;
 }
 
 .modal-container{
@@ -194,13 +187,6 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   z-index: 100;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.modal-container.visible{
-  visibility: visible;
-  pointer-events: auto;
 }
 
 .modal-title{
