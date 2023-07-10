@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 
-exports.postJoin = async (req, res) => {
+export const postJoin = async (req, res) => {
   try {
     const { name, email, password, password_confirm } = req.body;
     if (password !== password_confirm) {
@@ -23,7 +23,7 @@ exports.postJoin = async (req, res) => {
   }
 };
 
-exports.postLogin = async (req, res) => {
+export const postLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
