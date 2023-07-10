@@ -130,7 +130,22 @@ searchbtn.addEventListener('click', async (event) => {
       .join('');
 
     bookList.innerHTML = books;
+    const listCount = document.getElementById("listCount");
+    const count = bookList.querySelectorAll("tr").length;
+    listCount.innerHTML = count;
   } catch (error) {
     console.error('데이터를 불러오는 중 오류가 발생했습니다:', error);
+  }
+});
+
+
+
+// 엔터키로 검색
+const inputEnter = document.getElementById("searchName");
+
+inputEnter.addEventListener("keyup", (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("searchBtn").click();
   }
 });
