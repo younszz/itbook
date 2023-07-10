@@ -75,13 +75,23 @@ function paymentResult(books){
       acc += cur.price * cur.quantity;
       return acc;
     },0);
-    if(total < 30000){
-      delivery.innerHTML = `+3000원`;
+    if(total == 0){
+      orderBtn.innerHTML=`주문하기`;
+      totalPrice.innerHTML = `0원`;
+      totalPre.innerHTML = `0원`;
+      return ;
     }
-    orderBtn.innerHTML=`${total}원 주문하기`;
-    totalPrice.innerHTML = `${total}원`;
-    totalPre.innerHTML = `${total}원`;
-    
+    else if(total < 30000){
+      delivery.innerHTML = `+3000원`;
+      orderBtn.innerHTML=`${total+3000}원 주문하기`;
+      totalPrice.innerHTML = `${total}원`;
+      totalPre.innerHTML = `${total+3000}원`;
+      return ;
+    }else{
+      orderBtn.innerHTML=`${total}원 주문하기`;
+      totalPrice.innerHTML = `${total}원`;
+      totalPre.innerHTML = `${total}원`;
+    }
   }
 }
 
@@ -175,4 +185,5 @@ function itemTemplate(book){
   <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
 }
+
 
