@@ -9,10 +9,10 @@ async function productsByCategory() {
       .map(
         (book) =>
           `<li>
-          <a>
+          <a href="/product/${book._id}">
             <img src="${book.imageUrl}" alt="${book.title}" />
             <div class="info">
-              <p class="cate">BEST</p>
+              <p class="cate">${book.category}</p>
               <p class="name">${book.title}</p>
               <p class="price">${book.price}원</p>
             </div>
