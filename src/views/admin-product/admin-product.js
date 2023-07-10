@@ -16,6 +16,8 @@ const postProduct = async (e) => {
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
   const token = getTokenFromCookieI();
+
+  
   try {
     // POST 요청
     const response = await fetch('/api/product', {
@@ -37,6 +39,7 @@ const postProduct = async (e) => {
     console.error(error);
   }
 };
+
 
 // 상품 업데이트
 const updateProduct = async (e, id) => {
