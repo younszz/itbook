@@ -10,7 +10,7 @@ import productRoutes from './routes/product.js';
 import categoryRoutes from './routes/category.js';
 import userRoutes from './routes/user';
 import authRoutes from './routes/auth';
-import './middlewares/pass.js';
+import './middlewares/passport.js';
 
 dotenv.config();
 

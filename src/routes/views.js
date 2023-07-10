@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import checkCategoryExists from '../middlewares/check-category-exists';
+import passport from 'passport';
 
 export const serveStatic = (resource, fileName) => {
   const resourcePath = path.join(__dirname, `../views/${resource}`);
@@ -27,6 +28,7 @@ router.use(
 router.use('/user/info', serveStatic('user-info'));
 router.use('/user/order', serveStatic('user-order'));
 
+// passport.authenticate('jwt', { session: false})
 router.use('/admin/', serveStatic('admin'));
 router.use('/admin/product/:pid/edit', serveStatic('admin-product'));
 router.use('/admin/product/add/', serveStatic('admin-product'));
