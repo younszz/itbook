@@ -90,8 +90,8 @@ const unregisterBtn = document.querySelector('#unregister');
 unregisterBtn.addEventListener('click',() => alert('정말... 가시나요?'));
 
 const showUserInfo = async () => {
-  const data = await getUserInfo();
-  const { name , email, phone, address } = data;
+  const data = await getUserInfo() || '';
+  const { name , email, phone, address } =  data;
   const welcomeName = document.querySelector('#welcomeName');
   const userNameInput = document.querySelector("#userName");
   const userEmailInput = document.querySelector("#userEmail");
@@ -101,7 +101,7 @@ const showUserInfo = async () => {
   welcomeName.innerText= name ? name : '비회원';
   userEmailInput.value = email ? email : '';
   userNameInput.value = name ? name : '';
-  phoneNumber.value = phone ? phone : '010-1234-1234';
+  phoneNumber.value = phone ? phone : '';
   addressFirst.value = address ? address : '';
 }
 
