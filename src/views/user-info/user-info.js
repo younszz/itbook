@@ -48,6 +48,40 @@ function searchAddress(e) {
   }).open();
 }
 
+const getTokenFromCookie = () => {
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "jwt") {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
+
+const getUserInfo = async () => {
+  const token = getTokenFromCookie();
+  if (token !== null) {
+    try {
+      const response = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
+
 const saveBtn = document.querySelector("#user-info-save");
 saveBtn.addEventListener("click", updateUserInfo);
 
