@@ -186,4 +186,5 @@ function itemTemplate(book){
   `;
 }
 
+getLocalBooks();
 

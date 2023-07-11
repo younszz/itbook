@@ -198,7 +198,7 @@ const renderHeader = () => {
       <div class="header-btn">
         <ul>
           <li><a href="/admin">관리자(임시)</i></a></li>
-          <li id="cartIcon"><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+          <li id="cartIcon"><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
           <li id="loginBtn">로그인</li>
           <li id="JoinBtn">회원가입</li>
         </ul>
@@ -222,8 +222,7 @@ const renderHeader = () => {
     <!-- 로그인/회원가입/장바구니 -->
     <div class="header-btn">
       <ul>
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
         <li><a href="/admin">관리자</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -236,8 +235,8 @@ const renderHeader = () => {
       } else if (!userInfo.isAdmin) {
         // 일반 계정
         header.innerHTML = `
-      <a href="/">
-        <img src="/img/logo.png" alt="logo">
+      <a href="/" class="logo-img">
+        <img src="/img/logo2.svg" alt="logo">
       </a>
     </div>
     <!-- 메뉴 -->
@@ -247,8 +246,7 @@ const renderHeader = () => {
     <!-- 로그인/회원가입/장바구니 -->
     <div class="header-btn">
       <ul>
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
         <li><a href="/user/info">마이페이지</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -382,19 +380,22 @@ window.addEventListener("scroll", function () {
 
 
 // 장바구니 숫자 
+document.addEventListener("DOMContentLoaded", function() {
+  getLocalBooks();
+});
+
 function getLocalBooks() {
   const books = JSON.parse(localStorage.getItem("books"));
-  const cartIcon = document.getElementById("cartIcon");
-  console.log(books.length);
-  
-  if (books.length > 0) {
-    cartIcon.classList.add("cart");
+  const cartCount = document.getElementById("cartCount");
+
+  if (books && books.length > 0) {
+    cartCount.innerHTML = books.length;
   } else {
-    cartIcon.classList.remove("cart");
+    cartCount.classList.add("count-none")
   }
 }
 
-getLocalBooks();
+
 
 
 

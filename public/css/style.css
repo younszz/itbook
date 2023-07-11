@@ -6,9 +6,6 @@
 
 /* 모바일 스타일 */
 @media screen and (max-width: 767px) {
-  .main01{
-      display:none;
-  }
   header {
     flex-direction: column;
     padding:0 20px;
@@ -34,6 +31,9 @@
     font-size:14px;
   }
   /* main,common */
+  /* .main01{
+    height:110px;
+  } */
   .wrap{
       width: 100%;
       padding: 60px 20px;
@@ -48,9 +48,25 @@
   .b-list .list-box {
       margin:30px 0 0 0;
   }
-  .main-banner {
-      display: none;
+  .main-banner img {
+    width:100%;
+    padding-bottom:30px;
   }
+  .main01 .main-swiper .swiper-slide.slide01 {
+    background: url('/img/m-bnr1.jpg') no-repeat center/cover;
+    background-size: 100%;
+  }
+  
+  .main01 .main-swiper .swiper-slide.slide02 {
+    background: url('/img/m-bnr2.jpg') no-repeat center/cover;
+    background-size: 100%;
+  }
+  
+  .main01 .main-swiper .swiper-slide.slide03 {
+    background: url('/img/m-bnr3.jpg') no-repeat center/cover;
+    background-size: 100%;
+  }
+
   .b-list {
       grid-template-columns: repeat(2, 1fr);
   }

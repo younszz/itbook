@@ -19,19 +19,23 @@
 
 .main01 .main-swiper .swiper-slide.slide01 {
   background: url('/img/bnr.jpg') no-repeat center/cover;
+  background-size: 100%;
 }
 
 .main01 .main-swiper .swiper-slide.slide02 {
   background: url('/img/bnr2.jpg') no-repeat center/cover;
+  background-size: 100%;
 }
 
 .main01 .main-swiper .swiper-slide.slide03 {
-  background-color: rgb(255, 189, 189);
+  background: url('/img/bnr3.jpg') no-repeat center/cover;
+  background-size: 100%;
 }
 
-.main01 .main-swiper .swiper-slide.slide04 {
+/* .main01 .main-swiper .swiper-slide.slide04 {
   background-color: rgb(255, 255, 187);
-}
+  background-size: 100%;
+} */
 
 /* main-container */
 .main-container {
