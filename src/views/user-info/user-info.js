@@ -52,38 +52,25 @@ const saveBtn = document.querySelector("#user-info-save");
 saveBtn.addEventListener("click", doCheckout);
 
 async function doCheckout(e) {
-  const userName = document.querySelector("#userName").value;
-  const phoneNumber = document.querySelector("#phoneNumber").value;
-  const postalCode = document.querySelector("#postalCode").value;
-  const address1 = document.querySelector("#address1").value;
-  const address2 = document.querySelector("#address2").value;
-
   e.preventDefault();
-  if (!userName || !phoneNumber || !postalCode || !address1 || !address2) {
+  const token = getCookie("jwt");
+  const inputName = document.querySelector("#userName").value;
+  const inputEmail = document.querySelector("#userEmail").value;
+  if (!userName || !userEmail) {
     return alert("회원정보를 모두 입력해 주세요.");
   }
-  // const data = {
-  //   userName,
-  //   phoneNumber,
-  //   postalCode,
-  //   address1,
-  //   address2,
-  // };
-  // const dataJson = JSON.stringify(data);
-  // const apiUrl = `https://${window.location.hostname}:8190/api/order`;
-
-  // const res = await fetch(apiUrl, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "aplication/json",
-  //   },
-  //   body: dataJson,
-  // });
-  // if (res.status === 201) {
-  //   alert("주문에 성공하였습니다!");
-  // } else {
-  //   alert("주문에 실패하였습니다..");
-  // }
+  const user = await getUserInfo();
+  const updatedUser = {...user, name: inputName, email: inputEmail}
+  
+  const update = await fetch('/api/user',{
+      method : "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({...updatedUser})
+    })
+    console.log(update);
 }
 
 function getCookie(cname) {
@@ -107,15 +94,12 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const inputPw =  event.target.querySelector('.modal-pw').value;
   const data = await getUserInfo() || '';
-  console.log(data._id);
-
   const token = getCookie("jwt");
 
   const response = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      //Authorization 헤더에 토큰 추가
       "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -125,13 +109,12 @@ const handleSubmit = async (event) => {
   });
 
   if (response.ok) {
-    const deleteId = await fetch(`/api/user/${data._id}`, {
+    await fetch(`/api/user/${data._id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
       },
     });
-    console.log(deleteId);
     alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.")
     window.location.href = "/";
   } else {
