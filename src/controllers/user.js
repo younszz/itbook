@@ -28,7 +28,7 @@ export const updateUser = async (req, res) => {
 //사용자 정보 삭제
 export const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdandDelete(req.user.id);
+    const user = await User.findByIdAndDelete(req.user.id);
     if (!user) throw Error('사용자가 존재하지 않습니다.');
     res.json({ message: '사용자 삭제가 완료되었습니다.' });
   } catch (err) {
@@ -98,7 +98,8 @@ export const removeFromCart = async (req, res) => {
 export const clearCart = async (req, res) => {
   try {
     const user = await User.findById(req.params.uid);//(req.user.id)
-    await user.clearCart();
+    user.cart = { items: [] };
+    await user.save();
     res.json({message: "장바구니가 비워졌습니다."});
   } catch (err) {
     console.error(err);

@@ -30,56 +30,30 @@ router.delete(
 
 router.get(
   '/api/cart/:uid',
+  //passport.authenticate('jwt', { session: false }),
   getCart
 );
-
-// router.get(
-//  '/api/cart',
-//   passport.authenticate('jwt', { session: false }),
-//   getCart
-// );
-
 
 
 router.post(
   '/api/cart/:uid',
+  //passport.authenticate('jwt', { session: false }),
   addToCart
   );
-
-// router.post(
-//   '/api/cart/:uid',
-//   passport.authenticate('jwt', { session: false }),
-//   addToCart
-// );
-
 
 
 router.delete(
   '/api/cart/:uid',
+  //passport.authenticate('jwt', { session: false }),
   removeFromCart
 );
-
-// router.delete(
-//   '/api/cart',
-//   passport.authenticate('jwt', { session: false }),
-//   removeFromCart
-// );
-
 
 
 router.delete(
   '/api/cart/all/:uid',
+  //passport.authenticate('jwt', { session: false }),
   clearCart
 );
-
-// router.delete(
-//   '/api/cart/all',
-//   passport.authenticate('jwt', { session: false }),
-//   clearCart
-// );
-
-
-
 
 
 export default router;
