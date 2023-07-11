@@ -35,12 +35,7 @@ async function appndProduct() {
   }
 }
 
-<<<<<<< HEAD
-
-function getUrl(){
-=======
 function getUrl() {
->>>>>>> 402061c91a99c12e3104773109ce16bcb87db37a
   const url = window.location.pathname;
   const parts = url.split("/").filter(Boolean);
   const id = parts.pop();
