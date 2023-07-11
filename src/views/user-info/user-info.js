@@ -1,13 +1,11 @@
 'use strict';
+const searchAddress = (e) => {
+  e.preventDefault();
 
-const searchAddressButton = document.querySelector("#searchAddressButton");
-searchAddressButton.addEventListener("click", searchAddress);
-
-function searchAddress(e) {
   const postalCodeInput = document.querySelector("#postalCode");
   const address1Input = document.querySelector("#address1");
   const address2Input = document.querySelector("#address2");    
-  e.preventDefault();
+  
   new daum.Postcode({
     oncomplete: function (data) {
       let addr = ""; // 주소 변수
@@ -47,6 +45,9 @@ function searchAddress(e) {
     },
   }).open();
 }
+
+const searchAddressButton = document.querySelector("#searchAddressButton");
+searchAddressButton.addEventListener("click", searchAddress);
 
 const getTokenFromCookie = () => {
   const cookies = document.cookie.split(";");
@@ -116,7 +117,7 @@ saveBtn.addEventListener("click", async (e) => {
   const address1 = document.querySelector("#address1").value;
   const address2 = document.querySelector("#address2").value;
 
-  if (!userName || !phoneNumber || !postalCode || !address1 || !address2) {
+  if (!userName || !phoneNumber || !address1 || !address2) {
     return alert("회원정보를 모두 입력해 주세요.");
   }
 
@@ -124,18 +125,18 @@ saveBtn.addEventListener("click", async (e) => {
     name: userName,
     phone: phoneNumber,
     postalCode: postalCode,
-    address: `${address1} ${address2}`
+    address: address1,
+    addressDetail: address2,
   };
 
   const updatedUserInfo = await updateUserInfo(userInfo);
   if (updatedUserInfo) {
     alert("회원정보 수정이 완료되었습니다.")
-    window.location.href = "/";
+    location.reload();
   }
 });
 
-
-//회원정보 삭제. 탈퇴
+//회원정보 삭제(탈퇴용)
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
@@ -157,15 +158,12 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const inputPw =  event.target.querySelector('.modal-pw').value;
   const data = await getUserInfo() || '';
-  console.log(data._id);
-
   const token = getCookie("jwt");
 
   const response = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      //Authorization 헤더에 토큰 추가
       "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -175,13 +173,12 @@ const handleSubmit = async (event) => {
   });
 
   if (response.ok) {
-    const deleteId = await fetch(`/api/user/${data._id}`, {
+    await fetch(`/api/user/${data._id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
       },
     });
-    console.log(deleteId);
     alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.")
     window.location.href = "/";
   } else {
@@ -239,18 +236,20 @@ unregisterBtn.addEventListener('click',() => {
 
 const showUserInfo = async () => {
   const data = await getUserInfo() || '';
-  const { name , email, phone, address } =  data;
+  const { name , email, phone, address, addressDetail } =  data;
   const welcomeName = document.querySelector('#welcomeName');
   const userNameInput = document.querySelector("#userName");
   const userEmailInput = document.querySelector("#userEmail");
   const phoneNumber = document.querySelector('#phoneNumber');
   const addressFirst = document.querySelector('#address1');
+  const addressSecond = document.querySelector('#address2');
 
   welcomeName.innerText= name ? name : '비회원';
   userEmailInput.value = email ? email : '';
   userNameInput.value = name ? name : '';
   phoneNumber.value = phone ? phone : '';
   addressFirst.value = address ? address : '';
+  addressSecond.value = addressDetail ? addressDetail : '';
 }
 
 window.addEventListener('load',showUserInfo);
