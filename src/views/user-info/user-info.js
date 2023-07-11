@@ -1,13 +1,11 @@
 'use strict';
+const searchAddress = (e) => {
+  e.preventDefault();
 
-const searchAddressButton = document.querySelector("#searchAddressButton");
-searchAddressButton.addEventListener("click", searchAddress);
-
-function searchAddress(e) {
   const postalCodeInput = document.querySelector("#postalCode");
   const address1Input = document.querySelector("#address1");
   const address2Input = document.querySelector("#address2");    
-  e.preventDefault();
+  
   new daum.Postcode({
     oncomplete: function (data) {
       let addr = ""; // 주소 변수
@@ -48,62 +46,214 @@ function searchAddress(e) {
   }).open();
 }
 
-const saveBtn = document.querySelector("#user-info-save");
-saveBtn.addEventListener("click", doCheckout);
+const searchAddressButton = document.querySelector("#searchAddressButton");
+searchAddressButton.addEventListener("click", searchAddress);
 
-async function doCheckout(e) {
+const getTokenFromCookie = () => {
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "jwt") {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
+
+const getUserInfo = async () => {
+  const token = getTokenFromCookie();
+  if (token !== null) {
+    try {
+      const response = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
+
+const saveBtn = document.querySelector("#user-info-save");
+saveBtn.addEventListener("click", updateUserInfo);
+
+//회원정보 수정
+async function updateUserInfo(userInfo) {
+  const token = getCookie("jwt");
+
+  const response = await fetch("/api/user/info", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(userInfo),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    alert("정보를 수정하는데 실패하였습니다.");
+    return null;
+  }
+}
+
+
+saveBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
   const userName = document.querySelector("#userName").value;
   const phoneNumber = document.querySelector("#phoneNumber").value;
   const postalCode = document.querySelector("#postalCode").value;
   const address1 = document.querySelector("#address1").value;
   const address2 = document.querySelector("#address2").value;
 
-  e.preventDefault();
-  if (!userName || !phoneNumber || !postalCode || !address1 || !address2) {
+  if (!userName || !phoneNumber || !address1 || !address2) {
     return alert("회원정보를 모두 입력해 주세요.");
   }
-  // const data = {
-  //   userName,
-  //   phoneNumber,
-  //   postalCode,
-  //   address1,
-  //   address2,
-  // };
-  // const dataJson = JSON.stringify(data);
-  // const apiUrl = `https://${window.location.hostname}:8190/api/order`;
 
-  // const res = await fetch(apiUrl, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "aplication/json",
-  //   },
-  //   body: dataJson,
-  // });
-  // if (res.status === 201) {
-  //   alert("주문에 성공하였습니다!");
-  // } else {
-  //   alert("주문에 실패하였습니다..");
-  // }
+  const userInfo = {
+    name: userName,
+    phone: phoneNumber,
+    postalCode: postalCode,
+    address: address1,
+    addressDetail: address2,
+  };
+
+  const updatedUserInfo = await updateUserInfo(userInfo);
+  if (updatedUserInfo) {
+    alert("회원정보 수정이 완료되었습니다.")
+    location.reload();
+  }
+});
+
+//회원정보 삭제(탈퇴용)
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const inputPw =  event.target.querySelector('.modal-pw').value;
+  const data = await getUserInfo() || '';
+  const token = getCookie("jwt");
+
+  const response = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      email: data.email,
+      password: inputPw
+    }),
+  });
+
+  if (response.ok) {
+    await fetch(`/api/user/${data._id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+    alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.")
+    window.location.href = "/";
+  } else {
+    alert(`비밀번호가 일치하지 않습니다. 다시 확인해주세요.`);
+  }
+}
+
+const closeWithdrawModal = () => {
+  const modal = document.querySelector('.modal-container');
+  const modalBg = document.querySelector('.modal-back');
+  document.body.removeChild(modalBg);
+  document.body.removeChild(modal);
+}
+
+const withdrawModalTemplate = () => {
+  return `
+            <h5 class="modal-title">회원탈퇴</h5>
+            <div class="modal-main">
+              <h6 class="modal-main-title">정말... 가시나요?</h6>
+              <p class="modal-main-text">회원 탈퇴 유의사항을 확인해주세요.</p>
+              <ul class="modal-list">
+                <li class="modal-list-item">회원 탈퇴 시 회원님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리됩니다.</li>
+                <li class="modal-list-item">잇북은 계속 회원님을 기다리겠습니다.</li>
+              </ul>
+              <form onsubmit="handleSubmit(event)" class="modal-form">
+                <div class="modal-input-box">
+                  <label for="modalPw" class="modal-label">비밀번호</label>
+                  <input type="password" name="modalPw" id="modalPw" class="modal-pw">
+                </div>
+                <button class="modal-Withdraw-btn">탈퇴하기</button>
+              </form>
+              <button class="modal-close-btn" onclick="closeWithdrawModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          `
+}
+
+const createWithdrawModal = () => {
+  const modal = document.createElement('div');
+  modal.setAttribute('class','modal-container');
+  modal.innerHTML = withdrawModalTemplate();
+  const modalBg = document.createElement('div');
+  modalBg.setAttribute('onclick',"closeWithdrawModal()")
+  modalBg.setAttribute('class','modal-back');
+  document.body.append(modalBg);
+  document.body.prepend(modal);
 }
 
 const unregisterBtn = document.querySelector('#unregister');
-unregisterBtn.addEventListener('click',() => alert('정말... 가시나요?'));
+unregisterBtn.addEventListener('click',() => {
+  createWithdrawModal();
+});
+unregisterBtn.addEventListener('click',() => {
+  createWithdrawModal();
+});
 
 const showUserInfo = async () => {
   const data = await getUserInfo() || '';
-  const { name , email, phone, address } =  data;
+  const { name , email, phone, address, addressDetail } =  data;
   const welcomeName = document.querySelector('#welcomeName');
   const userNameInput = document.querySelector("#userName");
   const userEmailInput = document.querySelector("#userEmail");
   const phoneNumber = document.querySelector('#phoneNumber');
   const addressFirst = document.querySelector('#address1');
+  const addressSecond = document.querySelector('#address2');
 
   welcomeName.innerText= name ? name : '비회원';
   userEmailInput.value = email ? email : '';
   userNameInput.value = name ? name : '';
   phoneNumber.value = phone ? phone : '';
   addressFirst.value = address ? address : '';
+  addressSecond.value = addressDetail ? addressDetail : '';
 }
 
 window.addEventListener('load',showUserInfo);
+
+
+
 
