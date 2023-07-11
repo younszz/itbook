@@ -96,8 +96,8 @@ const showModal = (e) => {
         // 회원가입 성공 시 메인페이지로 이동
         window.location.href = "/";
       } else {
-        // const errorData = await response.json();
-        alert(`회원가입 실패`);
+        const errorText = await response.json();
+        alert(errorText);
       }
     });
   }
