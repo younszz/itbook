@@ -19,7 +19,7 @@
     ></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    <script defer src="/template/header.js"></script>
+    <script defer type="module" src="/template/header.js"></script>
     <script defer src="/template/scroll-top-btn.js"></script>
     <script defer src="/template/footer.js"></script>
     <script defer src="./user-info.js"></script>
@@ -27,7 +27,6 @@
      <!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
   </head>
-
   <body>
     <div class="wrap">
       <h2 class="mypage-title">마이페이지</h2>
@@ -71,6 +70,7 @@
                       name="phoneNumber"
                       autocomplete="off"
                       id="phoneNumber"
+                      placeholder="010-0000-0000 입력 예시"
                     />
                   </li>
                   <li class="item-box">
@@ -79,8 +79,8 @@
                       type="text"
                       name="userEmail"
                       autocomplete="off"
-                      readonly
                       id="userEmail"
+                      readonly
                     />
                   </li>
                   <li>
@@ -102,7 +102,6 @@
                       </div>
                     </div>
                   </li>
-
                   <li>
                     <div class="field-label is-normal no-label"></div>
                     <div class="field-body">
