@@ -4,10 +4,7 @@ import User from '../models/user';
 
 export const postJoin = async (req, res) => {
   try {
-    const { name, email, password, password_confirm } = req.body;
-    if (password !== password_confirm) {
-      return res.status(400).send('비밀번호가 일치하지 않습니다.');
-    }
+    const { name, email, password} = req.body;
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
       const hashedPassword = await bcrypt.hash(password, 10);

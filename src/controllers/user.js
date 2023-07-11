@@ -40,75 +40,68 @@ export const deleteUser = async (req, res) => {
 
 // 장바구니 내역 조회
 export const getCart = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.uid);
-    const populatedUser = await user.populate('cart.items.productId').execPopulate();
-    res.json(populatedUser.cart.items);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: ' 문제가 발생했습니다.' });
-  }
+  const user = await User.findById(req.params.uid);
+
+  user.populate('cart.items.productId').then(user => {
+    res.json(user.cart.items);
+  });
 };
 
-// 장바구니 추가
+//장바구니 추가
 export const addToCart = async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const { productId, quantity } = req.body;
+  const userId = req.params.uid;
+  const prodId = req.body.productId;
+  const quantity = req.body.quantity;
 
-    const user = await User.findById(uid);
-    const cartProductIndex = user.cart.items.findIndex(cp => cp.productId.toString() === productId);
+  const user = await User.findById(userId);
+  const cartProductIndex = user.cart.items.findIndex(cp => {
+    return cp.productId.toString() === prodId.toString();
+  });
 
-    let newQuantity = quantity;
-    const updatedCartItems = [...user.cart.items];
+  let newQuantity = quantity;
+  const updatedCartItems = [...user.cart.items];
 
-    if (cartProductIndex >= 0) {
-      newQuantity = user.cart.items[cartProductIndex].quantity + quantity;
-      updatedCartItems[cartProductIndex].quantity = newQuantity;
-    } else {
-      updatedCartItems.push({
-        productId: productId,
-        quantity: newQuantity
-      });
-    }
-
-    user.cart = { items: updatedCartItems };
-
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: ' 문제가 발생했습니다.' });
+  if (cartProductIndex >= 0) {
+    newQuantity = user.cart.items[cartProductIndex].quantity + quantity;
+    updatedCartItems[cartProductIndex].quantity = newQuantity;
+  } else {
+    updatedCartItems.push({
+      productId: prodId,
+      quantity: newQuantity
+    });
   }
+
+  user.cart = {
+    items: updatedCartItems
+  };
+
+  await user.save();
+  res.json(user);
 };
 
+  
 // 장바구니 상품 삭제
 export const removeFromCart = async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const user = await User.findById(uid);
+  const prodId = req.params.uid;
+  const user = await User.findById(req.params.uid);//(req.user.id)
 
-    const updatedCartItems = user.cart.items.filter(item => item.productId.toString() !== uid);
+  const updatedCartItems = user.cart.items.filter(item => {
+    return item.productId.toString() !== prodId.toString();
+  });
 
-    user.cart.items = updatedCartItems;
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: ' 문제가 발생했습니다.' });
-  }
+  user.cart.items = updatedCartItems;
+  await user.save();
+  res.json(user);
 };
-
-// 장바구니 전체 삭제
+  
+//장바구니 전부삭제
 export const clearCart = async (req, res) => {
   try {
-    const { uid } = req.params;//(req.user.id)
-    const user = await User.findById(uid);
-
+    const user = await User.findById(req.params.uid);//(req.user.id)
     await user.clearCart();
-    res.json({ message: "장바구니가 비워졌습니다." });
+    res.json({message: "장바구니가 비워졌습니다."});
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: ' 문제가 발생했습니다.' });
+    res.status(500).json({ message: ' 문제가 발생했습니다. '});
   }
 };
