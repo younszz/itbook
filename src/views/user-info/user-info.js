@@ -85,6 +85,32 @@ async function doCheckout(e) {
   //   alert("주문에 실패하였습니다..");
   // }
 }
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const inputPw =  event.target.querySelector('.modal-pw').value;
+  const data = await getUserInfo() || '';
+  console.log(data._id);
+  const response = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: data.email,
+      password: inputPw
+    }),
+  });
+
+  if (response.ok) {
+    const deleteId = await fetch(`/api/user/${data._id}`);
+    console.log(deleteId);
+    // window.location.href = "/";
+  } else {
+    alert(`비밀번호가 일치하지 않습니다. 다시 확인해주세요.`);
+  }
+}
+
 const closeWithdrawModal = () => {
   const modal = document.querySelector('.modal-container');
   const modalBg = document.querySelector('.modal-back');
@@ -102,7 +128,7 @@ const withdrawModalTemplate = () => {
                 <li class="modal-list-item">회원 탈퇴 시 회원님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리됩니다.</li>
                 <li class="modal-list-item">잇북은 계속 회원님을 기다리겠습니다.</li>
               </ul>
-              <form class="modal-form">
+              <form onsubmit="handleSubmit(event)" class="modal-form">
                 <div class="modal-input-box">
                   <label for="modalPw" class="modal-label">비밀번호</label>
                   <input type="password" name="modalPw" id="modalPw" class="modal-pw">
