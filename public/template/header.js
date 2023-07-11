@@ -1,137 +1,4 @@
-// 모달창
-const showModal = (e) => {
-  const mode = e.target.id;
-  const loginModalContent = document.querySelector("#loginModalContent");
-  const joinModalContent = document.querySelector("#joinModalContent");
-  const bg = document.querySelector(".modal-bg");
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (mode === "loginBtn") {
-    bg.classList.add("show");
-    loginModalContent.classList.add("show");
-
-    // 유효성 검사
-    const loginEmail = document.querySelector("#loginEmail");
-    const loginPassword = document.querySelector("#loginPassword");
-    const loginForm = document.querySelector("#loginForm");
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!emailRegex.test(loginEmail.value)) {
-        alert("유효한 이메일을 입력하세요.");
-        loginEmail.focus();
-        return false;
-      }
-      if (!loginPassword.value) {
-        alert("비밀번호를 입력하세요.");
-        loginPassword.focus();
-        return false;
-      }
-      //fetch
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: loginEmail.value,
-          password: loginPassword.value,
-        }),
-      });
-
-      if (response.ok) {
-        alert("로그인 성공");
-        // 로그인 성공 시 메인페이지로 이동
-        window.location.href = "/";
-      } else {
-        alert(`로그인 실패`);
-      }
-    });
-  } else if (mode === "JoinBtn") {
-    bg.classList.add("show");
-    joinModalContent.classList.add("show");
-
-    // 유효성 검사
-    const joinUserName = document.querySelector("#joinUserName");
-    const joinEmail = document.querySelector("#joinEmail");
-    const joinPassword = document.querySelector("#joinPassword");
-    const passwordCheck = document.querySelector("#passwordCheck");
-    const joinForm = document.querySelector("#joinForm");
-    joinForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!joinUserName.value) {
-        alert("이름을 입력하세요.");
-        joinUserName.focus();
-        return false;
-      }
-      if (!emailRegex.test(joinEmail.value)) {
-        alert("유효한 이메일을 입력하세요.");
-        joinEmail.focus();
-        return false;
-      }
-      if (!joinPassword.value) {
-        alert("비밀번호를 입력하세요.");
-        joinPassword.focus();
-        return false;
-      }
-      if (joinPassword.value !== passwordCheck.value) {
-        alert("비밀번호가 일치하지 않습니다.");
-        passwordCheck.focus();
-        return false;
-      }
-      //fetch
-      const response = await fetch("/api/join", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: joinUserName.value,
-          email: joinEmail.value,
-          password: joinPassword.value,
-          password_confirm: passwordCheck.value,
-        }),
-      });
-
-      if (response.ok) {
-        alert("회원가입 성공");
-        // 회원가입 성공 시 메인페이지로 이동
-        window.location.href = "/";
-      } else {
-        // const errorData = await response.json();
-        alert(`회원가입 실패`);
-      }
-    });
-  }
-  // 인풋창 포커스in-out 이벤트
-  const inputs = document.querySelectorAll("input");
-  function inputFocusIn(e) {
-    e.target.parentNode.classList.add("focus");
-  }
-  function inputFocusOut(e) {
-    if (e.target.value.length === 0) {
-      e.target.parentNode.classList.remove("focus");
-    } else if (e.target.value) {
-      e.target.style.borderColor = "#ddd";
-    }
-  }
-  inputs.forEach((input) => {
-    input.addEventListener("focusin", inputFocusIn);
-  });
-  inputs.forEach((input) => {
-    input.addEventListener("focusout", inputFocusOut);
-  });
-
-  // 닫기
-  const closeBtn = document.querySelectorAll(".btn-close");
-  const modalClose = () => {
-    bg.classList.remove("show");
-    loginModalContent.classList.remove("show");
-    joinModalContent.classList.remove("show");
-  };
-  closeBtn.forEach((btn) => {
-    btn.addEventListener("click", modalClose);
-  });
-  document.querySelector(".modal-bg").addEventListener("click", modalClose);
-};
+import { modal, showModal } from "./modal.js";
 
 // 쿠키에 name="jwt"로 저장되어있는 값 찾음
 const getTokenFromCookie = () => {
@@ -178,8 +45,6 @@ const deleteCookie = (name) => {
 
 const renderHeader = () => {
   const header = document.createElement("header");
-  const div = document.createElement("div");
-
   const handleUserInfo = async () => {
     try {
       const userInfo = await getUserInfo();
@@ -219,7 +84,7 @@ const renderHeader = () => {
     <ul class="header-menu" id="headerMenu">
     
     </ul>
-    <!-- 로그인/회원가입/장바구니 -->
+    <!-- 관리자페이지/로그아웃/장바구니 -->
     <div class="header-btn">
       <ul>
         <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
@@ -244,11 +109,11 @@ const renderHeader = () => {
     <ul class="header-menu" id="headerMenu">
     
     </ul>
-    <!-- 로그인/회원가입/장바구니 -->
+    <!-- 마이페이지/로그아웃/장바구니 -->
     <div class="header-btn">
       <ul>
         <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
         <li><a href="/user/info">마이페이지</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -285,7 +150,6 @@ const renderHeader = () => {
     }
   };
   handleUserInfo();
-  
 
   const loginModalContent = `
   <div class="modal fade" id="loginModalContent">

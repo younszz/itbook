@@ -21,7 +21,6 @@ function count(type) {
   totalpriceElement.innerText = totalprice;
 }
 
-
 async function appndProduct() {
   const id = getUrl();
   try {
@@ -34,7 +33,6 @@ async function appndProduct() {
     console.error("Error:", error);
   }
 }
-
 
 function getUrl() {
   const url = window.location.pathname;
