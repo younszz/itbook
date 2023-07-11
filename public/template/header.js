@@ -198,7 +198,7 @@ const renderHeader = () => {
       <div class="header-btn">
         <ul>
           <li><a href="/admin">관리자(임시)</i></a></li>
-          <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+          <li id="cartIcon"><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
           <li id="loginBtn">로그인</li>
           <li id="JoinBtn">회원가입</li>
         </ul>
@@ -223,7 +223,7 @@ const renderHeader = () => {
     <div class="header-btn">
       <ul>
         <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
         <li><a href="/admin">관리자</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -248,7 +248,7 @@ const renderHeader = () => {
     <div class="header-btn">
       <ul>
         <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+        <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
         <li><a href="/user/info">마이페이지</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -285,6 +285,7 @@ const renderHeader = () => {
     }
   };
   handleUserInfo();
+  
 
   const loginModalContent = `
   <div class="modal fade" id="loginModalContent">
@@ -378,3 +379,24 @@ window.addEventListener("scroll", function () {
     header.classList.remove("fixed");
   }
 });
+
+
+// 장바구니 숫자 
+function getLocalBooks() {
+  const books = JSON.parse(localStorage.getItem("books"));
+  const cartIcon = document.getElementById("cartIcon");
+  console.log(books.length);
+  
+  if (books.length > 0) {
+    cartIcon.classList.add("cart");
+  } else {
+    cartIcon.classList.remove("cart");
+  }
+}
+
+getLocalBooks();
+
+
+
+
+

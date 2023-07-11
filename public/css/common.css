@@ -75,8 +75,13 @@ header .header-btn ul {
 }
 
 header .header-btn ul li {
+  position: relative;
   margin-left: 20px;
   cursor: pointer;
+}
+
+header .header-btn ul li.cart {
+  position: relative;
 }
 
 header .header-btn ul li a {
@@ -87,6 +92,17 @@ header a.logo-img img{
   width:140px;
   height:65px;
 }
+
+/* header .header-btn ul li.cart:before{
+  content: '';
+  position: absolute;
+  background-color: #7156ed;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  top: -9px;
+  right: -7px;
+} */
 
 /* modal */
 .modal {
