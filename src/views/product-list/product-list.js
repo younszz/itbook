@@ -5,6 +5,7 @@ async function productsByCategory() {
   try {
     const response = await fetch(`/api/products?category=${category}`);
     const data = await response.json();
+    console.log(data);
     const books = data
       .map(
         (book) =>
