@@ -199,6 +199,9 @@ const unregisterBtn = document.querySelector('#unregister');
 unregisterBtn.addEventListener('click',() => {
   createWithdrawModal();
 });
+unregisterBtn.addEventListener('click',() => {
+  createWithdrawModal();
+});
 
 const showUserInfo = async () => {
   const data = await getUserInfo() || '';
