@@ -1,41 +1,42 @@
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const passport = require('passport');
+import getUserFromJWT from './middlewares/get-user-from-jwt';
 import dotenv from 'dotenv';
-import path from 'path';
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-
 import viewsRoutes from './routes/views.js';
-
 import productRoutes from './routes/product.js';
-import categoryRoutes from './routes/category.js';
-import userRoutes from './routes/user';
-import authRoutes from './routes/auth';
-import './middlewares/passport.js';
+import userRoutes from './routes/user.js';
+const authRouter = require('./routes/auth');
 
+import categoryRouted from './routes/category';
 dotenv.config();
-
-const app = express();
-
-//미들웨어 파싱
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use(express.static(path.join(__dirname, '../public')));
-
-//Routes
-app.use(userRoutes);
-app.use(authRoutes);
-app.use(categoryRoutes)
-
-app.use(productRoutes);
-app.use(viewsRoutes);
-//app.use(orderRoutes);
+require('./passport')();
 
 mongoose
   .connect(
     'mongodb+srv://Gwanggaeto:Gwang1234@cluster0.o8ndafw.mongodb.net/?retryWrites=true&w=majority'
   )
   .then(() => {
-    app.listen(3000);
+    app.listen(8080);
   })
   .catch((err) => console.log(err));
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.use(passport.initialize());
+// jwt 로그인 미들웨어 추가
+app.use(getUserFromJWT);
+
+app.use(categoryRouted);
+app.use(productRoutes);
+app.use(authRouter);
+app.use(userRoutes);
+
+app.use(viewsRoutes);
