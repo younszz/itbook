@@ -201,7 +201,7 @@ window.addEventListener('load', async () => {
   const cartData =
     (isLogin ? await getCartFromDB() : getCartFromLocalStrorage()) ?? [];
   const ul = document.querySelector('.cart-list');
-  console.log(cartData)
+  console.log(cartData);
   checkBoxOnOff(cartData);
 
   let totalPrice = 0;
@@ -249,6 +249,11 @@ window.addEventListener('load', async () => {
 });
 
 orderBtn.addEventListener('click', () => {
+  if (!getTokenFromCookie()) {
+    alert('로그인이 필요합니다.');
+    return;
+  }
+
   if (confirm('선택한 상품을 주문하시겠습니까?')) {
     const selectedCheckboxes = document.querySelectorAll(
       '.selectCheck:checked'
