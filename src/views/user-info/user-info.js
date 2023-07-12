@@ -53,7 +53,7 @@ const getTokenFromCookie = () => {
   const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
+    if (name === "token") {
       return decodeURIComponent(value);
     }
   }
@@ -67,12 +67,12 @@ const getUserInfo = async () => {
       const response = await fetch("/api/user", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         return data;
       } else {
         console.error("실패");
@@ -164,7 +164,6 @@ const handleSubmit = async (event) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify({
       email: data.email,
@@ -176,7 +175,7 @@ const handleSubmit = async (event) => {
     await fetch(`/api/user/${data._id}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
     alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.")
