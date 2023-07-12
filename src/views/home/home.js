@@ -22,6 +22,14 @@ var swiper = new Swiper(".new-swiper", {
   //   delay: 3000,
   //   disableOnInteraction: true 
   // },
+  breakpoints: {
+    1: {
+      slidesPerView: 1,
+    },
+    768: {
+      slidesPerView: 3, 
+  },
+},
   loop:true,
 });
 

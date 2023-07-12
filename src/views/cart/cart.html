@@ -1,43 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>다독다독</title>
-    <!-- css -->
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/common.css" />
-    <link rel="stylesheet" href="/css/font.css" />
-    <link rel="stylesheet" href="cart.css" />
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>잇북</title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/font.css" />
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <!-- js -->
+  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
+  <script defer type="module" src="/template/header.js"></script>
+  <script defer src="/template/scroll-top-btn.js"></script>
+  <script defer src="/template/footer.js"></script>
+  <script src="cart.js" defer></script>
 
-    <!-- js -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/9daa42bcef.js"
-      crossorigin="anonymous"
-    ></script>
-    <script defer type="module" src="/template/header.js"></script>
-    <script defer src="/template/scroll-top-btn.js"></script>
-    <script defer src="/template/footer.js"></script>
-    <script src="cart.js" defer></script>
-  </head>
-  <body>
-    <div class="wrap">
-      <section class="cart">
-        <h3 class="page-title">장바구니</h3>
-        <div class="cart-content">
-          <div class="cart-wraper">
-            <div class="cart-header">
-              <div class="all-box-container">
-                <input
-                  type="checkbox"
-                  id="allCheck"
-                  class="input-all-check"
-                  checked
-                />
-                <label for="allCheck">전체선택(3/3)</label>
-              </div>
-              <button class="btn-select-delete">선택삭제</button>
+   <!-- favicon -->
+   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="wrap">
+    <section class="cart">
+      <h3 class="page-title">장바구니</h3>
+      <div class="cart-content">
+        <div class="cart-wraper">
+          <div class="cart-header">
+            <div class="all-box-container">
+              <input type="checkbox" id="allCheck" class="input-all-check" checked>
+              <label for="allCheck">전체선택(3/3)</label>
             </div>
             <ul class="cart-list"></ul>
           </div>

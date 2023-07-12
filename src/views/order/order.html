@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>잇북</title>
     <!-- css -->
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/common.css" />
     <link rel="stylesheet" href="/css/font.css" />
     <link rel="stylesheet" href="order.css" />
+    <link rel="stylesheet" href="/css/style.css">
 
-    <!-- js -->
-    <script src="order.js" defer></script>
-    <script
-      defer
-      src="https://kit.fontawesome.com/9daa42bcef.js"
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="/template/header.js defer"></script>
-    <script src="/template/scroll-top-btn.js defer"></script>
-    <script src="/template/footer.js defer"></script>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="container">
-        <div class="container-header">주문서</div>
-        <div class="order-section">
-          <div class="left">
-            <div class="left-container">
-              <div class="inner-top">
-                <h4 class="inner-title">배송지</h4>
+  <!-- js -->
+  <script src="order.js" defer></script>
+  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
+  <script type="module" src="/template/header.js defer"></script>
+  <script src="/template/scroll-top-btn.js defer"></script>
+  <script src="/template/footer.js defer"></script>
+
+   <!-- favicon -->
+   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <div class="container-header">주문서</div>
+      <div class="order-section">
+        <div class="left">
+          <div class="left-container">
+            <div class="inner-top">
+              <h4 class="inner-title">배송지</h4>
+            </div>
+            <div class="inner-bottom">
+              <button class="address-btn"><i class="fa-solid fa-location-dot"></i> 배송지 등록하기</button>
+            </div>
+          </div>
+          <div class="left-container">
+            <div class="inner-top">
+              <h4 class="inner-title">주문상품</h4>
+            </div>
+            <div class="order-container">
+              <div class="item">
+                <div class="item-name">글림체 자음모음 붙임딱지</div>
+                <span class="item-count">1개</span>
               </div>
               <div class="inner-bottom">
                 <button class="address-btn">

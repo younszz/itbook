@@ -221,4 +221,5 @@ function itemTemplate(book){
   `;
 }
 
+getLocalBooks();
 

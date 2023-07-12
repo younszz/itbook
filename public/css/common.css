@@ -83,13 +83,42 @@ header .header-btn ul li {
 }
 
 header .header-btn ul li a {
+  position: relative;
   cursor: pointer;
 }
+header .header-btn ul li a span {
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  color: #fff;
+  background-color: #7156ed;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 11px;
+}
+
+header .header-btn ul li a span.count-none {
+  display:none;
+}
+
 
 header a.logo-img img{
   width:140px;
   height:65px;
 }
+
+
+
+/* header .header-btn ul li.cart:before{
+  content: '';
+  position: absolute;
+  background-color: #7156ed;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  top: -9px;
+  right: -7px;
+} */
 
 /* modal */
 .modal {
