@@ -2,7 +2,7 @@ import User from '../models/user';
 
 export const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select('-password');
     if (!user) throw Error('사용자가 존재하지 않습니다.');
     res.json(user);
   } catch (err) {
