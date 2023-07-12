@@ -120,17 +120,17 @@ async function setItemToDBOrLocalStorage() {
     }
   } else {
     //로컬스토래지에 저장
-    let books = JSON.parse(localStorage.getItem('books')) || [];
-    const isBook = Object.values(books).find((obj) => obj.id == book.id);
+    let carts = JSON.parse(localStorage.getItem('carts')) || [];
+    const isBook = Object.values(carts).find((obj) => obj.id == book.id);
 
     if (isBook) {
       const newBook = { ...isBook, quantity: isBook.quantity + book.quantity };
-      books = Object.values(books).filter((obj) => obj.id !== book.id);
-      books.unshift(newBook);
+      carts = Object.values(carts).filter((obj) => obj.id !== book.id);
+      carts.unshift(newBook);
     } else {
-      books.unshift(book);
+      carts.unshift(book);
     }
-    localStorage.setItem('books', JSON.stringify(books));
+    localStorage.setItem('carts', JSON.stringify(carts));
   }
 
   showPutMessage();
