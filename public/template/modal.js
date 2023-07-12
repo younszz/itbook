@@ -38,8 +38,29 @@ const showModal = (mode) => {
 
       if (response.ok) {
         alert('로그인 성공');
-        // 로그인 성공 시 메인페이지로 이동
-        window.location.href = '/';
+        // 로그인 후 장바구니 데이터 병합
+        const localCarts = JSON.parse(localStorage.getItem('carts'));
+        if(localCarts.length > 0) {
+          try {
+            const response = await fetch('/api/user/cart/merge', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(localCarts)
+            });
+      
+            if (!response.ok) {
+              throw new Error('서버 응답 오류');
+            }
+      
+            const result = await response.json();
+            console.log(result.message);
+          } catch (error) {
+            console.error('요청을 실패했습니다', error);
+          }
+        }
+        window.location.reload()
       } else {
         alert(`로그인 실패`);
       }
