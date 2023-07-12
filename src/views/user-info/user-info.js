@@ -1,11 +1,12 @@
-'use strict';
+"use strict";
+
 const searchAddress = (e) => {
   e.preventDefault();
 
   const postalCodeInput = document.querySelector("#postalCode");
   const address1Input = document.querySelector("#address1");
-  const address2Input = document.querySelector("#address2");    
-  
+  const address2Input = document.querySelector("#address2");
+
   new daum.Postcode({
     oncomplete: function (data) {
       let addr = ""; // 주소 변수
@@ -44,30 +45,35 @@ const searchAddress = (e) => {
       address2Input.focus();
     },
   }).open();
-}
+};
 
 const searchAddressButton = document.querySelector("#searchAddressButton");
 searchAddressButton.addEventListener("click", searchAddress);
 
-const getTokenFromCookie = () => {
-  const cookies = document.cookie.split(";");
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
-      return decodeURIComponent(value);
+const getUserFromDB = async () => {
+  try {
+    const response = await fetch("/api/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("실패");
     }
+  } catch (err) {
+    console.error(err);
   }
-  return null;
 };
-
 const getUserInfo = async () => {
-  const token = getTokenFromCookie();
   if (token !== null) {
     try {
       const response = await fetch("/api/user", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -88,13 +94,10 @@ saveBtn.addEventListener("click", updateUserInfo);
 
 //회원정보 수정
 async function updateUserInfo(userInfo) {
-  const token = getCookie("jwt");
-
-  const response = await fetch("/api/user/info", {
+  const response = await fetch("/api/user", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify(userInfo),
   });
@@ -107,7 +110,6 @@ async function updateUserInfo(userInfo) {
     return null;
   }
 }
-
 
 saveBtn.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -131,7 +133,7 @@ saveBtn.addEventListener("click", async (e) => {
 
   const updatedUserInfo = await updateUserInfo(userInfo);
   if (updatedUserInfo) {
-    alert("회원정보 수정이 완료되었습니다.")
+    alert("회원정보 수정이 완료되었습니다.");
     location.reload();
   }
 });
@@ -140,10 +142,10 @@ saveBtn.addEventListener("click", async (e) => {
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
+  let ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) == " ") {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
@@ -153,22 +155,21 @@ function getCookie(cname) {
   return "";
 }
 
-
 const handleSubmit = async (event) => {
   event.preventDefault();
-  const inputPw =  event.target.querySelector('.modal-pw').value;
-  const data = await getUserInfo() || '';
+  const inputPw = event.target.querySelector(".modal-pw").value;
+  const data = (await getUserFromDB()) || "";
   const token = getCookie("jwt");
 
   const response = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       email: data.email,
-      password: inputPw
+      password: inputPw,
     }),
   });
 
@@ -176,22 +177,22 @@ const handleSubmit = async (event) => {
     await fetch(`/api/user/${data._id}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.")
+    alert("회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.");
     window.location.href = "/";
   } else {
     alert(`비밀번호가 일치하지 않습니다. 다시 확인해주세요.`);
   }
-}
+};
 
 const closeWithdrawModal = () => {
-  const modal = document.querySelector('.modal-container');
-  const modalBg = document.querySelector('.modal-back');
+  const modal = document.querySelector(".modal-container");
+  const modalBg = document.querySelector(".modal-back");
   document.body.removeChild(modalBg);
   document.body.removeChild(modal);
-}
+};
 
 const withdrawModalTemplate = () => {
   return `
@@ -212,48 +213,44 @@ const withdrawModalTemplate = () => {
               </form>
               <button class="modal-close-btn" onclick="closeWithdrawModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-          `
-}
+          `;
+};
 
 const createWithdrawModal = () => {
-  const modal = document.createElement('div');
-  modal.setAttribute('class','modal-container');
+  const modal = document.createElement("div");
+  modal.setAttribute("class", "modal-container");
   modal.innerHTML = withdrawModalTemplate();
-  const modalBg = document.createElement('div');
-  modalBg.setAttribute('onclick',"closeWithdrawModal()")
-  modalBg.setAttribute('class','modal-back');
+  const modalBg = document.createElement("div");
+  modalBg.setAttribute("onclick", "closeWithdrawModal()");
+  modalBg.setAttribute("class", "modal-back");
   document.body.append(modalBg);
   document.body.prepend(modal);
-}
+};
 
-const unregisterBtn = document.querySelector('#unregister');
-unregisterBtn.addEventListener('click',() => {
+const unregisterBtn = document.querySelector("#unregister");
+unregisterBtn.addEventListener("click", () => {
   createWithdrawModal();
 });
-unregisterBtn.addEventListener('click',() => {
+unregisterBtn.addEventListener("click", () => {
   createWithdrawModal();
 });
 
 const showUserInfo = async () => {
-  const data = await getUserInfo() || '';
-  const { name , email, phone, address, addressDetail } =  data;
-  const welcomeName = document.querySelector('#welcomeName');
+  const data = (await getUserFromDB()) || "";
+  const { name, email, phone, address, addressDetail } = data;
+  const welcomeName = document.querySelector("#welcomeName");
   const userNameInput = document.querySelector("#userName");
   const userEmailInput = document.querySelector("#userEmail");
-  const phoneNumber = document.querySelector('#phoneNumber');
-  const addressFirst = document.querySelector('#address1');
-  const addressSecond = document.querySelector('#address2');
+  const phoneNumber = document.querySelector("#phoneNumber");
+  const addressFirst = document.querySelector("#address1");
+  const addressSecond = document.querySelector("#address2");
 
-  welcomeName.innerText= name ? name : '비회원';
-  userEmailInput.value = email ? email : '';
-  userNameInput.value = name ? name : '';
-  phoneNumber.value = phone ? phone : '';
-  addressFirst.value = address ? address : '';
-  addressSecond.value = addressDetail ? addressDetail : '';
-}
+  welcomeName.innerText = name ? name : "비회원";
+  userEmailInput.value = email ? email : "";
+  userNameInput.value = name ? name : "";
+  phoneNumber.value = phone ? phone : "";
+  addressFirst.value = address ? address : "";
+  addressSecond.value = addressDetail ? addressDetail : "";
+};
 
-window.addEventListener('load',showUserInfo);
-
-
-
-
+window.addEventListener("load", showUserInfo);

@@ -14,9 +14,10 @@
   <!-- js -->
   <script src="order.js" defer></script>
   <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
-  <script type="module" src="/template/header.js defer"></script>
-  <script src="/template/scroll-top-btn.js defer"></script>
-  <script src="/template/footer.js defer"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script defer type="module" src="/template/header.js"></script>
+  <script defer src="/template/scroll-top-btn.js"></script>
+  <script defer src="/template/footer.js"></script>
 
    <!-- favicon -->
    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -31,23 +32,21 @@
             <div class="inner-top">
               <h4 class="inner-title">배송지</h4>
             </div>
+            <div class="delivery-info">
+            </div>
             <div class="inner-bottom">
               <button class="address-btn"><i class="fa-solid fa-location-dot"></i> 배송지 등록하기</button>
             </div>
           </div>
           <div class="left-container">
             <div class="inner-top">
-              <h4 class="inner-title">주문상품</h4>
+              <h4 class="inner-title">주문자 정보</h4>
             </div>
             <div class="order-container">
               <div class="item">
-                <div class="item-name">글림체 자음모음 붙임딱지</div>
-                <span class="item-count">1개</span>
+                <div class="order-info"></div>
               </div>
               <div class="inner-bottom">
-                <button class="address-btn">
-                  <i class="fa-solid fa-location-dot"></i> 배송지 등록하기
-                </button>
               </div>
             </div>
             <div class="left-container">
@@ -90,56 +89,56 @@
             </button>
           </div> -->
           </div>
-          <div class="right">
-            <div class="top-wrapper">
-              <div class="order-price-wrapper">
-                <div class="price-wrapper">
-                  <span class="price-label">주문금액</span>
-                  <span class="price">8,000원</span>
-                </div>
-                <div class="price-wrapper">
-                  <span class="price-label">상품금액</span>
-                  <span class="price">8,000원</span>
-                </div>
-                <div class="price-wrapper">
-                  <span class="price-label">상품할인</span>
-                  <span class="price">0원</span>
-                </div>
+        </div>
+        <div class="right">
+          <div class="top-wrapper">
+            <div class="order-price-wrapper">
+              <div class="price-wrapper">
+                <span class="price-label">주문금액</span>
+                <span class="price">8,000원</span>
               </div>
               <div class="price-wrapper">
-                <span class="price-label">배송비</span>
-                <span>+3,000원</span>
+                <span class="price-label">상품금액</span>
+                <span class="price">8,000원</span>
+              </div>
+              <div class="price-wrapper">
+                <span class="price-label">상품할인</span>
+                <span class="price">0원</span>
               </div>
             </div>
-            <div class="bottom-wrapper">
-              <span class="price-label">총 결제금액</span>
-              <span class="price">11,000원</span>
+            <div class="price-wrapper">
+              <span class="price-label">배송비</span>
+              <span>+3,000원</span>
             </div>
-            <div class="check-boxs">
-              <div class="check-box-container">
-                <input type="checkbox" id="all-btn" />
-                <label for="all-btn">전체 동의</label>
-              </div>
-              <div class="check-box-container">
-                <input type="checkbox" id="check-btn1" />
-                <label for="check-btn1"
-                  >(필수) 구매할 상품의 결제정보(상품명, 상품가격)를 확인
-                  하였으며, 구매진행에 동의합니다.</label
-                >
-              </div>
-              <div class="check-box-container">
-                <input type="checkbox" id="check-btn2" />
-                <label for="check-btn2"
-                  >(필수) 개인정보 수집 및 이용에 동의합니다.</label
-                >
-              </div>
-            </div>
-            <button class="payment-btn">
-              <span class="pament-btn-text">
-                <span class="total-price">11,000원</span> 결제하기
-              </span>
-            </button>
           </div>
+          <div class="bottom-wrapper">
+            <span class="price-label">총 결제금액</span>
+            <span class="price">11,000원</span>
+          </div>
+          <div class="check-boxs">
+            <div class="check-box-container">
+              <input type="checkbox" id="all-btn" />
+              <label for="all-btn">전체 동의</label>
+            </div>
+            <div class="check-box-container">
+              <input type="checkbox" id="check-btn1" />
+              <label for="check-btn1"
+                >(필수) 구매할 상품의 결제정보(상품명, 상품가격)를 확인
+                하였으며, 구매진행에 동의합니다.</label
+              >
+            </div>
+            <div class="check-box-container">
+              <input type="checkbox" id="check-btn2" />
+              <label for="check-btn2"
+                >(필수) 개인정보 수집 및 이용에 동의합니다.</label
+              >
+            </div>
+          </div>
+          <button class="payment-btn">
+            <span class="pament-btn-text">
+              <span class="total-price">11,000원</span> 결제하기
+            </span>
+          </button>
         </div>
       </div>
     </div>
