@@ -69,7 +69,7 @@ const headerTemplate = () => {
   </ul>
 <div class="header-btn">
   <ul id="authMenu">
-    <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
+    <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i><span id="cartCount"></span></a></li>
   </ul>
 </div>
 `;
@@ -128,4 +128,24 @@ window.addEventListener('scroll', function () {
     header.classList.remove('fixed');
   }
 });
+
+// 장바구니 숫자 
+document.addEventListener("DOMContentLoaded", function() {
+  const cartCount = document.getElementById("cartCount");
+  if (cartCount) {
+    getLocalBooks(cartCount);
+  } else {
+    console.error("Error: Element with id 'cartCount' not found.");
+  }
+});
+
+function getLocalBooks(cartCountElement) {
+  const books = JSON.parse(localStorage.getItem("books"));
+
+  if (books && books.length > 0) {
+    cartCountElement.innerHTML = books.length;
+  } else {
+    cartCountElement.classList.add("count-none");
+  }
+}
 
