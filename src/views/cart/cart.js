@@ -38,7 +38,7 @@ const onUserState = async () => {
   const user = await getUserInfo() || '';
   const ul = document.querySelector('.cart-list');
   const isLogin = user ? true : false;
-  const userCart = user.cart.items;
+  const userCart = user? user.cart.items : '';
 
   // 로그인상태이고 유저 카트 데이터가 1개라도 있다면 유저 카트 상품목록을 렌더링
   if(isLogin && userCart.length > 0){
