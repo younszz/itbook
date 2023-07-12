@@ -12,7 +12,7 @@ const getTokenFromCookie = () => {
   return null;
 };
 // 서버에서 유저 카트 정보 가져오기
-const getCartFromDB = async () => {
+const getCartFromDB = async (header) => {
   try {
     const response = await fetch('/api/user/cart', {
       method: 'GET',
@@ -22,10 +22,9 @@ const getCartFromDB = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      const count = data.length; // 카트 정보의 데이터 개수
-      console.log('서버에서 가져온 카트 정보:', data);
-      console.log('데이터 개수:', count);
-      return { data, count };
+      const count = data.length;
+      const cartcount = header.querySelector("#cartCount");
+      cartcount.innerHTML = count;
     } else {
       console.error('실패');
     }
@@ -34,30 +33,13 @@ const getCartFromDB = async () => {
   }
 };
 
-const cartFromDB = async () => {
-  const cartData = await getCartFromDB();
-  // cartData를 사용하여 원하는 작업 수행
-};
-
-cartFromDB();
-
-
-
 // 로컬스토래지에서 카트 정보 가져오기
-const getCartFromLocalStrorage = () => {
+const getCartFromLocalStrorage = (header) => {
   const carts = JSON.parse(localStorage.getItem('carts'));
-  const count = carts ? carts.length : 0; // 카트 정보의 데이터 개수
-  console.log('로컬 스토리지에서 가져온 카트 정보:', carts);
-  console.log('데이터 개수:', count);
-  return { carts, count };
+  const count = carts ? carts.length : 0;
+  const cartcount = header.querySelector("#cartCount");
+  cartcount.innerHTML = count;
 };
-
-const cartFromLocalStorage = () => {
-  const cartData = getCartFromLocalStrorage();
-  // cartData를 사용하여 원하는 작업 수행
-};
-
-cartFromLocalStorage();
 
 
 // DB 유저 정보 요청 (for 일반 & 관리자 체크)
@@ -122,36 +104,8 @@ const headerTemplate = () => {
     </div>
   `;
 
-  const getCartCount = async () => {
-    await new Promise((resolve) => {
-      window.addEventListener('DOMContentLoaded', resolve);
-    });
-
-    const cartCountElement = header.querySelector('#cartCount');
-    if (cartCountElement) {
-      let totalCount = 0;
-
-      const cartDataFromDB = await getCartFromDB();
-      if (cartDataFromDB && cartDataFromDB.count) {
-        totalCount += cartDataFromDB.count;
-      }
-
-      const cartDataFromLocalStorage = getCartFromLocalStrorage();
-      if (cartDataFromLocalStorage && cartDataFromLocalStorage.count) {
-        totalCount += cartDataFromLocalStorage.count;
-      }
-
-      cartCountElement.innerHTML = totalCount; // totalCount 데이터를 cartCountElement에 삽입
-    }
-  };
-
-  getCartCount();
-
   return header;
 };
-
-
-
 
 
 // 헤더 생성
@@ -187,6 +141,8 @@ const createHeader = async () => {
     modal();
     await createMenuList(header);
     document.body.prepend(header);
+    await getCartFromLocalStrorage(header);
+    getCartFromDB(header);
   } catch (err) {
     console.error(err);
   }
