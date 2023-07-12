@@ -63,11 +63,7 @@ const renderHeader = () => {
       <div class="header-btn">
         <ul>
           <li><a href="/admin">관리자(임시)</i></a></li>
-<<<<<<< HEAD
           <li id="cartIcon"><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
-=======
-          <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i></a></li>
->>>>>>> parent of 0e89253 (feat : 반응형 추가)
           <li id="loginBtn">로그인</li>
           <li id="JoinBtn">회원가입</li>
         </ul>
@@ -91,12 +87,7 @@ const renderHeader = () => {
     <!-- 관리자페이지/로그아웃/장바구니 -->
     <div class="header-btn">
       <ul>
-<<<<<<< HEAD
         <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
-=======
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
->>>>>>> parent of 0e89253 (feat : 반응형 추가)
         <li><a href="/admin">관리자</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -120,12 +111,7 @@ const renderHeader = () => {
     <!-- 마이페이지/로그아웃/장바구니 -->
     <div class="header-btn">
       <ul>
-<<<<<<< HEAD
         <li id="cartIcon"><a href=""><i class="fas fa-cart-shopping fa-lg"></i><span id ="cartCount"></span></a></li>
-=======
-        <li><i class="fas fa-magnifying-glass fa-lg"></i></li>
-        <li><a href=""><i class="fas fa-cart-shopping fa-lg"></i></a></li>
->>>>>>> parent of 0e89253 (feat : 반응형 추가)
         <li><a href="/user/info">마이페이지</a></li>
         <li id="logout">로그아웃</li>
       </ul>
@@ -162,85 +148,7 @@ const renderHeader = () => {
     }
   };
   handleUserInfo();
-<<<<<<< HEAD
   modal();
-=======
-
-  const loginModalContent = `
-  <div class="modal fade" id="loginModalContent">
-<div class="modal-header">
-<h2 class="modal-title">로그인</h2>
-<button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
-</div>
-<div class="modal-body">
-<form id="loginForm" class="form">
-  <ul class="form-list">
-    <li class="input-box">
-      <label class="label" for="loginEmail">이메일</label>
-      <input
-        type="email"
-        name="loginEmail"
-        autocomplete="off"
-        id= "loginEmail"
-        value="admin@admin.com"
-      />
-    </li>
-    <li class="input-box">
-      <label class="label" for="loginPassword">비밀번호</label>
-      <input type="password" name="password" id="loginPassword" autocomplete="off" />
-    </li>
-  </ul>
-</form>
-</div>
-<div class="modal-footer">
-<button type="submit" form="loginForm">로그인</button>
-</div>
-</div>
-</div>
-`;
-  const joinModalContent = `
-  <div class="modal fade" id="joinModalContent">
-  <div class="modal-header">
-  <h2 class="modal-title">회원가입</h2>
-  <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
-</div>
-<div class="modal-body">
-
-  <form id="joinForm"  method="POST" class="form">
-    <ul class="form-list">
-      <li class="input-box">
-        <label class="label" for="joinUserName">이름</label>
-        <input type="text" name="joinUserName" id="joinUserName" />
-      </li>
-      <li class="input-box">
-        <label class="label" for="joinEmail">이메일</label>
-        <input type="email" name="joinEmail" id="joinEmail" />
-      </li>
-      <li class="input-box">
-        <label class="label" for="joinPassword">비밀번호</label>
-        <input type="password" name="joinPassword" id="joinPassword" autocomplete="off" />
-      </li>
-      <li class="input-box">
-        <label class="label" for="passwordCheck">비밀번호 확인</label>
-        <input type="password" name="passwordCheck" id="passwordCheck" autocomplete="off" />
-      </li>
-    </ul>
-  </form>
-</div>
-<div class="modal-footer">
-  <button type="submit" form="joinForm">회원가입</button>
-</div>
-</div>
-</div>
-      `;
-  const modalBg = document.createElement("div");
-  modalBg.classList.add("modal-bg", "fade");
-  div.append(modalBg);
-  div.insertAdjacentHTML("afterbegin", joinModalContent);
-  div.insertAdjacentHTML("afterbegin", loginModalContent);
-  document.body.prepend(div);
-
->>>>>>> parent of 0e89253 (feat : 반응형 추가)
   return header;
 };
 
@@ -259,7 +167,6 @@ window.addEventListener("scroll", function () {
     header.classList.remove("fixed");
   }
 });
-<<<<<<< HEAD
 
 
 // 장바구니 숫자 
@@ -284,5 +191,3 @@ function getLocalBooks() {
 
 
 
-=======
->>>>>>> parent of 0e89253 (feat : 반응형 추가)

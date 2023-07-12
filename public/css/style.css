@@ -301,4 +301,7 @@
   #postalCode{
     width:100%;
   }
+  .control, #address1, #address2{
+    width:100%;
+  }
 }
