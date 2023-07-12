@@ -6,7 +6,6 @@ import {
   updateProduct,
   deleteProduct,
 } from '../controllers/product';
-import passport from 'passport';
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+const loginRequired = (req, res, next) => {
   if (!req.user) {
     res.redirect('/errorpage');
     return;
@@ -6,3 +6,4 @@ module.exports = (req, res, next) => {
 
   next();
 }
+export default loginRequired;

@@ -1,7 +1,8 @@
-const { Router } = require('express');
-const passport = require('passport');
-const router = Router();
+import { Router } from 'express';
+import passport from 'passport';
 import { postLogin, postJoin } from '../controllers/auth';
+
+const router = Router();
 
 router.post(
   '/api/login',
@@ -11,4 +12,4 @@ router.post(
 
 router.post('/api/join', postJoin);
 
-module.exports = router;
+export default router;

@@ -1,18 +1,19 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
-const passport = require('passport');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
+import passport from 'passport';
 import getUserFromJWT from './middlewares/get-user-from-jwt';
 import dotenv from 'dotenv';
 import viewsRoutes from './routes/views.js';
 import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
-const authRouter = require('./routes/auth');
+import authRoutes from './routes/auth';
+import categoryRoutes from './routes/category';
+import initPassport from './passport';
 
-import categoryRouted from './routes/category';
 dotenv.config();
-require('./passport')();
+initPassport();
 
 mongoose
   .connect(
@@ -34,9 +35,8 @@ app.use(passport.initialize());
 // jwt 로그인 미들웨어 추가
 app.use(getUserFromJWT);
 
-app.use(categoryRouted);
+app.use(categoryRoutes);
 app.use(productRoutes);
-app.use(authRouter);
+app.use(authRoutes);
 app.use(userRoutes);
-
 app.use(viewsRoutes);

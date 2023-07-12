@@ -1,5 +1,4 @@
-const JwtStrategy = require('passport-jwt').Strategy;
-const { secret } = require('../../utils/set-user-token');
+import { Strategy as JwtStrategy } from 'passport-jwt';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -13,6 +12,6 @@ const opts = {
   jwtFromRequest: cookieExtractor,
 };
 
-module.exports = new JwtStrategy(opts, (user, done) => {
+export default new JwtStrategy(opts, (user, done) => {
   done(null, user);
 });

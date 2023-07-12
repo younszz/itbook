@@ -59,7 +59,6 @@ const getUserInfo = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data;
     } else {
       console.error('실패');

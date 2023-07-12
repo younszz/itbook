@@ -1,12 +1,14 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-exports.setUserToken = (res, user) => {
+const setUserToken = (res, user) => {
   const payload = {
-    _id: user._id,   
+    _id: user._id,
     email: user.email,
     name: user.name,
-    isAdmin: user.isAdmin  
+    isAdmin: user.isAdmin,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET);
   res.cookie('token', token);
 };
+
+export default setUserToken;

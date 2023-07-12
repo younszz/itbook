@@ -1,5 +1,5 @@
-const { setUserToken } = require('../utils/set-user-token');
-const hashPassword = require('../utils/hash-password');
+import setUserToken from '../utils/set-user-token';
+import hashPassword from '../utils/hash-password';
 import User from '../models/user';
 
 export const postLogin = (req, res) => {
