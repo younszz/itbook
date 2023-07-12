@@ -12,7 +12,7 @@
     height:auto;
   }
   header ul.header-menu {
-    position: inherit;
+    position: initial;
     width:100%;
     text-align: center;
     justify-content: space-between;

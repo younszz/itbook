@@ -1,13 +1,48 @@
 'use strict';
 
+const getTokenFromCookie = () => {
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "jwt") {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
+
+const getUserInfo = async () => {
+  const token = getTokenFromCookie();
+  if (token !== null) {
+    try {
+      const response = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
+
 const onUserState = async () => {
-  const user = await getUserInfo();
+  const user = await getUserInfo() || '';
   const ul = document.querySelector('.cart-list');
   const isLogin = user ? true : false;
-  if(isLogin){
-    const userBooks = user.cart;
+  const userCart = user? user.cart.items : '';
 
-    userBooks.forEach((book)=>{
+  // 로그인상태이고 유저 카트 데이터가 1개라도 있다면 유저 카트 상품목록을 렌더링
+  if(isLogin && userCart.length > 0){
+      userCart.forEach((book)=>{
       const li = document.createElement('li');
       li.setAttribute('class','cart-item');
       li.setAttribute('id',book._id);
@@ -15,6 +50,7 @@ const onUserState = async () => {
       ul.append(li);
     });
   }
+  // reanderBooks는 Local 상품 목록을 렌더링
   await renderBooks();
 }
 
@@ -50,7 +86,6 @@ function enableBtnFunc(e){
   if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
     const confirmDelete = confirm('상품을 삭제하시겠습니까?');
     const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
-    console.log(id);
     if(confirmDelete){
       deleteLocalItem(id);
     }

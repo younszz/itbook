@@ -1,16 +1,61 @@
-//imsi
+import express from 'express';
+import passport from 'passport';
+import isAdmin from '../middlewares/admin-required';
+import {
+  postOrder,
+  getAllOrders,
+  getMyOrders,
+  updateOrderStatus,
+  updateOrder,
+  cancelOrder,
+  deleteOrder,
+} from '../controllers/order';
 
-// import express from 'express';
-// import orderController from '../controllers/order';
-// import passport from 'passport';
-// import isAdmin from '../middlewares/admin-required';
+const router = express.Router();
 
-// const router = express.Router();
+router.post(
+  '/api/order',
+  passport.authenticate('jwt', { session: false }),
+  postOrder
+);
 
-// router.get('/api/orders', passport.authenticate('jwt', { session: false }), isAdmin, orderController.getAllOrders);
-// router.get('/api/order/:oid', passport.authenticate('jwt', { session: false }), orderController.getOrderDetail);
-// router.post('/api/order', passport.authenticate('jwt', { session: false }), orderController.addOrder);
-// router.put('/api/order/:oid', passport.authenticate('jwt', { session: false }), orderController.updateOrder);
-// router.delete('/api/order/:oid', passport.authenticate('jwt', { session: false }), isAdmin, orderController.deleteOrder);
+router.get(
+  '/api/orders',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  getAllOrders
+);
 
-// export default router;
+router.get(
+  '/api/orders/me',
+  passport.authenticate('jwt', { session: false }),
+  getMyOrders
+);
+
+router.put(
+  '/api/order/status/:oid',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  updateOrderStatus
+);
+
+router.put(
+  '/api/order/:oid',
+  passport.authenticate('jwt', { session: false }),
+  updateOrder
+);
+
+router.put(
+  '/api/order/cancel/:oid',
+  passport.authenticate('jwt', { session: false }),
+  cancelOrder
+);
+
+router.delete(
+  '/api/order/:oid',
+  passport.authenticate('jwt', { session: false }),
+  isAdmin,
+  deleteOrder
+);
+
+export default router;

@@ -1,10 +1,15 @@
-import express from 'express';
-import { postJoin, postLogin } from '../controllers/auth';
+import { Router } from 'express';
+import passport from 'passport';
+import { postLogin, postJoin } from '../controllers/auth';
 
-const router = express.Router();
+const router = Router();
+
+router.post(
+  '/api/login',
+  passport.authenticate('local', { session: false }),
+  postLogin
+);
 
 router.post('/api/join', postJoin);
-
-router.post('/api/login', postLogin);
 
 export default router;

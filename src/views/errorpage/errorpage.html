@@ -3,37 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>다독다독</title>
-    <!-- css -->
-    <link rel="stylesheet" href="/reset.css" />
-    <link rel="stylesheet" href="/commone.css" />
-    <link rel="stylesheet" href="/font.css" />
+    <title>잇북</title>
     <!-- js -->
     <script
       defer
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>다독다독</title>
-  <!-- css -->
-  <link rel="stylesheet" href="/reset.css">
-  <link rel="stylesheet" href="/commone.css">
-  <link rel="stylesheet" href="/font.css">
-  <!-- js -->
-  <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
-
-  <script defer type="module" src="/template/header.js"></script>
-  <script defer src="/template/footer.js"></script>
-
-   <!-- favicon -->
-   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-</head>
-
-<body>
-  
-  <h1>페이지를 찾을 수 없습니다</h1>
-</body>
+  <body>
+    <h1>에러 페이지입니다. 홈으로 이동합니다</h1>
+    <script>
+      setTimeout(() => {
+        location.href = '/';
+      }, 2000);
+    </script>
+  </body>
+</html>
