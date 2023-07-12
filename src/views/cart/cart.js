@@ -201,7 +201,6 @@ window.addEventListener('load', async () => {
   const cartData =
     (isLogin ? await getCartFromDB() : getCartFromLocalStrorage()) ?? [];
   const ul = document.querySelector('.cart-list');
-  console.log(cartData);
   checkBoxOnOff(cartData);
 
   let totalPrice = 0;

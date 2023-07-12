@@ -98,7 +98,6 @@ export const adjustQuantity = async (req, res) => {
     const user = await User.findById(req.user._id);
     const { id, direction } = req.params;
     const cartItem = user.cart.items.find((item) => item.id == id);
-
     if (!cartItem) {
       return res.status(400).json({ message: '장바구니 정보를 찾을 수 없음' });
     }
