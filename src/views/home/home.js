@@ -18,18 +18,10 @@ var swiper = new Swiper(".new-swiper", {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
-  breakpoints: {    
-    1: {
-      slidesPerView: 1,  
-    },
-    768: {
-      slidesPerView: 3,
-    },
-  },
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: true 
-  },
+  // autoplay: {
+  //   delay: 3000,
+  //   disableOnInteraction: true 
+  // },
   loop:true,
 });
 

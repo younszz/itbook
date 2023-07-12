@@ -75,13 +75,8 @@ header .header-btn ul {
 }
 
 header .header-btn ul li {
-  position: relative;
   margin-left: 20px;
   cursor: pointer;
-}
-
-header .header-btn ul li.cart {
-  position: relative;
 }
 
 header .header-btn ul li a {
