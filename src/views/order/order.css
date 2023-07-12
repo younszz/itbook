@@ -71,11 +71,18 @@
 .delivery-info {
   padding-top: 20px;
 }
+.delivery-info ul {
+  display: flex;
+}
+.delivery-info ul li {
+  width: 50%;
+}
 .order-info p {
   line-height: 1.6;
+  font-size: 14px;
 }
 .delivery-info input {
-  width: 50%;
+  width: 100%;
   border: none;
   margin-bottom: 5px;
 }
@@ -124,6 +131,13 @@
   align-items: center;
   padding-bottom: 16px;
   margin-bottom: 16px;
+  font-size: 14px;
+}
+.item .item-name {
+  flex-grow: 1;
+}
+.item span:nth-of-type(1) {
+  width: 100px;
 }
 
 .payment-btns {
@@ -228,9 +242,15 @@
   font-weight: 500;
   color: rgb(34, 34, 34);
 }
+.order-price-wrapper
+  .price-wrapper:nth-of-type(n + 2)
+  span.price-label::before {
+  content: "┗";
+  color: rgb(187, 187, 187);
+}
 
 .price-wrapper.grey {
-  color: rgb(187, 187, 187);
+  color: rgb(119, 119, 119);
   font-weight: 400;
 }
 
