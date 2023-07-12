@@ -86,7 +86,6 @@ const showModal = (mode) => {
           name: joinUserName.value,
           email: joinEmail.value,
           password: joinPassword.value,
-          password_confirm: passwordCheck.value,
         }),
       });
 

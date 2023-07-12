@@ -9,6 +9,7 @@ export const postLogin = (req, res) => {
 
 export const postJoin = async (req, res) => {
   try {
+    console.log(req.body)
     const { email, name, password } = req.body;
     const existingUser = await User.findOne({ email });
     const hashedPassword = hashPassword(password);
@@ -19,8 +20,7 @@ export const postJoin = async (req, res) => {
         name,
         password: hashedPassword,
       });
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      return res.send({ token });
+      return res.json({ message: '회원가입이 완료되었습니다.' });
     } else {
       return res.status(400).json('이미 존재하는 email 입니다.');
     }
