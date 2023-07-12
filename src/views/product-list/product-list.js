@@ -3,8 +3,14 @@ async function productsByCategory() {
   const parts = url.split("/").filter(Boolean);
   const category = decodeURIComponent(parts.pop());
   try {
-    const response = await fetch(`/api/products?category=${category}`);
-    const data = await response.json();
+    let response;
+    let data;
+    if (category === "전체") {
+      response = await fetch(`/api/products`);
+    } else {
+      response = await fetch(`/api/products?category=${category}`);
+    }
+    data = await response.json();
     const books = data
       .map(
         (book) =>
