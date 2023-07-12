@@ -10,6 +10,7 @@ import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth';
 import categoryRoutes from './routes/category';
+import orderRoutes from './routes/order';
 import initPassport from './passport';
 
 dotenv.config();
@@ -40,3 +41,4 @@ app.use(productRoutes);
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(viewsRoutes);
+app.use(orderRoutes);
