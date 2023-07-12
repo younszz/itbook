@@ -86,7 +86,6 @@ function enableBtnFunc(e){
   if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
     const confirmDelete = confirm('상품을 삭제하시겠습니까?');
     const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
-    console.log(id);
     if(confirmDelete){
       deleteLocalItem(id);
     }

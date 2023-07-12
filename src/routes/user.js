@@ -1,59 +1,28 @@
 import express from 'express';
-import { getUser, updateUser, deleteUser, addToCart, removeFromCart, getCart, clearCart } from '../controllers/user';
-import passport from 'passport';
+import {
+  getUser,
+  updateUser,
+  deleteUser,
+  addToCart,
+  removeFromCart,
+  getCart,
+  clearCart,
+} from '../controllers/user';
 
 const router = express.Router();
 
-router.get(
-  '/api/user',
-  passport.authenticate('jwt', { session: false }),
-  getUser
-);
+router.get('/api/user', getUser);
 
-router.post(
-  '/api/user/:uid',
-  passport.authenticate('jwt', { session: false }),
-  updateUser
-);
+router.post('/api/user/', updateUser);
 
-router.delete(
-  '/api/user/:uid',
-  passport.authenticate('jwt', { session: false }),
-  deleteUser
-);
+router.delete('/api/user/', deleteUser);
 
+router.get('/api/cart/:uid', getCart);
 
-//cart. 로그인하지않은 사용자의 장바구니 사용은 클라이언트 localStorage에서 관리
+router.post('/api/cart/:uid', addToCart);
 
-//passport.authenticate를 사용하지않는경우 req.user값이 undefined로 실행불가.
+router.delete('/api/cart/:uid', removeFromCart);
 
-
-router.get(
-  '/api/cart/:uid',
-  //passport.authenticate('jwt', { session: false }),
-  getCart
-);
-
-
-router.post(
-  '/api/cart/:uid',
-  //passport.authenticate('jwt', { session: false }),
-  addToCart
-  );
-
-
-router.delete(
-  '/api/cart/:uid',
-  //passport.authenticate('jwt', { session: false }),
-  removeFromCart
-);
-
-
-router.delete(
-  '/api/cart/all/:uid',
-  //passport.authenticate('jwt', { session: false }),
-  clearCart
-);
-
+router.delete('/api/cart/all/:uid', clearCart);
 
 export default router;
