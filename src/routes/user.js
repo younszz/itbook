@@ -4,9 +4,11 @@ import {
   updateUser,
   deleteUser,
   addToCart,
-  removeFromCart,
   getCart,
   clearCart,
+  removeItem,
+  mergeCarts,
+  adjustQuantity
 } from '../controllers/user';
 
 const router = express.Router();
@@ -17,11 +19,15 @@ router.post('/api/user/', updateUser);
 
 router.delete('/api/user/', deleteUser);
 
-router.get('/api/cart/:uid', getCart);
+router.get('/api/user/cart', getCart);
 
-router.post('/api/cart/:uid', addToCart);
+router.put('/api/user/cart/:id/:direction', adjustQuantity);
 
-router.delete('/api/cart/:uid', removeFromCart);
+router.post('/api/user/cart/merge', mergeCarts);
+
+router.delete('/api/user/cart/:id', removeItem);
+
+router.post('/api/user/cart', addToCart);
 
 router.delete('/api/cart/all/:uid', clearCart);
 
