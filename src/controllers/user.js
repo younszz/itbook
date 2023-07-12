@@ -37,21 +37,38 @@ export const deleteUser = async (req, res) => {
 // 장바구니 내역 조회
 export const getCart = async (req, res) => {
   const user = await User.findById(req.user._id);
+  res.json(user.cart.items);
+};
 
-  user.populate('cart.items.productId').then((user) => {
-    res.json(user.cart.items);
-  });
+// 로그인시 로컬스토래지의 장바구니를 서버와 합치기
+export const mergeCarts = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const localCartItems = req.body;
+
+    localCartItems.forEach(localItem => {
+      const cartItem = user.cart.items.find((item) => item.id == localItem.id);
+      if (cartItem) {
+        cartItem.quantity += localItem.quantity;
+      } else {
+        user.cart.items.push(localItem);
+      }
+    });
+
+    await user.save();
+    res.json({ message: '장바구니가 병합되었습니다.' });
+  } catch (error) {
+    res.status(500).json({ message: '서버 오류' });
+  }
 };
 
 //장바구니 추가
 export const addToCart = async (req, res) => {
-  const userId = req.user._id;
-  const prodId = req.body.productId;
-  const quantity = req.body.quantity;
+  const user = await User.findById(req.user._id);
+  const { id, quantity } = req.body;
 
-  const user = await User.findById(userId);
   const cartProductIndex = user.cart.items.findIndex((cp) => {
-    return cp.productId.toString() === prodId.toString();
+    return cp.id.toString() === id.toString();
   });
 
   let newQuantity = quantity;
@@ -62,7 +79,7 @@ export const addToCart = async (req, res) => {
     updatedCartItems[cartProductIndex].quantity = newQuantity;
   } else {
     updatedCartItems.push({
-      productId: prodId,
+      id: id,
       quantity: newQuantity,
     });
   }
@@ -75,17 +92,49 @@ export const addToCart = async (req, res) => {
   res.json(user);
 };
 
+// 장바구니 상품 수량 조절
+export const adjustQuantity = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const { id, direction } = req.params;
+    const cartItem = user.cart.items.find((item) => item.id == id);
+    if (!cartItem) {
+      return res.status(400).json({ message: '장바구니 정보를 찾을 수 없음' });
+    }
+    
+    let adjustment = direction === 'increase' ? 1 : -1;
+    if (cartItem.quantity + adjustment < 1) {
+      return res.status(400).json({ message: '1 이하로 감소시킬 수 없습니다.' });
+    }
+    
+    cartItem.quantity += adjustment;
+    await user.save();
+
+    res.json({ message: '장바구니 수량이 변경되었습니다.' });
+  } catch (error) {
+    res.status(500).json({ message: '서버 오류' });
+  }
+};
+
 // 장바구니 상품 삭제
-export const removeFromCart = async (req, res) => {
-  const user = await User.findById(req.user._id);
+export const removeItem = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const { id } = req.params;
 
-  const updatedCartItems = user.cart.items.filter((item) => {
-    return item.productId.toString() !== prodId.toString();
-  });
+    const cartItemIndex = user.cart.items.findIndex((item) => item.id == id);
 
-  user.cart.items = updatedCartItems;
-  await user.save();
-  res.json(user);
+    if (cartItemIndex === -1) {
+      return res.status(400).json({ message: '상품을 찾을 수 없습니다' });
+    }
+    
+    user.cart.items.splice(cartItemIndex, 1);
+    await user.save();
+    
+    res.json({ message: '상품이 장바구니에서 제거되었습니다.' });
+  } catch (error) {
+    res.status(500).json({ message: '서버 오류' });
+  }
 };
 
 //장바구니 전부삭제

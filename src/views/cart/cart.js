@@ -1,209 +1,144 @@
-'use strict';
-
-const getTokenFromCookie = () => {
-  const cookies = document.cookie.split(";");
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split("=");
-    if (name === "jwt") {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
-};
-
-const getUserInfo = async () => {
-  const token = getTokenFromCookie();
-  if (token !== null) {
-    try {
-      const response = await fetch("/api/user", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("실패");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
-
-const onUserState = async () => {
-  const user = await getUserInfo() || '';
-  const ul = document.querySelector('.cart-list');
-  const isLogin = user ? true : false;
-  const userCart = user? user.cart.items : '';
-
-  // 로그인상태이고 유저 카트 데이터가 1개라도 있다면 유저 카트 상품목록을 렌더링
-  if(isLogin && userCart.length > 0){
-      userCart.forEach((book)=>{
-      const li = document.createElement('li');
-      li.setAttribute('class','cart-item');
-      li.setAttribute('id',book._id);
-      li.innerHTML = itemTemplate(book);
-      ul.append(li);
-    });
-  }
-  // reanderBooks는 Local 상품 목록을 렌더링
-  await renderBooks();
-}
-
-window.addEventListener('load', async()=>{
-  const ul = document.querySelector('.cart-list');
-  await onUserState();
-  ul.addEventListener('click',enableBtnFunc);
-  paymentResult();
-})
-
-function checkBoxOnOff(books){
+// 체크박스 전체 선택
+const checkBoxOnOff = (books) => {
   const allCheckBox = document.querySelector('#allCheck');
   const allSelectLabel = document.querySelector('.all-box-container>label');
 
-  allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`; 
-  allCheckBox.addEventListener('change',async ()=>{
+  allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`;
+  allCheckBox.addEventListener('change', async () => {
     const selectCheckBoxs = document.querySelectorAll('.selectCheck');
-    if(allCheckBox.checked){
-      selectCheckBoxs.forEach((box)=>{
+    if (allCheckBox.checked) {
+      selectCheckBoxs.forEach((box) => {
         box.checked = true;
         allSelectLabel.innerHTML = `전체선택(${books.length}/${books.length})`;
-      })
-    }else{
-      selectCheckBoxs.forEach((box)=>{
+      });
+    } else {
+      selectCheckBoxs.forEach((box) => {
         box.checked = false;
         allSelectLabel.innerHTML = `전체선택(0/${books.length})`;
-      })
+      });
     }
-  })
-}
+  });
+};
+// 상품 삭제
+const deleteLocalItem = async (id, isLogin) => {
+  if (!confirm('상품을 삭제하시겠습니까?')) return;
 
-function enableBtnFunc(e){
-  if(e.target.className == "btn-delete" || e.target.className == "fa-solid fa-xmark"){
-    const confirmDelete = confirm('상품을 삭제하시겠습니까?');
-    const id = e.target.className == "fa-solid fa-xmark" ? e.target.parentElement.parentElement.id : e.target.parentElement.id;
-    if(confirmDelete){
-      deleteLocalItem(id);
+  if (isLogin) {
+    try {
+      const response = await fetch(`/api/user/cart/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('서버 응답 오류');
+      }
+    } catch (error) {
+      alert(error, '요청을 실패했습니다');
+    }
+  } else {
+    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const values = Object.values(books);
+    if (books) {
+      const updatedBooks = values.filter((obj) => obj.id !== id);
+      localStorage.setItem('books', JSON.stringify(updatedBooks));
     }
   }
-  if(e.target.className == "btn-plus" || e.target.className == "fa-solid fa-plus"){
-    const id = e.target.className == "fa-solid fa-plus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
-    plusQuantityItem(id);
-  }
-  if(e.target.className == "btn-minus" || e.target.className == "fa-solid fa-minus"){
-    const id = e.target.className == "fa-solid fa-minus" ? e.target.parentElement.parentElement.parentElement.id : e.target.parentElement.parentElement.id;
-    minusQuantityItem(id);
-  }
-}
 
-function paymentResult(books){
+  location.reload();
+};
+
+// 상품 갯수 빼기
+const minusQuantityItem = async (id, isLogin) => {
+  if (isLogin) {
+    try {
+      const response = await fetch(`/api/user/cart/${id}/decrease`, {
+        method: 'PUT',
+      });
+
+      if (!response.ok) {
+        throw new Error('서버 응답 오류');
+      }
+    } catch (error) {
+      alert(error, '요청을 실패했습니다');
+    }
+  } else {
+    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const values = Object.values(books);
+    if (books) {
+      const filteredBooks = values.filter((obj) => obj.id !== id);
+      const findBook = values.find((obj) => obj.id == id);
+      const index = values.findIndex((item) => item == findBook);
+      const updatedBook =
+        findBook.quantity > 1
+          ? { ...findBook, quantity: findBook.quantity - 1 }
+          : findBook;
+      filteredBooks.splice(index, 0, updatedBook);
+      localStorage.setItem('books', JSON.stringify(filteredBooks));
+    }
+  }
+  location.reload();
+};
+
+// 상품 갯수 더하기
+const plusQuantityItem = async (id, isLogin) => {
+  if (isLogin) {
+    try {
+      const response = await fetch(`/api/user/cart/${id}/increase`, {
+        method: 'PUT',
+      });
+
+      if (!response.ok) {
+        throw new Error('서버 응답 오류');
+      }
+    } catch (error) {
+      alert(error, '요청을 실패했습니다');
+    }
+  } else {
+    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const values = Object.values(books);
+    if (books) {
+      const filteredBooks = values.filter((obj) => obj.id !== id);
+      const findBook = values.find((obj) => obj.id == id);
+      const index = values.findIndex((item) => item == findBook);
+      const updatedBook = { ...findBook, quantity: findBook.quantity + 1 };
+      filteredBooks.splice(index, 0, updatedBook);
+      localStorage.setItem('books', JSON.stringify(filteredBooks));
+    }
+  }
+  location.reload();
+};
+
+// 총 금액 계산
+const paymentResult = (total) => {
   const totalPre = document.querySelector('.total-pre');
   const totalPrice = document.querySelector('.total-price');
   const orderBtn = document.querySelector('.btn-order');
   const delivery = document.querySelector('.delivery');
-  if(books){
-    const total = books.reduce((acc,cur) => {
-      acc += cur.price * cur.quantity;
-      return acc;
-    },0);
-    if(total == 0){
-      orderBtn.innerHTML=`주문하기`;
-      totalPrice.innerHTML = `0원`;
-      totalPre.innerHTML = `0원`;
-      return ;
-    }
-    else if(total < 30000){
-      delivery.innerHTML = `+3000원`;
-      orderBtn.innerHTML=`${total+3000}원 주문하기`;
-      totalPrice.innerHTML = `${total}원`;
-      totalPre.innerHTML = `${total+3000}원`;
-      return ;
-    }else{
-      orderBtn.innerHTML=`${total}원 주문하기`;
-      totalPrice.innerHTML = `${total}원`;
-      totalPre.innerHTML = `${total}원`;
-    }
+
+  if (total == 0) {
+    orderBtn.innerHTML = `주문하기`;
+    totalPrice.innerHTML = `0원`;
+    totalPre.innerHTML = `0원`;
+    return;
+  } else if (total < 30000) {
+    delivery.innerHTML = `+3000원`;
+    orderBtn.innerHTML = `${total + 3000}원 주문하기`;
+    totalPrice.innerHTML = `${total}원`;
+    totalPre.innerHTML = `${total + 3000}원`;
+    return;
+  } else {
+    orderBtn.innerHTML = `${total}원 주문하기`;
+    totalPrice.innerHTML = `${total}원`;
+    totalPre.innerHTML = `${total}원`;
   }
-}
+};
 
-function minusQuantityItem(id){
-  const books = JSON.parse(localStorage.getItem("books")) || '';
-  const values = Object.values(books);
-  if(books){
-    const filteredBooks = values.filter(obj => obj.id !== id);
-    const findBook = values.find(obj => obj.id == id);
-    const index = values.findIndex((item) => item == findBook);
-    const updatedBook = findBook.quantity > 1 ? {...findBook, quantity: findBook.quantity - 1} : findBook;
-    filteredBooks.splice(index,0,updatedBook);
-    localStorage.setItem('books',JSON.stringify(filteredBooks));
-    location.reload();
-  }
-}
-
-function plusQuantityItem(id){
-  const books = JSON.parse(localStorage.getItem("books")) || '';
-  const values = Object.values(books);
-  if(books){
-    const filteredBooks = values.filter(obj => obj.id !== id);
-    const findBook = values.find(obj => obj.id == id);
-    const index = values.findIndex((item) => item == findBook);
-    const updatedBook = {...findBook, quantity: findBook.quantity + 1};
-    filteredBooks.splice(index,0,updatedBook);
-    localStorage.setItem('books',JSON.stringify(filteredBooks));
-    location.reload();
-  }
-}
-
-function deleteLocalItem(id){
-  const books = JSON.parse(localStorage.getItem("books")) || '';
-  const values = Object.values(books);
-  if(books){
-    const updatedBooks = values.filter(obj => obj.id !== id);
-    localStorage.setItem('books',JSON.stringify(updatedBooks));
-    location.reload();
-  }
-}
-
-async function renderBooks(){
-  const ul = document.querySelector('.cart-list');
-  const books = await getServerBooks();
-  books.forEach((book)=>{
-    const li = document.createElement('li');
-    li.setAttribute('class','cart-item');
-    li.setAttribute('id',book._id);
-    li.innerHTML = itemTemplate(book);
-    ul.append(li);
-  });
-  checkBoxOnOff(books);
-  paymentResult(books);
-}
-
-function getLocalBooks(){
-  const books = JSON.parse(localStorage.getItem("books"));
-  return books;
-}
-
-async function getServerBooks(){
-  const localBooks = getLocalBooks();
-  const booksLength = localBooks.length;
-  const books = [];
-  for(let i = 0; i < booksLength; i++){
-    const bookId = localBooks[i].id;
-    const quantity = localBooks[i].quantity;
-    const response = await fetch(`/api/product/${bookId}`);
-    const book = await response.json();
-    books.push({...book, quantity});
-  }
-  return books;
-}
-
-function itemTemplate(book){
+// html 템플릿
+const itemTemplate = (book) => {
   return `
-  <input type="checkbox" class="selectCheck" checked>
+  <input type="checkbox" class="selectCheck" data-id="${
+    book._id
+  }" data-quantity="${book.quantity}" checked>
   <a href="/product/${book._id}" class="item-info">
     <img class="item-img" src="${book.imageUrl}" alt="도서 사진">
     <div class="info-text">
@@ -212,14 +147,123 @@ function itemTemplate(book){
     </div>
   </a>
   <div class="item-count">
-    <button class="btn-minus"><i class="fa-solid fa-minus"></i></button>
-      <input type="number" class="item-num" id="item-number" value=${book.quantity}>
-      <button class="btn-plus"><i class="fa-solid fa-plus"></i></button>
+    <button id="minusBtn" class="btn-minus"><i class="fa-solid fa-minus"></i></button>
+      <input type="number" class="item-num" id="item-number" value=${
+        book.quantity
+      }>
+      <button id="plusBtn" class="btn-plus"><i class="fa-solid fa-plus"></i></button>
   </div>
   <p class="item-price">${book.price * book.quantity}원</p>
-  <button class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
+  <button id="deleteBtn" class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
-}
+};
 
-getLocalBooks();
+// 토큰 (로그인 확인)
+const getTokenFromCookie = () => {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'token') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
 
+// 서버에서 유저 카트 정보 가져오기
+const getCartFromDB = async () => {
+  try {
+    const response = await fetch('/api/user/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error('실패');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// 로컬스토래지에서 카트 정보 가져오기
+const getCartFromLocalStrorage = () => {
+  const carts = JSON.parse(localStorage.getItem('carts'));
+  return carts;
+};
+
+window.addEventListener('load', async () => {
+  const isLogin = getTokenFromCookie();
+  const cartData =
+    (isLogin ? await getCartFromDB() : getCartFromLocalStrorage()) ?? [];
+  const ul = document.querySelector('.cart-list');
+  checkBoxOnOff(cartData);
+
+  let totalPrice = 0;
+
+  if (cartData.length > 0) {
+    const promises = cartData.map(async (book) => {
+      const li = document.createElement('li');
+      li.setAttribute('class', 'cart-item');
+      li.setAttribute('id', book.id);
+
+      try {
+        const response = await fetch(`/api/product/${book.id}`);
+        if (!response.ok) {
+          throw new Error(`DB에 해당 상품이 없습니다. id: ${book.id}`);
+        }
+        const bookData = await response.json();
+        totalPrice += parseInt(bookData.price) * book.quantity;
+        bookData.quantity = book.quantity;
+        li.innerHTML = itemTemplate(bookData);
+
+        // 버튼 이벤트
+        li.querySelector('#deleteBtn').addEventListener('click', () =>
+          deleteLocalItem(book.id, isLogin)
+        );
+        li.querySelector('#plusBtn').addEventListener('click', () =>
+          plusQuantityItem(book.id, isLogin)
+        );
+        li.querySelector('#minusBtn').addEventListener('click', () =>
+          minusQuantityItem(book.id, isLogin)
+        );
+
+        ul.append(li);
+      } catch (error) {
+        // DB에 해당 상품id가 없으면 로컬 스토래지에서도 삭제
+        const books = getCartFromLocalStrorage();
+        const updatedBooks = books.filter((b) => b.id !== book.id);
+        localStorage.setItem('books', JSON.stringify(updatedBooks));
+      }
+    });
+
+    await Promise.all(promises);
+  }
+
+  paymentResult(totalPrice);
+});
+
+orderBtn.addEventListener('click', () => {
+  if (!getTokenFromCookie()) {
+    alert('로그인이 필요합니다.');
+    return;
+  }
+
+  if (confirm('선택한 상품을 주문하시겠습니까?')) {
+    const selectedCheckboxes = document.querySelectorAll(
+      '.selectCheck:checked'
+    );
+    const selectedItems = Array.from(selectedCheckboxes).map((checkbox) => ({
+      id: checkbox.dataset.id,
+      quantity: checkbox.dataset.quantity,
+    }));
+    // localStorage에 저장
+    localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+    // 주문 페이지로 이동
+    window.location.href = '/order';
+  }
+});
