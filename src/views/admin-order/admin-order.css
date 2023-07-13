@@ -195,3 +195,26 @@
  .contents {
   padding-right:50px;
  }
+
+ .admin-tbody{
+  font-size: 15px;
+  font-weight: 500;
+ }
+
+.item-select{
+  border: none;
+  outline: none;
+  margin: 0px 1px;
+  color: #7156ED;
+  cursor: pointer;
+}
+
+ .item-delete-btn{
+  transition: all 250ms ease-out;
+  cursor: pointer;
+ }
+ 
+ .item-delete-btn:hover{
+  background-color: #7156ED;
+  color: #fff;
+ }
