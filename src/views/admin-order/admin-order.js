@@ -74,9 +74,21 @@ const createOrderList = (order) => {
   tr.innerHTML = orderTemplate(order);
   adminTbl.append(tr);
 };
+//사용자 이름 검색
+const searchUserName = (orderList)=>{
+  const adminTbl = document.querySelector('#adminTbl');
+  adminTbl.innerHTML = '';
+  const searchInputValue = document.querySelector(".order-search-input").value;
+  const filterList = orderList.filter((order) => {
+    const name =  order.userId.name;
+    return name.includes(searchInputValue);
+  });
+  filterList.map((order) => createOrderList(order));
+}
 
 window.addEventListener('load', async () => {
+  const searchBtn = document.querySelector(".order-search-btn");
   const orderList = await getOrderList() || null;
   orderList.map((order) => createOrderList(order));
-  console.log(orderList);
+  searchBtn.addEventListener("click", () => searchUserName(orderList));
 });
