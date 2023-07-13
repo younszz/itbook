@@ -22,7 +22,7 @@ router.put('/api/order/status/:oid', isAdmin, updateOrderStatus);
 
 router.put('/api/order/:oid', updateOrder);
 
-router.put('/api/order/cancel/:oid', cancelOrder);
+router.delete('/api/order/cancel/:oid', cancelOrder)
 
 router.delete('/api/order/:oid', isAdmin, deleteOrder);
 

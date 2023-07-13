@@ -159,8 +159,8 @@ document.querySelector(".payment-btn").addEventListener("click", async (e) => {
   const addressDetail = document.querySelector("#address2").value;
   const check1 = document.querySelector("#check-btn1").checked;
   const check2 = document.querySelector("#check-btn2").checked;
-  const tPrice = parseInt(document.querySelector(".total-price").innerHTML);
-
+  const tPrice = document.querySelector(".total-price").innerHTML;
+  
   if (!address || !addressDetail) {
     alert("배송지를 입력해주세요.");
     return false;
@@ -169,13 +169,12 @@ document.querySelector(".payment-btn").addEventListener("click", async (e) => {
     alert("필수 항목에 동의해 주세요.");
     return false;
   }
-
   if (confirm("결제하시겠습니까?")) {
     const data = {
       address: address,
       addressDetail: addressDetail,
       products: JSON.parse(localStorage.getItem("selectedItems")),
-      totalAmount: tPrice,
+      totalAmount: Number(tPrice.replace(/[^0-9]/g,"")),
     };
 
     try {
