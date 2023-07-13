@@ -39,9 +39,6 @@
         <div class="admin-list">
           <div class="admin-title">
             <h5><i class="fa-solid fa-cart-flatbed" style="color: #000000;"></i></i>주문관리</h5>
-            <div class="title-btn">
-              <button class="admin-remove">선택삭제</button>
-            </div>
           </div>
           <div class="admin-filter">
             <p>전체 <span id="listCount"></span> 건</p>
@@ -64,21 +61,22 @@
             <table id="orderList">
               <caption>상품 목록</caption>
               <colgroup> 
-                  <col style="width: 5%;"/> 
-                  <col style="width: 40%;"/> 
-                  <col style="width: 40%;"/> 
                   <col style="width: 15%;"/> 
+                  <col style="width: 30%;"/> 
+                  <col style="width: 35%;"/> 
+                  <col style="width: 10%;"/>
+                  <col style="width: 5%;"/> 
               </colgroup> 
               <thead>
                 <tr>
-                  <th><input type="checkbox"></th>
+                  <th>날짜</th>
                   <th>사용자 정보</th>
                   <th>주문 상품</th>
                   <th>주문상태</th>
+                  <th>삭제</th>
                 </tr>
               </thead>
               <tbody id="adminTbl">
-            
               </tbody>
             </table>
           </div>
