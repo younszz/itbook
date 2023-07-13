@@ -1,3 +1,15 @@
+// 토큰 (로그인 확인)
+const getTokenFromCookie = () => {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'token') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+};
+
 function count(type) {
   const resultElement = document.getElementById('result');
   const priceElement = document.getElementById('price');
@@ -53,9 +65,20 @@ async function getProduct(id) {
   }
 }
 
+const directPurchase = (id) => {
+  if (!getTokenFromCookie()) {
+    alert('로그인이 필요합니다.');
+    return;
+  }
+
+  const quantity = parseInt(document.getElementById('result').innerText);
+  localStorage.setItem('selectedItems', JSON.stringify([{ id, quantity }]));
+  location.href = '/order';
+};
+
 function detailContentTemplate(book) {
   return `<div class="detail-img">
-      <img src=${book.imageUrl} alt="">
+      <img src=${book.imageUrl} alt="${book.title}">
     </div>
     <div class="detail-info">
       <p class="detail-cate">#${book.category}</p>
@@ -83,22 +106,11 @@ function detailContentTemplate(book) {
       </div>
       <div class="detail-btn">
         <button class="detail-cart" onclick="setItemToDBOrLocalStorage()"></button>
-        <button class="detail-buy">바로 구매하기</button>
+        <button class="detail-buy" onclick="directPurchase('${book._id}')">바로 구매하기</button>
       </div>
     </div>`;
 }
 appndProduct();
-// 토큰 (로그인 확인)
-const getTokenFromCookie = () => {
-  const cookies = document.cookie.split(';');
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'token') {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
-};
 
 async function setItemToDBOrLocalStorage() {
   const id = getUrl();
