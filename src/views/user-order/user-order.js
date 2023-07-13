@@ -20,7 +20,7 @@ async function userOrder() {
     for (let order of orders) {
       // 각 주문 내의 모든 제품 정보 표시
       let productInfo = "";
-      let totalPrice = order.totalAmount;
+      let totalPrice = order.totalAmount.toLocaleString();
       for (let product of order.products) {
         productInfo += `${product.id.title} / ${product.quantity}권<br />`;
 
