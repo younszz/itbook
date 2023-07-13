@@ -36,11 +36,11 @@ const deleteLocalItem = async (id, isLogin) => {
       alert(error, '요청을 실패했습니다');
     }
   } else {
-    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const books = JSON.parse(localStorage.getItem('carts')) || '';
     const values = Object.values(books);
     if (books) {
       const updatedBooks = values.filter((obj) => obj.id !== id);
-      localStorage.setItem('books', JSON.stringify(updatedBooks));
+      localStorage.setItem('carts', JSON.stringify(updatedBooks));
     }
   }
 
@@ -62,7 +62,7 @@ const minusQuantityItem = async (id, isLogin) => {
       alert(error, '요청을 실패했습니다');
     }
   } else {
-    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const books = JSON.parse(localStorage.getItem('carts')) || '';
     const values = Object.values(books);
     if (books) {
       const filteredBooks = values.filter((obj) => obj.id !== id);
@@ -73,7 +73,7 @@ const minusQuantityItem = async (id, isLogin) => {
           ? { ...findBook, quantity: findBook.quantity - 1 }
           : findBook;
       filteredBooks.splice(index, 0, updatedBook);
-      localStorage.setItem('books', JSON.stringify(filteredBooks));
+      localStorage.setItem('carts', JSON.stringify(filteredBooks));
     }
   }
   location.reload();
@@ -94,7 +94,7 @@ const plusQuantityItem = async (id, isLogin) => {
       alert(error, '요청을 실패했습니다');
     }
   } else {
-    const books = JSON.parse(localStorage.getItem('books')) || '';
+    const books = JSON.parse(localStorage.getItem('carts')) || '';
     const values = Object.values(books);
     if (books) {
       const filteredBooks = values.filter((obj) => obj.id !== id);
@@ -102,7 +102,7 @@ const plusQuantityItem = async (id, isLogin) => {
       const index = values.findIndex((item) => item == findBook);
       const updatedBook = { ...findBook, quantity: findBook.quantity + 1 };
       filteredBooks.splice(index, 0, updatedBook);
-      localStorage.setItem('books', JSON.stringify(filteredBooks));
+      localStorage.setItem('carts', JSON.stringify(filteredBooks));
     }
   }
   location.reload();
@@ -237,7 +237,7 @@ window.addEventListener('load', async () => {
         // DB에 해당 상품id가 없으면 로컬 스토래지에서도 삭제
         const books = getCartFromLocalStrorage();
         const updatedBooks = books.filter((b) => b.id !== book.id);
-        localStorage.setItem('books', JSON.stringify(updatedBooks));
+        localStorage.setItem('carts', JSON.stringify(updatedBooks));
       }
     });
 
