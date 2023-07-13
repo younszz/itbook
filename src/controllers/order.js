@@ -50,7 +50,10 @@ export const getAllOrders = async (req, res) => {
 // 주문 조회 - 사용자
 export const getMyOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.user.id });
+    const orders = await Order.find({ userId: req.user._id })
+    .populate('userId', 'email name')
+    .populate('products.id', 'title');
+
     res.json(orders);
   } catch (err) {
     console.error(err);
@@ -105,26 +108,26 @@ export const updateOrder = async (req, res) => {
   }
 };
 
-// 주문 취소 (사용자 - 배송전)
+
 export const cancelOrder = async (req, res) => {
   const orderId = req.params.oid;
-
   try {
     const order = await Order.findById(orderId);
-    if (!order) {
-      return res.status(404).json({ message: '주문을 찾을 수 없습니다.' });
-    }
     if (order.deliveryStatus !== '상품 준비중') {
-      throw new Error('배송이 시작되면 주문을 취소할 수 없습니다.');
+      // 배송 상태가 '상품 준비중'이 아니라면 에러 상태 코드와 메시지를 응답합니다.
+      res.status(400).json({ message: '배송이 시작되면 주문을 취소할 수 없습니다.' });
+      return;
     }
-    await Order.findByIdAndRemove(orderId);
-    console.log('주문 취소');
-    res.status(201).json({ message: '주문이 취소되었습니다.' });
+    await order.deleteOne();
+    res.status(200).json({ message: '주문이 취소되었습니다.' });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: '서버에 문제가 발생했습니다.' });
   }
 };
+
+
+
 
 // 주문 삭제 (관리자)
 export const deleteOrder = async (req, res) => {

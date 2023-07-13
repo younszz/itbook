@@ -30,6 +30,7 @@
 .nav ul li:nth-child(2) a {
   color: #7156ed;
 }
+/*  */
 
 .my-container {
   width: 720px;
@@ -88,11 +89,14 @@ td {
 .my-body tr td button {
   width: 80px;
   height: 32px;
-  background-color: transparent;
+  background-color: #7156ed; /* 보라색 배경색 */
   border-radius: 5px;
-  border: 1px solid #000;
+  border: none;
   cursor: pointer;
+  color: #fff; /* 흰색 글자색 */
 }
+
+
 .my-body tr td button:disabled {
   border-color: #ddd;
   cursor: default;
