@@ -1,3 +1,4 @@
+
 // 메인 swiper
 var swiper = new Swiper(".main-swiper", {
   pagination: {
@@ -40,6 +41,7 @@ async function fetchProducts() {
     const response = await fetch('/api/products');
     const data = await response.json();
     const sortedData = data.filter((book) => book.category === "웹");
+    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const books = sortedData
       .map(
@@ -52,7 +54,7 @@ async function fetchProducts() {
               <div class="info">
                 <p class="cate">${book.category}</p>
                 <p class="name">${book.title}</p>
-                <p class="price">${book.price}원</p>
+                <p class="price">${addCommas(book.price)}원</p>
               </div>
             </a>
           </div>`
@@ -61,7 +63,6 @@ async function fetchProducts() {
 
     bookList.innerHTML = books;
     newProducts();
-
     categoryColor();
   } catch (error) {
     console.error('Error:', error);
@@ -76,7 +77,8 @@ async function newProducts() {
     const response = await fetch('/api/products');
     const data = await response.json();
     const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    
+    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     const books = sortedData
       .map(
         (book) =>
@@ -90,7 +92,7 @@ async function newProducts() {
                 <div class="info">
                   <p class="cate">${book.category}</p>
                   <p class="name">${book.title}</p>
-                  <p class="price">${book.price}원</p>
+                  <p class="price">${addCommas(book.price)}원</p>
                 </div>
               </a>
             </div>
@@ -101,17 +103,12 @@ async function newProducts() {
       .slice(0, 6)
       .join('');
 
-      newswiper.innerHTML = books;
+    newswiper.innerHTML = books;
   }
   catch (error) {
     console.error('Error:', error);
   }
 }
-
-
-
-
-
 
 async function categoryColor() {
   try {

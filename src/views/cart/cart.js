@@ -114,6 +114,7 @@ const paymentResult = (total) => {
   const totalPrice = document.querySelector('.total-price');
   const orderBtn = document.querySelector('.btn-order');
   const delivery = document.querySelector('.delivery');
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   if (total == 0) {
     orderBtn.innerHTML = `주문하기`;
@@ -121,20 +122,21 @@ const paymentResult = (total) => {
     totalPre.innerHTML = `0원`;
     return;
   } else if (total < 30000) {
-    delivery.innerHTML = `+3000원`;
-    orderBtn.innerHTML = `${total + 3000}원 주문하기`;
-    totalPrice.innerHTML = `${total}원`;
-    totalPre.innerHTML = `${total + 3000}원`;
+    delivery.innerHTML = `+3,000원`;
+    orderBtn.innerHTML = `${addCommas(total + 3000)}원 주문하기`;
+    totalPrice.innerHTML = `${addCommas(total)}원`;
+    totalPre.innerHTML = `${addCommas(total + 3000)}원`;
     return;
   } else {
-    orderBtn.innerHTML = `${total}원 주문하기`;
-    totalPrice.innerHTML = `${total}원`;
-    totalPre.innerHTML = `${total}원`;
+    orderBtn.innerHTML = `${addCommas(total)}원 주문하기`;
+    totalPrice.innerHTML = `${addCommas(total)}원`;
+    totalPre.innerHTML = `${addCommas(total)}원`;
   }
 };
 
 // html 템플릿
 const itemTemplate = (book) => {
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `
   <input type="checkbox" class="selectCheck" data-id="${
     book._id
@@ -153,7 +155,7 @@ const itemTemplate = (book) => {
       }>
       <button id="plusBtn" class="btn-plus"><i class="fa-solid fa-plus"></i></button>
   </div>
-  <p class="item-price">${book.price * book.quantity}원</p>
+  <p class="item-price">${addCommas(book.price * book.quantity)}원</p>
   <button id="deleteBtn" class="btn-delete"><i class="fa-solid fa-xmark"></i></button>
   `;
 };

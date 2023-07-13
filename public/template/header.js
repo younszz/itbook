@@ -119,9 +119,9 @@ const createHeader = async () => {
       joinBtn.innerText = '회원가입';
       loginBtn.addEventListener('click', () => showModal('login'));
       joinBtn.addEventListener('click', () => showModal('join'));
+      getCartFromLocalStrorage(header);
       authMenu.append(loginBtn);
       authMenu.append(joinBtn);
-      getCartFromLocalStrorage(header);
     } else {
       const user = await getUserFromDB();
       const userBtn = document.createElement('li');
@@ -160,3 +160,6 @@ window.addEventListener('scroll', function () {
     header.classList.remove('fixed');
   }
 });
+
+
+

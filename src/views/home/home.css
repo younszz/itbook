@@ -7,6 +7,9 @@
   height: 235px;
   z-index: 9;
 }
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+  bottom:20px !important;
+}
 
 .main01 .main-swiper {
   width: 100%;

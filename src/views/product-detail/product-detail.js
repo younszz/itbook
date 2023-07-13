@@ -14,10 +14,11 @@ function count(type) {
   const resultElement = document.getElementById('result');
   const priceElement = document.getElementById('price');
   const totalpriceElement = document.getElementById('totalPrice');
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   let number = parseInt(resultElement.innerText);
-  let price = parseInt(priceElement.innerText);
-  let totalprice = parseInt(totalpriceElement.innerText);
+  let price = parseInt(priceElement.innerText.replace(/,/g, '')); // 쉼표 제거
+  let totalprice = parseInt(totalpriceElement.innerText.replace(/,/g, '')); // 쉼표 제거
 
   if (type === 'plus') {
     number += 1;
@@ -30,8 +31,9 @@ function count(type) {
   }
 
   resultElement.innerText = number;
-  totalpriceElement.innerText = totalprice;
-}
+  totalpriceElement.innerText = addCommas(totalprice);
+};
+
 
 async function appndProduct() {
   const id = getUrl();
@@ -77,6 +79,7 @@ const directPurchase = (id) => {
 };
 
 function detailContentTemplate(book) {
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `<div class="detail-img">
       <img src=${book.imageUrl} alt="${book.title}">
     </div>
@@ -85,7 +88,7 @@ function detailContentTemplate(book) {
       <h3>${book.title}</h3>
       <p class="detail-description">${book.description}</p>
       <p class="detail-description">${book.author} (지은이) / ${book.pages}쪽</p>
-      <h4><span id="price">${book.price}</span>원</h4>
+      <h4><span id="price">${addCommas(book.price)}</span>원</h4>
       <div class="detail-price">
         <h5>배송정보</h5>
         <p>3,000원 (30,000원 이상 구매 시 무료)</p>
@@ -102,7 +105,7 @@ function detailContentTemplate(book) {
       </div>
       <div class="all-price">
         <h6>총 금액</h6>
-        <p><span id="totalPrice">${book.price}</span>원</p>
+        <p><span id="totalPrice">${addCommas(book.price)}</span>원</p>
       </div>
       <div class="detail-btn">
         <button class="detail-cart" onclick="setItemToDBOrLocalStorage()"></button>

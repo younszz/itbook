@@ -42,6 +42,7 @@ const deleteProduct = async (e) => {
 const renderBookList = async (target) => {
   const response = await fetch('/api/products');
   const data = await response.json();
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   data.forEach((book) => {
     const tr = document.createElement('tr');
     tr.dataset.id = book._id;
@@ -51,7 +52,7 @@ const renderBookList = async (target) => {
               <img src=${book.imageUrl} alt="${book.title}" />
             </td>
             <td><a href="/product/${book._id}" class="book-title">${book.title}</a></td>
-            <td>${book.price}원</td>
+            <td>${addCommas(book.price)}원</td>
             <td>${book.category}</td>
             <td>
               <button class="admin-change"><a href="/admin/product/${book._id}/edit">수정</a></button>
