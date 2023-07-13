@@ -29,6 +29,7 @@ async function userOrder() {
       const orderTimestamp = parseInt(order._id.toString().substring(0, 8), 16) * 1000;
       const orderDate = new Date(orderTimestamp).toLocaleDateString();
       const orderTime = new Date(orderTimestamp).toLocaleTimeString();
+      console.log(totalPrice)
       orderList += `<tr>
         <td>${orderDate} ${orderTime}</td>
         <td>${productInfo}</td>
