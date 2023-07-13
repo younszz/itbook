@@ -1,4 +1,5 @@
 'use strict';
+
 const searchAddress = (e) => {
   e.preventDefault();
 
@@ -151,9 +152,10 @@ const handleSubmit = async (event) => {
       method: 'DELETE',
     });
 
-    if(response.ok){
+    if (response.ok) {
       alert('회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.');
-      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie =
+        'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       window.location.href = '/';
     }
   } else {
