@@ -23,7 +23,7 @@ const getCartFromDB = async (header) => {
     if (response.ok) {
       const data = await response.json();
       const count = data.length;
-      const cartcount = header.querySelector("#cartCount");
+      const cartcount = header.querySelector('#cartCount');
       cartcount.innerHTML = count;
     } else {
       console.error('실패');
@@ -37,10 +37,9 @@ const getCartFromDB = async (header) => {
 const getCartFromLocalStrorage = (header) => {
   const carts = JSON.parse(localStorage.getItem('carts'));
   const count = carts ? carts.length : 0;
-  const cartcount = header.querySelector("#cartCount");
+  const cartcount = header.querySelector('#cartCount');
   cartcount.innerHTML = count;
 };
-
 
 // DB 유저 정보 요청 (for 일반 & 관리자 체크)
 const getUserFromDB = async () => {
@@ -107,7 +106,6 @@ const headerTemplate = () => {
   return header;
 };
 
-
 // 헤더 생성
 const createHeader = async () => {
   try {
@@ -123,26 +121,26 @@ const createHeader = async () => {
       joinBtn.addEventListener('click', () => showModal('join'));
       authMenu.append(loginBtn);
       authMenu.append(joinBtn);
+      getCartFromLocalStrorage(header);
     } else {
       const user = await getUserFromDB();
       const userBtn = document.createElement('li');
       const logoutBtn = document.createElement('li');
       logoutBtn.addEventListener('click', deleteCookie);
 
-      userBtn.innerHTML = `<a href="${user.isAdmin ? '/admin' : '/user/info'}">${
-        user.isAdmin ? '관리자' : '마이페이지'
-      }</a>`;
+      userBtn.innerHTML = `<a href="${
+        user.isAdmin ? '/admin' : '/user/info'
+      }">${user.isAdmin ? '관리자' : '마이페이지'}</a>`;
 
       logoutBtn.innerText = '로그아웃';
       authMenu.appendChild(userBtn);
       authMenu.appendChild(logoutBtn);
+      await getCartFromDB(header);
     }
 
     modal();
     await createMenuList(header);
     document.body.prepend(header);
-    await getCartFromLocalStrorage(header);
-    getCartFromDB(header);
   } catch (err) {
     console.error(err);
   }
@@ -162,6 +160,3 @@ window.addEventListener('scroll', function () {
     header.classList.remove('fixed');
   }
 });
-
-
-
