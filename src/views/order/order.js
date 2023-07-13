@@ -4,6 +4,7 @@ const getUserFromDB = async () => {
     const response = await fetch("/api/user");
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
       return data;
     } else {
       console.error("실패");
@@ -60,59 +61,21 @@ const searchAddress = (e) => {
 // 배송지, 유저 정보
 const populateOrderUserInfo = async () => {
   const user = await getUserFromDB();
-  const deliveryInfo = document.querySelector(".delivery-info");
-  const orderInfo = document.querySelector(".order-info");
-  orderInfo.innerHTML = `<p>성함 : ${user.name}</p>
-    <p>이메일 주소 : ${user.email}</p>`;
-  deliveryInfo.insertAdjacentHTML(
-    "beforeend",
-    `<ul>
-  <li>
-    <div class="field-label is-normal no-label"></div>
-    <div class="field-body">
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            id="address1"
-            type="text"
-            placeholder="배송지를 등록해 주세요."
-            autocomplete="on"
-            readonly
-          />
-        </p>
-      </div>
-    </div>
-  </li>
-  <li>
-    <div class="field-label is-normal no-label"></div>
-    <div class="field-body">
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            id="address2"
-            type="text"
-            placeholder=""
-            autocomplete="on"
-          />
-        </p>
-      </div>
-    </div>
-  </li>
-</ul>`
-  );
+  const address1Input = document.querySelector("#address1");
+  const address2Input = document.querySelector("#address2");
+  const name = document.querySelector("#name");
+  const email = document.querySelector("#email");
+  const phone = document.querySelector("#phone");
+  name.value = `${user.name}`;
+  email.value = `${user.email}`;
+  if (user.address !== undefined) {
+    address1Input.value = `${user.address}`;
+    address2Input.value = `${user.addressDetail}`;
+    phone.value = `${user.phone}`;
+  }
   document
     .querySelector(".address-btn")
     .addEventListener("click", searchAddress);
-  if (user.address !== undefined) {
-    orderInfo.insertAdjacentHTML(
-      "beforeend",
-      `<p>휴대폰 번호 : ${user.phone}</p>`
-    );
-    document.querySelector("#address1").value = user.address;
-    document.querySelector("#address2").value = user.addressDetail;
-  }
 };
 
 populateOrderUserInfo();
