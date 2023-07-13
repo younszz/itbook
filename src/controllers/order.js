@@ -27,7 +27,7 @@ export const postOrder = async (req, res) => {
 // 주문 조회 - 관리자
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate('userId', 'email name');
     res.json(orders);
   } catch (err) {
     console.error(err);
