@@ -42,19 +42,18 @@ export const getCart = async (req, res) => {
 
 // 로그인시 로컬스토래지의 장바구니를 서버와 합치기
 export const mergeCarts = async (req, res) => {
-  console.log(req.user)
   try {
     const user = await User.findById(req.user._id);
     const localCartItems = req.body;
 
-    localCartItems.forEach(localItem => {
-      const cartItem = user.cart.items.find((item) => item.id == localItem.id);
-      if (cartItem) {
-        cartItem.quantity += localItem.quantity;
+    for (const localItem of localCartItems.reverse()) { 
+      const cartItemIndex = user.cart.items.findIndex((item) => item.id == localItem.id);
+      if (cartItemIndex >= 0) {
+        user.cart.items[cartItemIndex].quantity += localItem.quantity;
       } else {
-        user.cart.items.push(localItem);
+        user.cart.items.unshift(localItem); 
       }
-    });
+    }
 
     await user.save();
     res.json({ message: '장바구니가 병합되었습니다.' });
@@ -77,12 +76,10 @@ export const addToCart = async (req, res) => {
 
   if (cartProductIndex >= 0) {
     newQuantity = user.cart.items[cartProductIndex].quantity + quantity;
-    updatedCartItems[cartProductIndex].quantity = newQuantity;
+    updatedCartItems.splice(cartProductIndex, 1); 
+    updatedCartItems.unshift({ id, quantity: newQuantity });
   } else {
-    updatedCartItems.push({
-      id: id,
-      quantity: newQuantity,
-    });
+    updatedCartItems.unshift({ id, quantity: newQuantity });
   }
 
   user.cart = {
