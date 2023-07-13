@@ -4,6 +4,7 @@ const getUserFromDB = async () => {
     const response = await fetch("/api/user");
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
       return data;
     } else {
       console.error("실패");
@@ -60,83 +61,24 @@ const searchAddress = (e) => {
 // 배송지, 유저 정보
 const populateOrderUserInfo = async () => {
   const user = await getUserFromDB();
-  const deliveryInfo = document.querySelector(".delivery-info");
-  const orderInfo = document.querySelector(".order-info");
-  orderInfo.innerHTML = `<p>성함 : ${user.name}</p>
-    <p>이메일 주소 : ${user.email}</p>`;
-  deliveryInfo.insertAdjacentHTML(
-    "beforeend",
-    `<ul>
-  <li>
-    <div class="field-label is-normal no-label"></div>
-    <div class="field-body">
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            id="address1"
-            type="text"
-            placeholder="배송지를 등록해 주세요."
-            autocomplete="on"
-            readonly
-          />
-        </p>
-      </div>
-    </div>
-  </li>
-  <li>
-    <div class="field-label is-normal no-label"></div>
-    <div class="field-body">
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            id="address2"
-            type="text"
-            placeholder=""
-            autocomplete="on"
-          />
-        </p>
-      </div>
-    </div>
-  </li>
-</ul>`
-  );
+  const address1Input = document.querySelector("#address1");
+  const address2Input = document.querySelector("#address2");
+  const name = document.querySelector("#name");
+  const email = document.querySelector("#email");
+  const phone = document.querySelector("#phone");
+  name.value = `${user.name}`;
+  email.value = `${user.email}`;
+  if (user.address !== undefined) {
+    address1Input.value = `${user.address}`;
+    address2Input.value = `${user.addressDetail}`;
+    phone.value = `${user.phone}`;
+  }
   document
     .querySelector(".address-btn")
     .addEventListener("click", searchAddress);
-  if (user.address !== undefined) {
-    orderInfo.insertAdjacentHTML(
-      "beforeend",
-      `<p>휴대폰 번호 : ${user.phone}</p>`
-    );
-    document.querySelector("#address1").value = user.address;
-    document.querySelector("#address2").value = user.addressDetail;
-  }
 };
 
 populateOrderUserInfo();
-
-// const orderList = document.getElementById("orderList");
-// const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
-// // console.log(selectedItems);
-// selectedItems.forEach(async (item) => {
-//   const response = await fetch(`/api/product/${item.id}`);
-//   const bookData = await response.json();
-
-//   console.log(bookData);
-
-//   const el = document.createElement("div");
-//   el.className = "item";
-//   el.innerHTML = `
-//       <div class="item-name">${bookData.title}</div>
-//       <span class="item-count">${item.quantity}개</span>
-//       <span class="item-count">${
-//         parseInt(item.quantity) * parseInt(bookData.price)
-//       }원</span>
-//     `;
-//   orderList.prepend(el);
-// });
 
 const displayOrderItems = async () => {
   const orderList = document.getElementById("orderList");
@@ -203,13 +145,15 @@ selectAll.addEventListener("click", () => {
   }
 });
 
-document.querySelector(".payment-btn").addEventListener("click", (e) => {
+document.querySelector(".payment-btn").addEventListener("click", async (e) => {
   e.preventDefault();
+
   const address = document.querySelector("#address1").value;
   const addressDetail = document.querySelector("#address2").value;
   const check1 = document.querySelector("#check-btn1").checked;
   const check2 = document.querySelector("#check-btn2").checked;
   const tPrice = parseInt(document.querySelector(".total-price").innerHTML);
+
   if (!address || !addressDetail) {
     alert("배송지를 입력해주세요.");
     return false;
@@ -218,11 +162,30 @@ document.querySelector(".payment-btn").addEventListener("click", (e) => {
     alert("필수 항목에 동의해 주세요.");
     return false;
   }
-  const data = {
-    address: address,
-    addressDetail: addressDetail,
-    // ..?
-    totalAmount: tPrice,
-  };
-  console.log(data);
+
+  if (confirm("결제하시겠습니까?")) {
+    const data = {
+      address: address,
+      addressDetail: addressDetail,
+      products: JSON.parse(localStorage.getItem("selectedItems")),
+      totalAmount: tPrice,
+    };
+
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("서버 오류");
+      }
+      window.location.href = "/user/order";
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 });

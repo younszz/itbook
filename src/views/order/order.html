@@ -34,6 +34,23 @@
                 <h4 class="inner-title">배송지</h4>
               </div>
               <div class="delivery-info">
+                <div>
+                  <input
+                    class="input"
+                    id="address1"
+                    type="text"
+                    placeholder="배송지를 등록해 주세요."
+                    autocomplete="on"
+                    readonly
+                  />
+                  <input
+                    class="input"
+                    id="address2"
+                    type="text"
+                    placeholder=""
+                    autocomplete="on"
+                  />
+                </div>
               </div>
               <div class="inner-bottom">
                 <button class="address-btn"><i class="fa-solid fa-location-dot"></i> 배송지 등록하기</button>
@@ -44,9 +61,20 @@
                 <h4 class="inner-title">주문자 정보</h4>
               </div>
               <div class="order-container">
-                <div class="item">
-                  <div class="order-info"></div>
-                </div>
+                  <div class="order-info">
+                    <div>
+                      <label for="phone">성함</label>
+                      <input type="text" id="name" readonly />
+                    </div>
+                    <div>
+                      <label for="phone">이메일 주소</label>
+                      <input type="text" id="email" readonly />
+                    </div>
+                    <div>
+                      <label for="phone">전화번호</label>
+                      <input type="text" id="phone" placeholder="010-0000-0000" />
+                    </div>
+                  </div>
                 <div class="inner-bottom">
                 </div>
               </div>
