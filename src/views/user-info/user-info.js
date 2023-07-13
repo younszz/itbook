@@ -153,7 +153,7 @@ const handleSubmit = async (event) => {
 
     if(response.ok){
       alert('회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.');
-      // 브라우저에서 토큰을 지워주는 로직
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       window.location.href = '/';
     }
   } else {
