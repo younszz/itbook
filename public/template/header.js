@@ -123,6 +123,8 @@ const createHeader = async () => {
       joinBtn.addEventListener('click', () => showModal('join'));
       authMenu.append(loginBtn);
       authMenu.append(joinBtn);
+       getCartFromLocalStrorage(header);
+    
     } else {
       const user = await getUserFromDB();
       const userBtn = document.createElement('li');
@@ -136,13 +138,12 @@ const createHeader = async () => {
       logoutBtn.innerText = '로그아웃';
       authMenu.appendChild(userBtn);
       authMenu.appendChild(logoutBtn);
+      await getCartFromDB(header);
     }
 
     modal();
     await createMenuList(header);
     document.body.prepend(header);
-    await getCartFromLocalStrorage(header);
-    getCartFromDB(header);
   } catch (err) {
     console.error(err);
   }
@@ -162,6 +163,3 @@ window.addEventListener('scroll', function () {
     header.classList.remove('fixed');
   }
 });
-
-
-
