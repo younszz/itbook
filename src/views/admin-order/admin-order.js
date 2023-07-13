@@ -35,14 +35,15 @@ const convertToDate = (updatedAt) => {
   return formattedDateString;
 }
 const deleteOrder = async (event) => {
+  const confirmDelete = confirm('해당 주문내역을 삭제하시겠습니까?');
   try{
     const oid = event.target.parentElement.parentElement.className;
-    console.log(oid);
-    const deleted = await fetch(`/api/order/${oid}`,{
-      method:"DELETE",
-    })
-    console.log(deleted);
-    location.reload();
+    if(confirmDelete){
+      const deleted = await fetch(`/api/order/${oid}`,{
+        method:"DELETE",
+      })
+      location.reload();
+    }    
   }catch(e){
     console.error(e);
   }
