@@ -1,4 +1,3 @@
-import { addCommas } from './price-commas.js';
 
 // 메인 swiper
 var swiper = new Swiper(".main-swiper", {
@@ -42,6 +41,7 @@ async function fetchProducts() {
     const response = await fetch('/api/products');
     const data = await response.json();
     const sortedData = data.filter((book) => book.category === "웹");
+    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const books = sortedData
       .map(
@@ -77,6 +77,7 @@ async function newProducts() {
     const response = await fetch('/api/products');
     const data = await response.json();
     const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const books = sortedData
       .map(

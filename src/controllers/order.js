@@ -1,4 +1,5 @@
-import Order from '../models/Order';
+import Order from '../models/order';
+import User from '../models/user';
 
 //주문 생성
 export const postOrder = async (req, res) => {
@@ -17,6 +18,15 @@ export const postOrder = async (req, res) => {
   });
   try {
     await order.save();
+
+    const user = await User.findById(req.user._id);
+    
+    user.cart.items = user.cart.items.filter(item => {
+      return !products.some(product => product.id == item.id);
+    });
+
+    await user.save();
+
     res.status(201).json({ message: '주문 완료' });
   } catch (err) {
     console.error(err);
@@ -27,7 +37,9 @@ export const postOrder = async (req, res) => {
 // 주문 조회 - 관리자
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('userId', 'email name');
+    const orders = await Order.find()
+      .populate('userId', 'email name')
+      .populate('products.id', 'title'); 
     res.json(orders);
   } catch (err) {
     console.error(err);

@@ -120,6 +120,7 @@ populateOrderUserInfo();
 const displayOrderItems = async () => {
   const orderList = document.getElementById("orderList");
   const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   let totalPrice = 0;
 
   for (const item of selectedItems) {
@@ -132,14 +133,14 @@ const displayOrderItems = async () => {
       <div class="item-name">${bookData.title}</div>
       <span class="item-count">${item.quantity}개</span>
       <span class="item-count t-price">${
-        parseInt(item.quantity) * parseInt(bookData.price)
+        addCommas(parseInt(item.quantity) * parseInt(bookData.price))
       }원</span>
     `;
     orderList.prepend(el);
 
     totalPrice += parseInt(item.quantity) * parseInt(bookData.price);
   }
-  extractInfoFromInnerHTML(totalPrice);
+  extractInfoFromInnerHTML(addCommas(totalPrice));
 };
 
 // 주문 금액
@@ -148,23 +149,24 @@ const extractInfoFromInnerHTML = async (totalPrice) => {
   const pPrice = document.querySelector(".products-price");
   const dPrice = document.querySelector(".delivery");
   const tPrice = document.querySelectorAll(".total-price");
-  oPrice.insertAdjacentHTML("afterbegin", totalPrice);
-  pPrice.insertAdjacentHTML("afterbegin", totalPrice);
+  
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+  oPrice.insertAdjacentHTML("afterbegin", addCommas(totalPrice));
+  pPrice.insertAdjacentHTML("afterbegin", addCommas(totalPrice));
 
   // 주문금액 30000원미만이면 배송비 3000원
   if (parseInt(oPrice.innerText) < 30000) {
-    dPrice.insertAdjacentHTML("afterbegin", "3000");
+    dPrice.insertAdjacentHTML("afterbegin", addCommas("3000"));
   } else {
-    dPrice.insertAdjacentHTML("afterbegin", "0");
+    dPrice.insertAdjacentHTML("afterbegin", addCommas("0"));
   }
+  
   tPrice.forEach((el) => {
-    el.insertAdjacentHTML(
-      "afterbegin",
-      totalPrice + parseInt(dPrice.innerText)
-    );
+    const total = totalPrice + parseInt(dPrice.innerText.replace(/,/g, ''));
+    el.insertAdjacentHTML("afterbegin", addCommas(total));
   });
 };
-
 displayOrderItems();
 
 // 필수사항 체크박스 전체 체크

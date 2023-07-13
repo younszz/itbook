@@ -41,6 +41,7 @@ const showModal = (mode) => {
         // 로그인 후 장바구니 데이터 병합
         const localCarts = JSON.parse(localStorage.getItem('carts'));
         if(localCarts && localCarts.length > 0) {
+          localStorage.setItem('carts', JSON.stringify([]));
           try {
             const response = await fetch('/api/user/cart/merge', {
               method: 'POST',

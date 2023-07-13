@@ -1,48 +1,35 @@
-async function fetchProduct() {
-  const url = window.location.pathname;
-  const parts = url.split('/').filter(Boolean);
-  const id = parts.pop();
-}
-
-//데이터 바인딩 함수
-async function fetchProducts() {
-  try {
-    const bookList = document.getElementById('adminTbl');
-    const response = await fetch('/api/products');
-    console.log(response);
+//서버에서 주문상품목록 데이터 가져옴
+const getOrderList = async () => {
+  try{
+    const response = await fetch('/api/orders');
     const data = await response.json();
-    const books = data
-      .map(
-        (book) =>
-        `<tr>
-        <td><input type="checkbox"></td>
-        <td>${book.title}</td>
-        <td>개</td>
-        <td>${book.price}원</td>
-        <td>원</td>
-        <td>
-          <select name="" id="">
-            <option value="">주문</option>
-            <option value="">배송</option>
-          </select>
-        </td>
-      </tr>`
-      )
-      .join('');
-    
-    bookList.innerHTML = books;
-
-    const listCount = document.getElementById('listCount');
-    const count = data.length;
-    listCount.innerHTML = count;
-  } catch (error) {
-    console.error('Error:', error);
+    return data;
+  }catch(e){
+    console.error(e);
   }
 }
+//주문상품목록 템플릿
+const orderTemplate = (order) => {
+  return `
+          <td>
+              <input type="checkbox" class="selectCheck">
+          </td>
+          <td class="user-info">${order.userId.email}[${order.userId.name}]</td>
+          <td>${order.products[0].id} 외 ${order.products.length}건</td>
+          <td>${order.status}</td>`;
+}
+//주문상품목록 생성
+const createOrderList = async () => {
+  const adminTbl = document.querySelector("#adminTbl");
+  const orderList = await getOrderList();
 
-fetchProducts();
+  orderList && orderList.map((order) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = orderTemplate(order);
+      adminTbl.append(tr);
+  })
+}
 
-//
-
-let data = $('#orderList').find("td:eq(1)").text();
-console.log(data);
+window.addEventListener("load", async ()=>{
+  createOrderList();
+})

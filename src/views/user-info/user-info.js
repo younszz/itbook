@@ -69,13 +69,10 @@ saveBtn.addEventListener('click', updateUserInfo);
 
 //회원정보 수정
 async function updateUserInfo(userInfo) {
-  const token = getCookie('jwt');
-
   const response = await fetch('/api/user/info', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(userInfo),
   });
@@ -137,13 +134,11 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const inputPw = event.target.querySelector('.modal-pw').value;
   const data = (await getUserInfo()) || '';
-  const token = getCookie('jwt');
 
   const response = await fetch('/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       email: data.email,
@@ -152,14 +147,15 @@ const handleSubmit = async (event) => {
   });
 
   if (response.ok) {
-    await fetch(`/api/user/${data._id}`, {
+    const response = await fetch(`/api/user/${data._id}`, {
       method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
-    alert('회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.');
-    window.location.href = '/';
+
+    if(response.ok){
+      alert('회원탈퇴가 완료되었습니다. 언제나 기다리고 있을게요.');
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      window.location.href = '/';
+    }
   } else {
     alert(`비밀번호가 일치하지 않습니다. 다시 확인해주세요.`);
   }
