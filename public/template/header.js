@@ -11,6 +11,35 @@ const getTokenFromCookie = () => {
   }
   return null;
 };
+// 서버에서 유저 카트 정보 가져오기
+const getCartFromDB = async (header) => {
+  try {
+    const response = await fetch('/api/user/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const count = data.length;
+      const cartcount = header.querySelector('#cartCount');
+      cartcount.innerHTML = count;
+    } else {
+      console.error('실패');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// 로컬스토래지에서 카트 정보 가져오기
+const getCartFromLocalStrorage = (header) => {
+  const carts = JSON.parse(localStorage.getItem('carts'));
+  const count = carts ? carts.length : 0;
+  const cartcount = header.querySelector('#cartCount');
+  cartcount.innerHTML = count;
+};
 
 // DB 유저 정보 요청 (for 일반 & 관리자 체크)
 const getUserFromDB = async () => {
@@ -62,17 +91,18 @@ const createMenuList = async (target) => {
 const headerTemplate = () => {
   const header = document.createElement('header');
   header.innerHTML = `
-  <a href="/" class="logo-img">
-    <img src="/img/logo2.svg">
-  </a>
-  <ul class="header-menu" id="headerMenu">
-  </ul>
-<div class="header-btn">
-  <ul id="authMenu">
-    <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i><span id="cartCount"></span></a></li>
-  </ul>
-</div>
-`;
+    <a href="/" class="logo-img">
+      <img src="/img/logo2.svg">
+    </a>
+    <ul class="header-menu" id="headerMenu">
+    </ul>
+    <div class="header-btn">
+      <ul id="authMenu">
+        <li><a href="/cart"><i class="fas fa-cart-shopping fa-lg"></i><span id="cartCount"></span></a></li>
+      </ul>
+    </div>
+  `;
+
   return header;
 };
 
@@ -91,19 +121,21 @@ const createHeader = async () => {
       joinBtn.addEventListener('click', () => showModal('join'));
       authMenu.append(loginBtn);
       authMenu.append(joinBtn);
+      getCartFromLocalStrorage(header);
     } else {
       const user = await getUserFromDB();
       const userBtn = document.createElement('li');
       const logoutBtn = document.createElement('li');
       logoutBtn.addEventListener('click', deleteCookie);
 
-      userBtn.innerHTML = `<a href="${user.isAdmin ? '/admin' : '/user/info'}">${
-        user.isAdmin ? '관리자' : '마이페이지'
-      }</a>`;
+      userBtn.innerHTML = `<a href="${
+        user.isAdmin ? '/admin' : '/user/info'
+      }">${user.isAdmin ? '관리자' : '마이페이지'}</a>`;
 
       logoutBtn.innerText = '로그아웃';
       authMenu.appendChild(userBtn);
       authMenu.appendChild(logoutBtn);
+      await getCartFromDB(header);
     }
 
     modal();
@@ -128,24 +160,3 @@ window.addEventListener('scroll', function () {
     header.classList.remove('fixed');
   }
 });
-
-// 장바구니 숫자 
-document.addEventListener("DOMContentLoaded", function() {
-  const cartCount = document.getElementById("cartCount");
-  if (cartCount) {
-    getLocalBooks(cartCount);
-  } else {
-    console.error("Error: Element with id 'cartCount' not found.");
-  }
-});
-
-function getLocalBooks(cartCountElement) {
-  const books = JSON.parse(localStorage.getItem("books"));
-
-  if (books && books.length > 0) {
-    cartCountElement.innerHTML = books.length;
-  } else {
-    cartCountElement.classList.add("count-none");
-  }
-}
-

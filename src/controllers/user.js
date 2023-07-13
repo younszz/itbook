@@ -42,6 +42,7 @@ export const getCart = async (req, res) => {
 
 // 로그인시 로컬스토래지의 장바구니를 서버와 합치기
 export const mergeCarts = async (req, res) => {
+  console.log(req.user)
   try {
     const user = await User.findById(req.user._id);
     const localCartItems = req.body;

@@ -17,7 +17,7 @@ router.get('/api/user', getUser);
 
 router.post('/api/user/', updateUser);
 
-router.delete('/api/user/', deleteUser);
+router.delete('/api/user/:id/', deleteUser);
 
 router.get('/api/user/cart', getCart);
 
