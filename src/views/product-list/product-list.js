@@ -2,6 +2,7 @@ async function productsByCategory() {
   const url = window.location.pathname;
   const parts = url.split("/").filter(Boolean);
   const category = decodeURIComponent(parts.pop());
+  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   try {
     let response;
     let data;
@@ -20,7 +21,7 @@ async function productsByCategory() {
             <div class="info">
               <p class="cate">${book.category}</p>
               <p class="name">${book.title}</p>
-              <p class="price">${book.price}원</p>
+              <p class="price">${addCommas(book.price)}원</p>
             </div>
           </a>
         </li>`
