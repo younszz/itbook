@@ -120,7 +120,8 @@ populateOrderUserInfo();
 const displayOrderItems = async () => {
   const orderList = document.getElementById("orderList");
   const selectedItems = JSON.parse(localStorage.getItem("selectedItems"));
-  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const addCommas = (number) =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   let totalPrice = 0;
 
   for (const item of selectedItems) {
@@ -132,9 +133,9 @@ const displayOrderItems = async () => {
     el.innerHTML = `
       <div class="item-name">${bookData.title}</div>
       <span class="item-count">${item.quantity}개</span>
-      <span class="item-count t-price">${
-        addCommas(parseInt(item.quantity) * parseInt(bookData.price))
-      }원</span>
+      <span class="item-count t-price">${addCommas(
+        parseInt(item.quantity) * parseInt(bookData.price)
+      )}원</span>
     `;
     orderList.prepend(el);
 
@@ -149,22 +150,26 @@ const extractInfoFromInnerHTML = async (totalPrice) => {
   const pPrice = document.querySelector(".products-price");
   const dPrice = document.querySelector(".delivery");
   const tPrice = document.querySelectorAll(".total-price");
-  
-  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  
+
+  const addCommas = (number) =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   oPrice.insertAdjacentHTML("afterbegin", addCommas(totalPrice));
   pPrice.insertAdjacentHTML("afterbegin", addCommas(totalPrice));
 
   // 주문금액 30000원미만이면 배송비 3000원
-  if (parseInt(oPrice.innerText) < 30000) {
-    dPrice.insertAdjacentHTML("afterbegin", addCommas("3000"));
+  if (parseInt(oPrice.innerText) < 30) {
+    dPrice.innerHTML = "3,000원";
   } else {
-    dPrice.insertAdjacentHTML("afterbegin", addCommas("0"));
+    dPrice.innerHTML = "0원";
   }
-  
+
   tPrice.forEach((el) => {
-    const total = totalPrice + parseInt(dPrice.innerText.replace(/,/g, ''));
-    el.insertAdjacentHTML("afterbegin", addCommas(total));
+    const total = `${addCommas(
+      parseInt(totalPrice.replace(/,/g, "")) +
+        parseInt(dPrice.innerText.replace(/,/g, ""))
+    )}`;
+    el.insertAdjacentHTML("afterbegin", total);
   });
 };
 displayOrderItems();
@@ -184,48 +189,47 @@ selectAll.addEventListener("click", () => {
   }
 });
 
-document.querySelector('.payment-btn').addEventListener('click', async (e) => {
+document.querySelector(".payment-btn").addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const address = document.querySelector('#address1').value;
-  const addressDetail = document.querySelector('#address2').value;
-  const check1 = document.querySelector('#check-btn1').checked;
-  const check2 = document.querySelector('#check-btn2').checked;
-  const tPrice = parseInt(document.querySelector('.total-price').innerHTML);
+  const address = document.querySelector("#address1").value;
+  const addressDetail = document.querySelector("#address2").value;
+  const check1 = document.querySelector("#check-btn1").checked;
+  const check2 = document.querySelector("#check-btn2").checked;
+  const tPrice = parseInt(document.querySelector(".total-price").innerHTML);
 
   if (!address || !addressDetail) {
-    alert('배송지를 입력해주세요.');
+    alert("배송지를 입력해주세요.");
     return false;
   }
   if (!check1 || !check2) {
-    alert('필수 항목에 동의해 주세요.');
+    alert("필수 항목에 동의해 주세요.");
     return false;
   }
 
-  if (confirm('결제하시겠습니까?')) {
+  if (confirm("결제하시겠습니까?")) {
     const data = {
       address: address,
       addressDetail: addressDetail,
-      products: JSON.parse(localStorage.getItem('selectedItems')),
+      products: JSON.parse(localStorage.getItem("selectedItems")),
       totalAmount: tPrice,
     };
 
     try {
-      const response = await fetch('/api/order', {
-        method: 'POST',
+      const response = await fetch("/api/order", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
 
       if (!response.ok) {
-        throw new Error('서버 오류');
+        throw new Error("서버 오류");
       }
-      window.location.href = '/user/order';
-
+      window.location.href = "/user/order";
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   }
 });
