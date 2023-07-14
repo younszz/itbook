@@ -14,6 +14,7 @@ const fetchBooks = async (category) => {
   }
 };
 
+
 // sortMenu로 정렬
 const sortBooks = (books, sortOption) => {
   let sortedBooks = [...books];  
@@ -55,11 +56,13 @@ const displayBooks = (books, category, sortOption = '최신순')  => {
     <div class="product-title">
       <h2>${category}</h2>
       <p>총 ${books.length}개</p>
+    </div>
+    <div class="select-wrap">
       <select id="sortMenu">
-        <option value="최신순">최신순</option>
-        <option value="오래된순">오래된순</option>
-        <option value="가격높은순">가격높은순</option>
-        <option value="가격낮은순">가격낮은순</option>
+          <option value="최신순">최신순</option>
+          <option value="오래된순">오래된순</option>
+          <option value="가격높은순">가격높은순</option>
+          <option value="가격낮은순">가격낮은순</option>
       </select>
     </div>
     <div class="product-list">

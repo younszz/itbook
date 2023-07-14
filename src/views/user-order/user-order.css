@@ -20,12 +20,17 @@
   justify-content: center;
 }
 .nav {
-  width: 180px;
-  margin-right: 60px;
+  width: 25%;
+  padding-left: 70px;
 }
-.nav ul li {
-  font-size: 16px;
-  line-height: 24px;
+.contents {
+  width: 70%;
+}
+.nav ul {
+  width: 120px;
+  padding-top: 10px;
+  font-size: 18px;
+  line-height: 32px;
 }
 .nav ul li:nth-child(2) a {
   color: #7156ed;
@@ -36,10 +41,12 @@
   width: 720px;
 }
 .my-title {
-  display: flex;
-  justify-content: space-between;
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 800;
   line-height: 29px;
+}
+.my-title i {
+  padding-right:5px;
 }
 
 .orderEmpty {
@@ -68,7 +75,7 @@
 }
 .my-body table {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .my-body thead {
   height: 40px;

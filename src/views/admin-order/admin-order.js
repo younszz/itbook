@@ -53,7 +53,7 @@ const orderTemplate = (order) => {
   return `
           <td>${convertToDate(order.updatedAt)}</td>
           <td>${order.userId.email} [${order.userId.name}]</td>
-          <td>${order.products[0].id.title} 외 ${order.products.length}건</td>
+          <td class="order-title">${order.products[0].id.title} 외 ${order.products.length}건</td>
           <td>
             <select class="item-select" onchange="deliveryStatus('${order._id}', this.value)" name="orderStatus" id="orderStatus">
               <option ${order.deliveryStatus == '상품 준비중'? "selected" : ""} value="상품 준비중">상품 준비중</option>
@@ -91,4 +91,15 @@ window.addEventListener('load', async () => {
   const orderList = await getOrderList() || null;
   orderList.map((order) => createOrderList(order));
   searchBtn.addEventListener("click", () => searchUserName(orderList));
+});
+
+
+// 엔터키로 검색
+const inputEnter = document.getElementById("searchName");
+
+inputEnter.addEventListener("keyup", (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("searchBtn").click();
+  }
 });
