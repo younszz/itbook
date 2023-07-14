@@ -42,7 +42,6 @@ export const postProduct = async (req, res) => {
 
   try {
     const result = await product.save();
-    console.log('상품 생성');
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -63,7 +62,6 @@ export const updateProduct = async (req, res) => {
     product.imageUrl = imageUrl;
     
     const result = await product.save();
-    console.log('상품 수정');
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -72,10 +70,8 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const productId = req.params.pid;
-  console.log(productId);
   try {
     const result = await Product.findByIdAndRemove(productId);
-    console.log('상품 삭제');
     res.status(201).json(result);
   } catch (err) {
     console.log(err);

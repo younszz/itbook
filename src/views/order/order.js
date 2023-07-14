@@ -4,7 +4,6 @@ const getUserFromDB = async () => {
     const response = await fetch("/api/user");
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data;
     } else {
       console.error("실패");

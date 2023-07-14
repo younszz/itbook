@@ -81,7 +81,6 @@ onLoadPage();
 const allCheckBox = document.querySelector('#allCheck');
 window.addEventListener('load', () => {
   allCheckBox.addEventListener('change', () => {
-    console.log(allCheckBox.checked); // 값 출력
 
     const selectCheckBoxs = document.querySelectorAll('td input.selectCheck');
     if (allCheckBox.checked) {

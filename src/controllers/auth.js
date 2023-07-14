@@ -13,7 +13,6 @@ export const postLogin = (req, res) => {
 
 export const postJoin = async (req, res) => {
   try {
-    console.log(req.body);
     const { email, name, password } = req.body;
     const existingUser = await User.findOne({ email });
     const hashedPassword = hashPassword(password);

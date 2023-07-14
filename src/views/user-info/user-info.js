@@ -133,7 +133,6 @@ const userWithdrawalSubmit = async (event) => {
         window.location.href = '/';
       }
     }catch(e){
-      console.log(e);
     }
   }else{
     inputPw.focus();

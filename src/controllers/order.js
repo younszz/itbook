@@ -73,7 +73,6 @@ export const updateOrderStatus = async (req, res) => {
     }
     order.deliveryStatus = deliveryStatus;
     const result = await order.save();
-    console.log('배송 상태 수정');
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -100,7 +99,6 @@ export const updateOrder = async (req, res) => {
     order.recipientName = recipientName;
     order.recipientContact = recipientContact;
     const result = await order.save();
-    console.log('주문 정보 수정');
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -135,7 +133,6 @@ export const deleteOrder = async (req, res) => {
 
   try {
     await Order.findByIdAndRemove(orderId);
-    console.log('주문 삭제');
     res.status(200).json({ message: '주문이 삭제되었습니다.' });
   } catch (err) {
     console.log(err);
