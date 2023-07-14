@@ -48,7 +48,7 @@ const getUserInfo = async () => {
   }
 };
 //서버에 회원 정보 수정 요청
-async function updateUserInfo(userInfo) {
+const updateUserInfo = async (userInfo) => {
   const response = await fetch('/api/user', {
     method: 'POST',
     headers: {
