@@ -38,6 +38,9 @@ const getCartFromLocalStrorage = (header) => {
   const carts = JSON.parse(localStorage.getItem('carts'));
   const count = carts ? carts.length : 0;
   const cartcount = header.querySelector('#cartCount');
+  if(!count) {
+    cartcount.style.display = 'none';
+  }
   cartcount.innerHTML = count;
 };
 
