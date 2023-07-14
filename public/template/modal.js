@@ -90,7 +90,6 @@ const showModal = (mode) => {
             }
 
             const result = await response.json();
-            console.log(result.message);
           } catch (error) {
             console.error("요청을 실패했습니다", error);
           }
@@ -99,7 +98,7 @@ const showModal = (mode) => {
       } else {
         alert(`로그인 실패`);
       }
-    });
+    }, { once: true});
   } else if (mode === "join") {
     bg.classList.add("show");
     joinModalContent.classList.add("show");

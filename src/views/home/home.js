@@ -1,4 +1,3 @@
-
 // 메인 swiper
 var swiper = new Swiper(".main-swiper", {
   pagination: {
@@ -7,9 +6,9 @@ var swiper = new Swiper(".main-swiper", {
   },
   autoplay: {
     delay: 5000,
-    disableOnInteraction: true 
+    disableOnInteraction: true,
   },
-  loop:true,
+  loop: true,
 });
 
 // 신상품 swiper
@@ -21,27 +20,28 @@ var swiper = new Swiper(".new-swiper", {
   },
   // autoplay: {
   //   delay: 3000,
-  //   disableOnInteraction: true 
+  //   disableOnInteraction: true
   // },
   breakpoints: {
     1: {
       slidesPerView: 1,
     },
     768: {
-      slidesPerView: 3, 
+      slidesPerView: 3,
+    },
   },
-},
-  loop:true,
+  loop: true,
 });
 
 // 상품 데이터 함수
-async function fetchProducts() {
+const fetchProducts = async () => {
   try {
-    const bookList = document.getElementById('bookList');
-    const response = await fetch('/api/products');
+    const bookList = document.getElementById("bookList");
+    const response = await fetch("/api/products");
     const data = await response.json();
     const sortedData = data.filter((book) => book.category === "웹");
-    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const addCommas = (number) =>
+      number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const books = sortedData
       .map(
@@ -59,25 +59,27 @@ async function fetchProducts() {
             </a>
           </div>`
       )
-      .join('');
+      .join("");
 
     bookList.innerHTML = books;
     newProducts();
     categoryColor();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
-
+};
 
 // 신상품 정렬
-async function newProducts() {
+const newProducts = async () => {
   try {
-    const newswiper = document.getElementById('newSwiper');
-    const response = await fetch('/api/products');
+    const newswiper = document.getElementById("newSwiper");
+    const response = await fetch("/api/products");
     const data = await response.json();
-    const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const sortedData = data.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    const addCommas = (number) =>
+      number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const books = sortedData
       .map(
@@ -101,29 +103,28 @@ async function newProducts() {
       )
       .reverse()
       .slice(0, 6)
-      .join('');
+      .join("");
 
     newswiper.innerHTML = books;
+  } catch (error) {
+    console.error("Error:", error);
   }
-  catch (error) {
-    console.error('Error:', error);
-  }
-}
+};
 
-async function categoryColor() {
+const categoryColor = async () => {
   try {
-    const response = await fetch('/api/category');
+    const response = await fetch("/api/category");
     const products = await response.json();
     const cateList = document.getElementsByClassName("cate");
 
     Array.from(cateList).forEach((cate) => {
       const category = cate.textContent;
       const productCategory0 = products[0];
-      const productCategory1 = products[1]; 
-      const productCategory2 = products[2]; 
-      const productCategory3 = products[3]; 
-      const productCategory4 = products[4]; 
-      const productCategory5 = products[5]; 
+      const productCategory1 = products[1];
+      const productCategory2 = products[2];
+      const productCategory3 = products[3];
+      const productCategory4 = products[4];
+      const productCategory5 = products[5];
 
       if (category === productCategory0) {
         cate.classList.add("green");
@@ -142,8 +143,8 @@ async function categoryColor() {
       }
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
+};
 
 fetchProducts();

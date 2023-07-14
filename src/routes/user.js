@@ -10,25 +10,26 @@ import {
   mergeCarts,
   adjustQuantity
 } from '../controllers/user';
+import apiLoginRequired from '../middlewares/api-login-required';
 
 const router = express.Router();
 
 router.get('/api/user', getUser);
 
-router.post('/api/user/', updateUser);
+router.post('/api/user/', apiLoginRequired, updateUser);
 
-router.delete('/api/user/:id/', deleteUser);
+router.delete('/api/user/:id/', apiLoginRequired, deleteUser);
 
-router.get('/api/user/cart', getCart);
+router.get('/api/user/cart', apiLoginRequired, getCart);
 
-router.put('/api/user/cart/:id/:direction', adjustQuantity);
+router.put('/api/user/cart/:id/:direction', apiLoginRequired, adjustQuantity);
 
-router.post('/api/user/cart/merge', mergeCarts);
+router.post('/api/user/cart/merge', apiLoginRequired, mergeCarts);
 
-router.delete('/api/user/cart/:id', removeItem);
+router.delete('/api/user/cart/:id', apiLoginRequired, removeItem);
 
-router.post('/api/user/cart', addToCart);
+router.post('/api/user/cart', apiLoginRequired, addToCart);
 
-router.delete('/api/cart/all/:uid', clearCart);
+router.delete('/api/cart/all/:uid', apiLoginRequired, clearCart);
 
 export default router;

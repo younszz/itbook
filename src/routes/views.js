@@ -34,6 +34,5 @@ router.use('/admin/product/add/', adminRequired, serveStatic('admin-product'));
 router.use('/admin/order', adminRequired, serveStatic('admin-order'));
 router.use('/admin/category', adminRequired, serveStatic('admin-category'));
 router.use('/errorpage', serveStatic('errorpage'));
-// router.use('*', serveStatic('errorpage'));
 
 export default router;

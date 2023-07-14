@@ -33,7 +33,6 @@ const postCategoryToDB = async (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const dataArr = Array.from(formData.values());
-  console.log(dataArr);
 
   try {
     const response = await fetch('/api/category', {
