@@ -39,7 +39,8 @@ export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
       .populate('userId', 'email name')
-      .populate('products.id', 'title'); 
+      .populate('products.id', 'title')
+      .sort('-createdAt'); // `-createdAt`를 사용해 내림차순(가장 최근의 주문이 먼저 나오게) 정렬합니다.
     res.json(orders);
   } catch (err) {
     console.error(err);
