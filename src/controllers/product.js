@@ -4,12 +4,11 @@ export const getProducts = async (req, res) => {
   try {
     // 카테고리가 쿼리 파라미터로 제공된 경우
     if (req.query.category) {
-      const products = await Product.find({ category: req.query.category });
+      const products = await Product.find({ category: req.query.category }).sort({createdAt: -1});
       return res.json(products);
     }
 
-    // 카테고리가 제공되지 않은 경우 모든 제품을 반환
-    const products = await Product.find();
+    const products = await Product.find().sort({createdAt: -1});
     res.json(products);
   } catch (err) {
     console.error(err);

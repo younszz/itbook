@@ -26,11 +26,11 @@
   width: 720px;
 }
 .my-welcome {
-  min-height: 240px;
+  min-height: 20px;
   padding: 40px;
   font-size: 40px;
   font-weight: bold;
-  line-height: 41px;
+  line-height: 51px;
   background-color: #f9f9f9;
   border-radius: 6px;
   display: flex;

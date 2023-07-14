@@ -55,14 +55,14 @@ const orderTemplate = (order) => {
           <td>${order.userId.email} [${order.userId.name}]</td>
           <td>${order.products[0].id.title} 외 ${order.products.length}건</td>
           <td>
-            <select onchange="deliveryStatus('${order._id}', this.value)" name="orderStatus" id="orderStatus">
+            <select class="item-select" onchange="deliveryStatus('${order._id}', this.value)" name="orderStatus" id="orderStatus">
               <option ${order.deliveryStatus == '상품 준비중'? "selected" : ""} value="상품 준비중">상품 준비중</option>
               <option ${order.deliveryStatus == '배송중'? "selected" : ""} value="배송중">배송중</option>
               <option ${order.deliveryStatus == '배송 완료'? "selected" : ""} value="배송 완료">배송 완료</option>
             </select>
           </td>
           <td>
-            <button onclick="deleteOrder(event)">삭제</button>
+            <button class="item-delete-btn" onclick="deleteOrder(event)">삭제</button>
           </td>
           `;
 };
@@ -74,9 +74,21 @@ const createOrderList = (order) => {
   tr.innerHTML = orderTemplate(order);
   adminTbl.append(tr);
 };
+//사용자 이름 검색
+const searchUserName = (orderList)=>{
+  const adminTbl = document.querySelector('#adminTbl');
+  adminTbl.innerHTML = '';
+  const searchInputValue = document.querySelector(".order-search-input").value;
+  const filterList = orderList.filter((order) => {
+    const name =  order.userId.name;
+    return name.includes(searchInputValue);
+  });
+  filterList.map((order) => createOrderList(order));
+}
 
 window.addEventListener('load', async () => {
+  const searchBtn = document.querySelector(".order-search-btn");
   const orderList = await getOrderList() || null;
   orderList.map((order) => createOrderList(order));
-  console.log(orderList);
+  searchBtn.addEventListener("click", () => searchUserName(orderList));
 });
