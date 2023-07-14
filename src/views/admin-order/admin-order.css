@@ -58,18 +58,31 @@
  
   .contents .admin-list .admin-filter{
    display:flex;
-   justify-content: space-between;
+   justify-content: flex-end;
    padding:9px 0;
    align-items: center;
   }
  
-  .contents .admin-list .admin-title .title-btn{
- 
-  }
+  .contents .admin-filter .admin-input input:focus {
+    outline: none;
+   }
+  
+   .contents .admin-filter .admin-input:focus{
+    border:none;
+   }
+
+   .contents .admin-filter .admin-input button {
+    cursor: pointer;
+    background-color: #d9d9d9;
+    border:none;
+    border-radius: 5px;
+    padding:9px;
+   }
  
   .contents .admin-list .admin-title h5{
    font-size:20px;
    font-weight:800;
+   padding-bottom:20px;
   }
  
   .contents .admin-list .admin-title h5 i {
@@ -104,14 +117,6 @@
  
   .contents .admin-filter .admin-input:focus{
    border:none;
-  }
- 
-  .contents .admin-filter .admin-input button {
-   cursor: pointer;
-   background-color: #d9d9d9;
-   border:none;
-   border-radius: 3px;
-   padding:7px;
   }
  
   .admin-tbl table {
@@ -150,6 +155,13 @@
    display:table-cell; 
    vertical-align:middle;
    text-align:center;
+ }
+  
+ .admin-tbl table tbody tr td.order-title {
+  width:270px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
  }
  
  .admin-tbl table tbody tr td.p-img img{
@@ -205,8 +217,10 @@
   border: none;
   outline: none;
   margin: 0px 1px;
-  color: #7156ED;
+  border-radius: 5px;
   cursor: pointer;
+  border:1px solid #D1D1D1;
+  padding: 5px;
 }
 
  .item-delete-btn{

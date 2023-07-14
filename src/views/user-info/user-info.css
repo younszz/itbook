@@ -12,25 +12,31 @@
   justify-content: center;
 }
 .nav {
-  width: 180px;
-  margin-right: 60px;
+  width: 25%;
+  padding-left: 70px;
 }
-.nav ul li {
-  font-size: 16px;
-  line-height: 24px;
+.contents {
+  width: 70%;
+}
+
+.nav ul {
+  width: 120px;
+  padding-top: 10px;
+  font-size: 18px;
+  line-height: 32px;
 }
 .nav ul li.active a {
   color: #7156ed;
 }
 .my-container {
-  width: 720px;
+  width: 100%;
 }
 .my-welcome {
   min-height: 20px;
   padding: 40px;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: bold;
-  line-height: 51px;
+  line-height: 35px;
   background-color: #f9f9f9;
   border-radius: 6px;
   display: flex;
@@ -70,8 +76,13 @@
 }
 
 .my-title {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 29px;
+  font-weight:800;
+}
+
+.my-title i {
+  padding-right:5px;
 }
 .my-content {
   width: 400px;
