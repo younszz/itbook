@@ -2,17 +2,15 @@
   "name": "zeronode",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/app.js",
-    "build": "babel src --out-dir dist",
-    "serve": "node dist/app.js"
+    "build": "babel src -d dist",
+    "serve": "pm2 start src/app.js --interpreter babel-node"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
@@ -26,11 +24,11 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.6",
-    "@babel/core": "^7.22.8",
+    "@babel/cli": "^7.22.9",
+    "@babel/core": "^7.22.9",
     "@babel/node": "^7.22.6",
-    "@babel/plugin-transform-runtime": "^7.22.7",
-    "@babel/preset-env": "^7.22.7",
+    "@babel/plugin-transform-runtime": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
     "nodemon": "^3.0.1"
   }
 }

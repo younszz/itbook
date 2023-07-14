@@ -16,15 +16,6 @@ import initPassport from './passport';
 dotenv.config();
 initPassport();
 
-mongoose
-  .connect(
-    'mongodb+srv://Gwanggaeto:Gwang1234@cluster0.o8ndafw.mongodb.net/?retryWrites=true&w=majority'
-  )
-  .then(() => {
-    app.listen(3000);
-  })
-  .catch((err) => console.log(err));
-
 const app = express();
 
 app.use(express.json());
@@ -42,3 +33,12 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use(viewsRoutes);
 app.use(orderRoutes);
+
+mongoose
+  .connect(
+    'mongodb+srv://Gwanggaeto:Gwang1234@cluster0.o8ndafw.mongodb.net/?retryWrites=true&w=majority'
+  )
+  .then(() => {
+    app.listen(80);
+  })
+  .catch((err) => console.log(err));
