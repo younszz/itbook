@@ -204,7 +204,6 @@ window.addEventListener('load', async () => {
     (isLogin ? await getCartFromDB() : getCartFromLocalStrorage()) ?? [];
   const ul = document.querySelector('.cart-list');
   checkBoxOnOff(cartData);
-
   let totalPrice = 0;
 
   if (cartData.length > 0) {
@@ -212,13 +211,13 @@ window.addEventListener('load', async () => {
       const li = document.createElement('li');
       li.setAttribute('class', 'cart-item');
       li.setAttribute('id', book.id);
-
       try {
         const response = await fetch(`/api/product/${book.id}`);
         if (!response.ok) {
           throw new Error(`DB에 해당 상품이 없습니다. id: ${book.id}`);
         }
         const bookData = await response.json();
+        
         totalPrice += parseInt(bookData.price) * book.quantity;
         bookData.quantity = book.quantity;
         li.innerHTML = itemTemplate(bookData);
