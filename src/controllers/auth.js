@@ -3,13 +3,17 @@ import hashPassword from '../utils/hash-password';
 import User from '../models/user';
 
 export const postLogin = (req, res) => {
-  setUserToken(res, req.user);
+  try {
+    setUserToken(res, req.user);
+  } catch (err) {
+    res.status(500).send('로그인에 실패했습니다.');
+  }
   res.redirect('/');
 };
 
 export const postJoin = async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const { email, name, password } = req.body;
     const existingUser = await User.findOne({ email });
     const hashedPassword = hashPassword(password);
