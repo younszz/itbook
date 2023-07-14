@@ -204,7 +204,7 @@
 /* putMassageModal */
 .put-message-modal {
   position: absolute;
-  bottom: 100px;
+  bottom: 325px;
   left: 50%;
   transform: translateX(-50%);
   width: 280px;
@@ -240,9 +240,8 @@
 }
 
 .put-message-inner > a {
-  color: #7156ed;
   font-size: 14px;
-  font-weight: 200;
+  font-weight: 400;
   text-decoration: underline;
 }
 
