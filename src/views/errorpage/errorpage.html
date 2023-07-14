@@ -10,10 +10,19 @@
       src="https://kit.fontawesome.com/9daa42bcef.js"
       crossorigin="anonymous"
     ></script>
+    <style>
+      main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column,
+      }
+    </style>
   </head>
 
   <body>
-    <h1>잘못된 접근입니다. 홈으로 이동합니다.</h1>
+    <main><h1>에러 페이지입니다. 홈으로 이동합니다</h1></main>
     <script>
       setTimeout(() => {
         location.href = '/';
