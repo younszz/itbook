@@ -1,6 +1,6 @@
 {
-  "name": "zeronode",
-  "version": "1.0.0",
+  "name": "ItBook",
+  "version": "1.1",
   "description": "",
   "scripts": {
     "start": "nodemon --exec babel-node src/app.js",
