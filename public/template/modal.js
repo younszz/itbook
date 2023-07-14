@@ -55,7 +55,7 @@ const showModal = (mode) => {
           removeErrorMessage(loginPassword);
         }
 
-        return;
+        return false;
       }
 
       //fetch
@@ -152,7 +152,7 @@ const showModal = (mode) => {
         } else {
           removeErrorMessage(joinPassword);
         }
-        return;
+        return false;
       }
 
       //fetch
