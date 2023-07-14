@@ -120,3 +120,94 @@
 |  성지   |  FE   |
 |  윤지   |  FE   |
 |  진규   |  FE   |
+
+
+### 프론트엔드
+
+- **Vanilla javascript**, html, css
+- Font-awesome 
+- Daum 도로명 주소 api 
+- 윤성지
+  + 회원가입, 로그인 (임시)
+- 이윤지
+  + 홈, 관리자 (임시)
+- 김진규
+  + 장바구니, 주문 (임시)
+
+### 백엔드 
+
+- **Express**
+- Mongodb, Mongoose
+- cors
+- 홍승진
+  + 배포:VM.., 접근 권한, 미들웨어, 로그인 로그아웃 로직 (임시)
+- 김경연
+  + 스키마 설계 및 API 구현, JWT token cookie 인증 방식 및 로그인 (임시)
+
+
+### 폴더 구조
+- 프론트: `src/views` 폴더 
+- 백: src/views 이외 폴더 전체
+- 실행: **프론트, 백 동시에, express로 실행**
+
+
+<br />
+
+
+## Collaboration Tools
+
+- Padlet : 초반 주제 기획시 의사결정 빠르게 하는 칸반 보드 용도
+- Notion : 기능 구현 체크리스트, 회의록, 진행 상황 및 계획
+- Discord : 음성 채팅방 활용 의견 제시
+- Gitlab : Code Repository
+- Gitlab Issue : 진행상황이나 Trouble Shooting 내역
+- Postman Teams : API 테스트 진행
+
+
+## Scrum
+- 평일 오전10시 ~ 11시
+- YTB(Yesterday, Today, Blocking) 기반 스크럼 회의 진행
+  + 어제할일, 오늘할일, 막히는 상황 스크럼 회의때 공유
+- 필요시 주말에도 프론트/백엔드 전체 스크럼 진행
+
+
+## 코드 컨벤션
+- 메인 폰트 : 'Pretendard'
+- 비동기 방식 : async/await
+- 들여쓰기 : 2칸
+- 네이밍 컨벤션 : 변수명은 camelCase, 파일/폴더명은 케밥-케이스
+- 함수 정의 방법 : 함수 표현식
+- Css selector : class selector
+
+
+## 커밋 컨벤션
+- feat : 새로운 기능 추가
+- fix : 버그 수정
+- template : html, css, js 관련 파일 추가
+- docs : 문서 수정
+- style : 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
+- refactor : 코드 리팩토링
+- delete : 삭제
+
+
+## 브랜치 전략
+- dev -> feat~ 사진 넣기(임시)
+
+
+## 실행 방법
+```bash
+git clone {.....repository_name}.git
+cd {repository_name}
+npm install
+npm start
+```
+
+
+### .env 설정
+```
+JWT_SECRET_KEY = {YOUR_JWT_SECRET_KEY}
+```
+---
+
+본 프로젝트에서 제공하는 모든 코드 등의는 저작권법에 의해 보호받는 ㈜엘리스의 자산이며, 무단 사용 및 도용, 복제 및 배포를 금합니다.
+Copyright 2023 엘리스 Inc. All rights reserved.
