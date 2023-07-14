@@ -1,4 +1,5 @@
 async function userOrder() {
+  console.log('hi')
   try {
     // 주문상품 없을때
     const orderEmpty = `<div class="orderEmpty">
@@ -8,6 +9,7 @@ async function userOrder() {
 
     // 주문 정보 가져오기
     const response = await fetch("/api/orders/me");
+    console.log(response)
     const orders = await response.json();
     if (!orders.length) { 
       document.querySelector(".my-body").innerHTML = orderEmpty;
