@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 async function userOrder() {
   console.log('hi')
-=======
-const userOrder = async () => {
->>>>>>> dev
   try {
     // 주문상품 없을때
     const orderEmpty = `<div class="orderEmpty">
