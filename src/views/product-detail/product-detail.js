@@ -1,29 +1,30 @@
 // 토큰 (로그인 확인)
 const getTokenFromCookie = () => {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'token') {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "token") {
       return decodeURIComponent(value);
     }
   }
   return null;
 };
 
-function count(type) {
-  const resultElement = document.getElementById('result');
-  const priceElement = document.getElementById('price');
-  const totalpriceElement = document.getElementById('totalPrice');
-  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const count = (type) => {
+  const resultElement = document.getElementById("result");
+  const priceElement = document.getElementById("price");
+  const totalpriceElement = document.getElementById("totalPrice");
+  const addCommas = (number) =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   let number = parseInt(resultElement.innerText);
-  let price = parseInt(priceElement.innerText.replace(/,/g, '')); // 쉼표 제거
-  let totalprice = parseInt(totalpriceElement.innerText.replace(/,/g, '')); // 쉼표 제거
+  let price = parseInt(priceElement.innerText.replace(/,/g, "")); // 쉼표 제거
+  let totalprice = parseInt(totalpriceElement.innerText.replace(/,/g, "")); // 쉼표 제거
 
-  if (type === 'plus') {
+  if (type === "plus") {
     number += 1;
     totalprice += price;
-  } else if (type === 'minus') {
+  } else if (type === "minus") {
     if (number > 1) {
       number -= 1;
       totalprice -= price;
@@ -34,52 +35,52 @@ function count(type) {
   totalpriceElement.innerText = addCommas(totalprice);
 };
 
-
-async function appndProduct() {
+const appndProduct = async () => {
   const id = getUrl();
   try {
-    const detailContainer = document.getElementById('detailContainer');
+    const detailContainer = document.getElementById("detailContainer");
     const book = await getProduct(id);
     const detailContent = detailContentTemplate(book);
     detailContainer.innerHTML = detailContent;
     categoryColor();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
+};
 
-function getUrl() {
+const getUrl = () => {
   const url = window.location.pathname;
-  const parts = url.split('/').filter(Boolean);
+  const parts = url.split("/").filter(Boolean);
   const id = parts.pop();
 
   return id;
-}
+};
 
-async function getProduct(id) {
+const getProduct = async (id) => {
   try {
     const response = await fetch(`/api/product/${id}`);
     const book = await response.json();
 
     return book;
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
+};
 
 const directPurchase = (id) => {
   if (!getTokenFromCookie()) {
-    alert('로그인이 필요합니다.');
+    alert("로그인이 필요합니다.");
     return;
   }
 
-  const quantity = parseInt(document.getElementById('result').innerText);
-  localStorage.setItem('selectedItems', JSON.stringify([{ id, quantity }]));
-  location.href = '/order';
+  const quantity = parseInt(document.getElementById("result").innerText);
+  localStorage.setItem("selectedItems", JSON.stringify([{ id, quantity }]));
+  location.href = "/order";
 };
 
-function detailContentTemplate(book) {
-  const addCommas = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const detailContentTemplate = (book) => {
+  const addCommas = (number) =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `<div class="detail-img">
       <img src=${book.imageUrl} alt="${book.title}">
     </div>
@@ -87,7 +88,9 @@ function detailContentTemplate(book) {
       <p class="detail-cate">#${book.category}</p>
       <h3>${book.title}</h3>
       <p class="detail-description">${book.description}</p>
-      <p class="detail-description">${book.author} (지은이) / ${book.pages}쪽</p>
+      <p class="detail-description">${book.author} (지은이) / ${
+    book.pages
+  }쪽</p>
       <h4><span id="price">${addCommas(book.price)}</span>원</h4>
       <div class="detail-price">
         <h5>배송정보</h5>
@@ -109,33 +112,35 @@ function detailContentTemplate(book) {
       </div>
       <div class="detail-btn">
         <button class="detail-cart" onclick="setItemToDBOrLocalStorage()"></button>
-        <button class="detail-buy" onclick="directPurchase('${book._id}')">바로 구매하기</button>
+        <button class="detail-buy" onclick="directPurchase('${
+          book._id
+        }')">바로 구매하기</button>
       </div>
     </div>`;
-}
+};
 appndProduct();
 
-async function setItemToDBOrLocalStorage() {
+const setItemToDBOrLocalStorage = async () => {
   const id = getUrl();
-  const quantity = parseInt(document.getElementById('result').innerText);
+  const quantity = parseInt(document.getElementById("result").innerText);
   const book = { id, quantity };
   const token = getTokenFromCookie();
 
   if (token) {
     // 서버에 저장
-    const response = await fetch('/api/user/cart', {
-      method: 'POST',
+    const response = await fetch("/api/user/cart", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(book),
     });
     if (!response.ok) {
-      throw new Error('장바구니 저장에 실패했습니다.');
+      throw new Error("장바구니 저장에 실패했습니다.");
     }
   } else {
     //로컬스토래지에 저장
-    let carts = JSON.parse(localStorage.getItem('carts')) || [];
+    let carts = JSON.parse(localStorage.getItem("carts")) || [];
     const isBook = Object.values(carts).find((obj) => obj.id == book.id);
 
     if (isBook) {
@@ -145,25 +150,25 @@ async function setItemToDBOrLocalStorage() {
     } else {
       carts.unshift(book);
     }
-    localStorage.setItem('carts', JSON.stringify(carts));
+    localStorage.setItem("carts", JSON.stringify(carts));
   }
 
   showPutMessage();
-}
+};
 
-function showPutMessage() {
-  const message = document.querySelector('.put-message-modal');
-  message.classList.add('visible');
+const showPutMessage = () => {
+  const message = document.querySelector(".put-message-modal");
+  message.classList.add("visible");
   setTimeout(() => {
-    message.classList.remove('visible');
+    message.classList.remove("visible");
   }, 4000);
-}
+};
 
-async function categoryColor() {
+const categoryColor = async () => {
   try {
-    const response = await fetch('/api/category');
+    const response = await fetch("/api/category");
     const products = await response.json();
-    const cateList = document.getElementsByClassName('detail-cate');
+    const cateList = document.getElementsByClassName("detail-cate");
 
     Array.from(cateList).forEach((cate) => {
       const category = cate.textContent.slice(1);
@@ -175,22 +180,22 @@ async function categoryColor() {
       const productCategory5 = products[5];
 
       if (category === productCategory0) {
-        cate.classList.add('green');
+        cate.classList.add("green");
       } else if (category === productCategory1) {
-        cate.classList.add('orange');
+        cate.classList.add("orange");
       } else if (category === productCategory2) {
-        cate.classList.add('blue');
+        cate.classList.add("blue");
       } else if (category === productCategory3) {
-        cate.classList.add('pink');
+        cate.classList.add("pink");
       } else if (category === productCategory4) {
-        cate.classList.add('purple');
+        cate.classList.add("purple");
       } else if (category === productCategory5) {
-        cate.classList.add('navy');
+        cate.classList.add("navy");
       } else {
-        cate.classList.add('red');
+        cate.classList.add("red");
       }
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
+};
