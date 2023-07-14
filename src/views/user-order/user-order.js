@@ -1,4 +1,4 @@
-async function userOrder() {
+const userOrder = async () => {
   try {
     // 주문상품 없을때
     const orderEmpty = `<div class="orderEmpty">
@@ -9,27 +9,27 @@ async function userOrder() {
     // 주문 정보 가져오기
     const response = await fetch("/api/orders/me");
     const orders = await response.json();
-    if (!orders.length) { 
+    if (!orders.length) {
       document.querySelector(".my-body").innerHTML = orderEmpty;
       return;
     }
 
     // 주문 정보가 있을 때
     let orderList = "";
-    
+
     for (let order of orders) {
       // 각 주문 내의 모든 제품 정보 표시
       let productInfo = "";
       let totalPrice = order.totalAmount.toLocaleString();
       for (let product of order.products) {
         productInfo += `${product.id.title} / ${product.quantity}권<br />`;
-
       }
 
-      const orderTimestamp = parseInt(order._id.toString().substring(0, 8), 16) * 1000;
+      const orderTimestamp =
+        parseInt(order._id.toString().substring(0, 8), 16) * 1000;
       const orderDate = new Date(orderTimestamp).toLocaleDateString();
       const orderTime = new Date(orderTimestamp).toLocaleTimeString();
-      console.log(totalPrice)
+      console.log(totalPrice);
       orderList += `<tr>
         <td>${orderDate} ${orderTime}</td>
         <td>${productInfo}</td>
@@ -54,13 +54,12 @@ async function userOrder() {
     // 주문 정보를 화면에 표시
     document.querySelector(".my-body").innerHTML = table;
 
-
-    document.querySelectorAll('button[data-id]').forEach(button => {
-      button.addEventListener('click', async () => {
+    document.querySelectorAll("button[data-id]").forEach((button) => {
+      button.addEventListener("click", async () => {
         const orderId = button.dataset.id;
         try {
           const response = await fetch(`/api/order/cancel/${orderId}`, {
-            method: 'DELETE',
+            method: "DELETE",
           });
           if (response.ok) {
             const data = await response.json();
@@ -79,7 +78,9 @@ async function userOrder() {
     });
   } catch (err) {
     console.error("Error:", err);
-    document.querySelector(".my-body").innerHTML = `<p>주문 정보를 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.</p>`;
+    document.querySelector(
+      ".my-body"
+    ).innerHTML = `<p>주문 정보를 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.</p>`;
   }
-}
+};
 userOrder();
