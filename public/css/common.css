@@ -98,16 +98,13 @@ header .header-btn ul li a span {
 }
 
 header .header-btn ul li a span.count-none {
-  display:none;
+  display: none;
 }
 
-
-header a.logo-img img{
-  width:140px;
-  height:65px;
+header a.logo-img img {
+  width: 140px;
+  height: 65px;
 }
-
-
 
 /* header .header-btn ul li.cart:before{
   content: '';
@@ -170,33 +167,71 @@ header a.logo-img img{
 }
 .input-box {
   position: relative;
-  height: 62px;
+  /* height: 62px; */
+}
+.input-box .label {
+  position: absolute;
+  font-size: 14px;
+  top: 22px;
+  left: 20px;
+  transition: 0.3s;
+  color: #ccc;
 }
 .input-box input {
   width: 100%;
   height: 62px;
-  padding: 31px 20px 14px 20px;
+  padding: 22px 20px;
   box-sizing: border-box;
   border: 1px solid #ddd;
   outline: none;
   border-radius: 6px;
   transition: 0.3s;
 }
-.input-box.focus input {
-  border-color: #7156ed;
-}
 
 .input-box.focus .label {
   font-size: 11px;
   top: 14px;
+  line-height: 13px;
+  color: #999;
 }
-.label {
-  position: absolute;
-  font-size: 14px;
-  top: 22px;
-  left: 20px;
-  transition: 0.3s;
+
+.input-box.focus input {
+  padding: 31px 20px 14px 20px;
+  border-color: #7156ed;
 }
+
+.input-box.active .label {
+  top: 14px;
+  font-size: 11px;
+  line-height: 13px;
+  color: #999;
+}
+
+.input-box.active input {
+  padding: 31px 20px 14px 20px;
+}
+
+.input-box.error .label {
+  color: #f45452;
+}
+
+.input-box.error input {
+  color: #f45452;
+  border-color: #f45452;
+}
+
+.text-valid {
+  margin-top: 8px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #f45452;
+  display: none;
+}
+
+.text-valid.show {
+  display: inline-block;
+}
+
 .modal-footer {
   padding: 16px;
 }
@@ -234,7 +269,7 @@ footer {
   background-color: #c9c9c9;
 }
 .footer-in a img {
-  width:150px;
+  width: 150px;
 }
 
 .footer-in {
