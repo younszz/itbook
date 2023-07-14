@@ -66,6 +66,7 @@ const orderTemplate = (order) => {
           </td>
           `;
 };
+
 //주문상품목록 생성
 const createOrderList = (order) => {
   const adminTbl = document.querySelector('#adminTbl');
