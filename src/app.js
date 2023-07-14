@@ -39,6 +39,6 @@ mongoose
     'mongodb+srv://Gwanggaeto:Gwang1234@cluster0.o8ndafw.mongodb.net/?retryWrites=true&w=majority'
   )
   .then(() => {
-    app.listen(80);
+    app.listen(3000);
   })
   .catch((err) => console.log(err));
