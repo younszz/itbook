@@ -70,7 +70,7 @@ saveBtn.addEventListener('click', updateUserInfo);
 
 //회원정보 수정
 async function updateUserInfo(userInfo) {
-  const response = await fetch('/api/user/info', {
+  const response = await fetch('/api/user', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
