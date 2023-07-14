@@ -3,26 +3,21 @@ import User from '../models/user';
 
 //주문 생성
 export const postOrder = async (req, res) => {
-  const {
-    products,
-    address,
-    addressDetail,
-    totalAmount
-  } = req.body;
+  const { products, address, addressDetail, totalAmount } = req.body;
   const order = new Order({
-    userId : req.user._id,
+    userId: req.user._id,
     products,
     address,
     addressDetail,
-    totalAmount
+    totalAmount,
   });
   try {
     await order.save();
 
     const user = await User.findById(req.user._id);
-    
-    user.cart.items = user.cart.items.filter(item => {
-      return !products.some(product => product.id == item.id);
+
+    user.cart.items = user.cart.items.filter((item) => {
+      return !products.some((product) => product.id == item.id);
     });
 
     await user.save();
@@ -39,7 +34,8 @@ export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
       .populate('userId', 'email name')
-      .populate('products.id', 'title'); 
+      .populate('products.id', 'title')
+      .sort('-createdAt');
     res.json(orders);
   } catch (err) {
     console.error(err);
@@ -51,8 +47,9 @@ export const getAllOrders = async (req, res) => {
 export const getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user._id })
-    .populate('userId', 'email name')
-    .populate('products.id', 'title');
+      .populate('userId', 'email name')
+      .populate('products.id', 'title')
+      .sort('-createdAt');
 
     res.json(orders);
   } catch (err) {
@@ -106,14 +103,15 @@ export const updateOrder = async (req, res) => {
   }
 };
 
-
 export const cancelOrder = async (req, res) => {
   const orderId = req.params.oid;
   try {
     const order = await Order.findById(orderId);
     if (order.deliveryStatus !== '상품 준비중') {
       // 배송 상태가 '상품 준비중'이 아니라면 에러 상태 코드와 메시지를 응답합니다.
-      res.status(400).json({ message: '배송이 시작되면 주문을 취소할 수 없습니다.' });
+      res
+        .status(400)
+        .json({ message: '배송이 시작되면 주문을 취소할 수 없습니다.' });
       return;
     }
     await order.deleteOne();
@@ -123,9 +121,6 @@ export const cancelOrder = async (req, res) => {
     res.status(500).json({ message: '서버에 문제가 발생했습니다.' });
   }
 };
-
-
-
 
 // 주문 삭제 (관리자)
 export const deleteOrder = async (req, res) => {

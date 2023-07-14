@@ -291,12 +291,12 @@ const modal = async () => {
   <form id="joinForm"  method="POST" class="form">
     <ul class="form-list">
       <li class="input-box">
-        <label class="label" for="joinUserName">이름</label>
-        <input type="text" name="joinUserName" id="joinUserName" />
-      </li>
-      <li class="input-box">
         <label class="label" for="joinEmail">이메일</label>
         <input type="text" name="joinEmail" id="joinEmail" />
+      </li>
+      <li class="input-box">
+        <label class="label" for="joinUserName">이름</label>
+        <input type="text" name="joinUserName" id="joinUserName" />
       </li>
       <li class="input-box">
         <label class="label" for="joinPassword">비밀번호</label>

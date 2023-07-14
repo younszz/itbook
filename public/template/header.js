@@ -24,6 +24,9 @@ const getCartFromDB = async (header) => {
       const data = await response.json();
       const count = data.length;
       const cartcount = header.querySelector('#cartCount');
+      if(!count) {
+        cartcount.style.display = 'none';
+      }
       cartcount.innerHTML = count;
     } else {
       console.error('실패');
