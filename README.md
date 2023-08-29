@@ -9,7 +9,8 @@
     - 카테고리를 세분화하여 최소한의 클릭으로 빠르게 상품을 찾고 구매할 수 있습니다.
 
 ## 페르소나
-![페르소나](/uploads/40aa78b6bd79e4915f5bcf6644f8240e/페르소나.png)
+
+![image](https://github.com/younszz/itbook/assets/127226295/257c1b05-c8a5-415c-9478-64b01c47f287)
 
 
 <br />
@@ -31,7 +32,7 @@
  - http://kdt-sw-5-team15.elicecoding.com/
  <div>
 
- ![로고](/uploads/055f42f0e652e8dfc5e51fa8aa73ba67/로고.png)
+![image](https://github.com/younszz/itbook/assets/127226295/ea1ab269-a6f5-44fe-b7e7-29c6930e6dcb)
 
  </div>
 
@@ -41,7 +42,7 @@
 
  ## Tech Stack
 
- - ![기술스택](/uploads/9d958d4bc258cc3d1794c785430f6009/기술스택.png)
+![image](https://github.com/younszz/itbook/assets/127226295/871b56a0-ce68-4933-a97d-c6f3367d8353)
 
  <br/>
 
@@ -50,22 +51,22 @@
 
 
  <details><summary>홈 & 카테고리별 상품조회</summary>
-
-![list](/uploads/388c28ab02039ab58cb54e8c2b7a33a6/list.gif)
+     
+![list](https://github.com/younszz/itbook/assets/127226295/78539fb1-5854-448e-940a-c13ee4d887cc)
 
 </details>
 
 
 <details><summary>로그인 & 회원가입</summary>
 
-![login](/uploads/7c6bce68a1fdb9655c8d7d192913da79/login.gif)
+![login](https://github.com/younszz/itbook/assets/127226295/02faeb8d-3a2f-4286-80a9-13658dbda6cf)
 
 </details>
 
 
 <details><summary>회원정보수정 & 회원탈퇴</summary>
 
-![user-info](/uploads/4ed95973a8f13ed4e560999005b0af1d/user-info.gif)
+![user-info](https://github.com/younszz/itbook/assets/127226295/618ca63e-b4da-4ab6-a100-33ecf74cbe2f)
 
 </details>
 
@@ -73,35 +74,35 @@
 
 <details><summary>장바구니 기능</summary>
 
-![cart](/uploads/6a543e811bb286adba1a370bdd95b4ed/cart.gif)
+![cart](https://github.com/younszz/itbook/assets/127226295/6c01d25d-6bf7-4c41-8d91-8ff12bce6506)
 
 </details>
 
 
 <details><summary>즉시구매 & 장바구니구매</summary>
 
-![payment](/uploads/c01cfd477f97b84a8ed334ebd09061aa/payment.gif)
+![payment](https://github.com/younszz/itbook/assets/127226295/1173af3f-4e1a-4684-9b4a-57ed069f3251)
 
 </details>
 
 
 <details><summary>주문내역조회 & 주문취소</summary>
 
-![user-order](/uploads/94caa9fc7cc571e802e89384b28e04a8/user-order.gif)
+![user-order](https://github.com/younszz/itbook/assets/127226295/0bfa4f2d-34ea-47d0-9b39-f3133fa536f0)
 
 </details>
 
 
 <details><summary>최신순 & 가격순 정렬</summary>
 
-![filter](/uploads/190890a23ba560a71955a224cdb4c6b0/filter.gif)
+![filter](https://github.com/younszz/itbook/assets/127226295/4649f6bf-865c-47a3-abe3-818c120a7196)
 
 </details>
 
 
 <details><summary>관리자</summary>
 
-![admin](/uploads/c21004ee13c57974dbf3652f477214a4/admin.gif)
+![admin](https://github.com/younszz/itbook/assets/127226295/a36f8dda-405c-4171-b500-80f34744247f)
 
 </details>
 
@@ -141,7 +142,7 @@
 - 홍승진
   + 상품 정보 api 설계 및 구현, 사용자 인증, 로그인, 회원가입 구현, 배포, 장바구니 DB 연동.
 - 김경연
-  + 스키마 설계 및 API 구현, JWT token cookie 인증 방식 및 로그인 (임시)
+  + 스키마 설계 및 API 구현, JWT token cookie 인증 방식 및 로그인
 
 
 ### 폴더 구조
@@ -150,7 +151,8 @@
 - 실행: **프론트, 백 동시에, express로 실행**
 
 ### DB 스키마
-- ![DB스키마](/uploads/00c948fc6b29a26aba936e110199596a/DB스키마.png)
+
+![image](https://github.com/younszz/itbook/assets/127226295/cfd7122c-fd38-40de-8682-36ed8aa35988)
 
 
 <br />
@@ -193,11 +195,11 @@
 
 
 ## 브랜치 전략
-- ![브랜치전략](/uploads/e79c240c7e74701a2a23214c7ded12eb/브랜치전략.png)
+![image](https://github.com/younszz/itbook/assets/127226295/e439d217-b4ae-4dd9-8236-f3a64b35b241)
 
 
 ## 트러블 슈팅
-- ![트러블슈팅](/uploads/c32279ffe3a33a7763698eb692e59094/트러블슈팅.png)
+![image](https://github.com/younszz/itbook/assets/127226295/5e8f398f-887a-416b-8fef-0595f588f6e7)
 
 
 ## 실행 방법
