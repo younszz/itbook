@@ -10,8 +10,7 @@
 
 ## 페르소나
 
-![image](https://github.com/younszz/itbook/assets/127226295/257c1b05-c8a5-415c-9478-64b01c47f287)
-
+![페르소나](https://github.com/younszz/itbook/assets/127226295/a01fe20e-aca3-4c1e-86f0-aeb42807e752)
 
 <br />
 
@@ -31,8 +30,8 @@
 ## 데모 사이트
  - http://kdt-sw-5-team15.elicecoding.com/
  <div>
-
-![image](https://github.com/younszz/itbook/assets/127226295/ea1ab269-a6f5-44fe-b7e7-29c6930e6dcb)
+     
+![로고](https://github.com/younszz/itbook/assets/127226295/0e3e9ddb-80a8-4fb7-9998-f2086bb25662)
 
  </div>
 
@@ -42,7 +41,7 @@
 
  ## Tech Stack
 
-![image](https://github.com/younszz/itbook/assets/127226295/871b56a0-ce68-4933-a97d-c6f3367d8353)
+![기술스택](https://github.com/younszz/itbook/assets/127226295/38bbd263-72b2-43de-aa08-22055a22de04)
 
  <br/>
 
@@ -52,21 +51,21 @@
 
  <details><summary>홈 & 카테고리별 상품조회</summary>
      
-![list](https://github.com/younszz/itbook/assets/127226295/78539fb1-5854-448e-940a-c13ee4d887cc)
+![list](https://github.com/younszz/itbook/assets/127226295/15b0250c-aab3-4d86-8ef3-0f1516565c4e)
 
 </details>
 
 
 <details><summary>로그인 & 회원가입</summary>
 
-![login](https://github.com/younszz/itbook/assets/127226295/02faeb8d-3a2f-4286-80a9-13658dbda6cf)
+![login](https://github.com/younszz/itbook/assets/127226295/4bb2e974-b777-4f04-be02-ca4bbd4605b3)
 
 </details>
 
 
 <details><summary>회원정보수정 & 회원탈퇴</summary>
 
-![user-info](https://github.com/younszz/itbook/assets/127226295/618ca63e-b4da-4ab6-a100-33ecf74cbe2f)
+![user-info](https://github.com/younszz/itbook/assets/127226295/3b996eea-b19b-4ca8-badc-4bc8c460351e)
 
 </details>
 
@@ -74,35 +73,35 @@
 
 <details><summary>장바구니 기능</summary>
 
-![cart](https://github.com/younszz/itbook/assets/127226295/6c01d25d-6bf7-4c41-8d91-8ff12bce6506)
+![cart](https://github.com/younszz/itbook/assets/127226295/36bfe0a8-c225-4419-b091-19c872a3bb1e)
 
 </details>
 
 
 <details><summary>즉시구매 & 장바구니구매</summary>
 
-![payment](https://github.com/younszz/itbook/assets/127226295/1173af3f-4e1a-4684-9b4a-57ed069f3251)
+![payment](https://github.com/younszz/itbook/assets/127226295/c528c0d2-0f93-4306-9654-313341b23992)
 
 </details>
 
 
 <details><summary>주문내역조회 & 주문취소</summary>
 
-![user-order](https://github.com/younszz/itbook/assets/127226295/0bfa4f2d-34ea-47d0-9b39-f3133fa536f0)
+![user-order](https://github.com/younszz/itbook/assets/127226295/349fb879-2798-4de0-ac96-073a3a58e91f)
 
 </details>
 
 
 <details><summary>최신순 & 가격순 정렬</summary>
 
-![filter](https://github.com/younszz/itbook/assets/127226295/4649f6bf-865c-47a3-abe3-818c120a7196)
+![filter](https://github.com/younszz/itbook/assets/127226295/ad3abf04-14c2-413d-8033-c37794430cf5)
 
 </details>
 
 
 <details><summary>관리자</summary>
 
-![admin](https://github.com/younszz/itbook/assets/127226295/a36f8dda-405c-4171-b500-80f34744247f)
+![admin](https://github.com/younszz/itbook/assets/127226295/f85c87b1-17c5-4b8d-a3b0-7546702ba7c2)
 
 </details>
 
@@ -152,7 +151,7 @@
 
 ### DB 스키마
 
-![image](https://github.com/younszz/itbook/assets/127226295/cfd7122c-fd38-40de-8682-36ed8aa35988)
+![DB스키마](https://github.com/younszz/itbook/assets/127226295/43d9cba1-ba64-440e-9d39-cf00f770047d)
 
 
 <br />
@@ -195,11 +194,11 @@
 
 
 ## 브랜치 전략
-![image](https://github.com/younszz/itbook/assets/127226295/e439d217-b4ae-4dd9-8236-f3a64b35b241)
+![브랜치전략](https://github.com/younszz/itbook/assets/127226295/2f3de1de-0e9f-4f3b-881e-1244a19abd89)
 
 
 ## 트러블 슈팅
-![image](https://github.com/younszz/itbook/assets/127226295/5e8f398f-887a-416b-8fef-0595f588f6e7)
+![트러블슈팅](https://github.com/younszz/itbook/assets/127226295/514446fd-7ea6-456f-8959-322634dcd619)
 
 
 ## 실행 방법
